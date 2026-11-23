@@ -79,7 +79,7 @@ rib(ROWS-(STORY?8:6));
 
 /* knit renderer: two shaded legs per stitch, gaps, fuzz */
 const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),sh=(c,f)=>`rgb(${c.map(v=>Math.max(0,Math.min(255,Math.round(f>0?v+(255-v)*f:v*(1+f))))).join(',')})`;
-function knit(){const cv=document.getElementById('knit');cv.width=W;cv.height=H;const g=cv.getContext('2d');
+function knit(){const cv=document.getElementById('knit'),D=window.devicePixelRatio||1;cv.width=W*D;cv.height=H*D;cv.style.width=W+'px';cv.style.height=H+'px';const g=cv.getContext('2d');g.scale(D,D);
   g.fillStyle='#0f1f3d';g.fillRect(0,0,W,H);
   for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){const base=hex(Y[G[y][x]]),j=(rnd()-.5)*.08,cx=(x+.5)*SW+(rnd()-.5)*.8,cy=(y+.5)*SH+(rnd()-.5)*.6;
     g.fillStyle=sh(base,-.62);g.fillRect(x*SW,y*SH,SW,SH);
