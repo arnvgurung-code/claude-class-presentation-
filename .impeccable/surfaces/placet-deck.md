@@ -3,35 +3,38 @@
 Target: `placet-business-plan.html`. Mode: Persuade (a pitch deck presented live).
 Audience: accelerator judges and a class. Action: approve ₹1.41 crore, once.
 Keep: all 25 slides and sub-pages, every click build, the live demo, sliders and switches,
-₹/$, presenter notes, menu, laser, black screen. Transition: built for the world (playhead sweep);
-no on-screen prev/next arrows.
+₹/$, presenter notes, menu, laser, black screen.
+Round 2 brief (user's words): "flashier animations and interactives", "change the color scheme",
+"should feel premium", "premium remake but not with gold", no weird colours.
 
 ## Direction contract
 
-THESIS: The deck is a call recording you can play. Every slide sits on Placet's own two-track
-format, agent above a centre line and customer below, and the yes is the moment the tape was
-waiting for. It refuses the poster deck of giant condensed words on grey, and the dark neon pitch.
+THESIS: The deck is a call recording you can play, presented like a keynote at night. Every slide
+sits on Placet's two-track format, agent above a centre line and customer below, and the yes is
+the moment the tape was waiting for. It refuses the poster deck of condensed words on grey, the
+plum-and-pink first edition, and gold-on-black luxury.
 
-OWN-WORLD: Plum-black (#0d060b) and plum (#470c35) carry the opening, the problem, the solution,
-demand and the close; white (#ffffff) with ink (#101421) carries every data slide. Hot pink
-(#ff488b) is the record light: only the yes, Placet's share and the one figure that matters. Host
-Grotesk at weight 500 sets everything; JetBrains Mono sets timecodes, call IDs and axis units.
-Rounded waveform bars are the one mark family: speech, charts and progress all use them.
+OWN-WORLD: Blue-black ground (#0a0d14) with slate panels (#131824) on every slide, silver-white
+type (#e9edf3), stone secondary (#8891a1). Sky blue (#5ab9fc) is the record light: the yes,
+Placet's share, the focal line of a chart, the playhead. Slate (#5c667a) carries chart context;
+soft red (#f07a7a) carries losses. Funnel Display for headlines and figures, Funnel Sans for text,
+Geist Mono for timecodes, call IDs, units and labels. Rounded waveform bars are the mark family.
 
-STORY: Judges see the mechanism (record, ask, label, license), hear one call end in a yes,
+STORY: Judges see the mechanism (record, ask, label, license), watch one call end in a yes,
 believe the market and the model, and leave with the ask: ₹1.41 crore, then sales pay.
 
-FIRST VIEWPORT: Plum-black stage. A full-width two-track waveform runs along the centre line,
-agent above in white, customer below in pink, the turns of one support call. "Placet" sits above
-the agent track at about 190px, weight 500. A pink 1 key closes the tape where the caller says
-yes. A REC light, timecode 00:00 and call ID 7F3A sit in mono at the bottom right, beside the
-tagline; the two claims sit under the customer track.
+FIRST VIEWPORT: Night stage with a slow sky-blue aurora. "Placet" rises letter by letter out of
+a blur at about 200px. A glowing playhead records the two-track call in from left to right, agent
+in silver above the line, customer in sky blue below; it then loops, and the pointer can scrub it.
+A lit sky-blue 1 key closes the tape and leans toward the pointer. REC, 00:00 and call 7F3A sit in
+mono at the bottom right beside the tagline.
 
-FORM: Two-track recording, position 1 of a hand of three (duplicate bill book was my own pick;
-feature-phone keypad the third; the category-standard investor deck the standing exit).
+FORM: Two-track recording (kept from round 1, which the user chose), recoloured from taste's
+second dealt palette after the user ruled out gold (the first deal, graphite and bronze).
 seed: none (roll not run: the impeccable launcher that runs concept-seed was blocked in this
-environment, so the lead was dealt by a local random draw over the three derived directions).
-Signature interaction: the playhead sweep, a pink playhead that scrubs across the stage to reveal
-the next slide and carries the section name as a cue flag on section changes.
+environment). Signature interactions: the playhead transition (a lit scan line records each slide
+in while the old one sinks back, with a section flag on section changes), the scrubbable poster
+playhead, rolling digit counters, and the demo's typed transcript, decoding labels and consent
+burst.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

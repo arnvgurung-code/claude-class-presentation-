@@ -1,45 +1,46 @@
 ---
 name: Placet
-description: Consented call data for AI, presented as a call recording you can play.
+description: Consented call data for AI, presented as a call recording you can play, at night.
 colors:
-  night: "#0d060b"
-  night-surface: "#1b0e17"
-  plum: "#470c35"
-  paper: "#ffffff"
-  ink: "#101421"
-  record-pink: "#ff488b"
-  record-pink-ink: "#d81b67"
-  loss-plum: "#9c2a6b"
-  night-muted: "#b3a8b0"
+  night: "#0a0d14"
+  slate-panel: "#131824"
+  slate-raised: "#1a2131"
+  silver: "#e9edf3"
+  silver-2: "#c3cad6"
+  stone: "#8891a1"
+  sky: "#5ab9fc"
+  sky-light: "#9ad3ff"
+  context-slate: "#5c667a"
+  loss-red: "#f07a7a"
 typography:
   poster:
-    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Funnel Display, Helvetica Neue, Arial, sans-serif"
     fontSize: "200px"
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 0.9
     letterSpacing: "-0.045em"
   headline:
-    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Funnel Display, Helvetica Neue, Arial, sans-serif"
     fontSize: "58px"
-    fontWeight: 500
-    lineHeight: 1.04
+    fontWeight: 400
+    lineHeight: 1.06
     letterSpacing: "-0.035em"
   figure:
-    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Funnel Display, Helvetica Neue, Arial, sans-serif"
     fontSize: "104px"
-    fontWeight: 500
-    lineHeight: 1
+    fontWeight: 400
+    lineHeight: 1.04
     letterSpacing: "-0.045em"
   body:
-    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Funnel Sans, Helvetica Neue, Arial, sans-serif"
     fontSize: "28px"
     fontWeight: 400
     lineHeight: 1.3
     letterSpacing: "0em"
   label:
-    fontFamily: "Host Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Funnel Sans, Helvetica Neue, Arial, sans-serif"
     fontSize: "18px"
-    fontWeight: 400
+    fontWeight: 500
     lineHeight: 1.25
     letterSpacing: "0em"
   technical:
@@ -49,10 +50,11 @@ typography:
     lineHeight: 1.2
     letterSpacing: "0.06em"
 rounded:
-  bar-end: "4px"
-  control: "6px"
-  panel: "10px"
-  key: "18px"
+  bar-end: "5px"
+  control: "8px"
+  block: "10px"
+  panel: "14px"
+  key: "22px"
 spacing:
   gutter: "72px"
   rail: "64px"
@@ -60,115 +62,119 @@ spacing:
   body-top: "196px"
 components:
   segment-switch:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.night}"
+    textColor: "{colors.silver}"
     rounded: "{rounded.control}"
     padding: "4px 12px"
   segment-switch-on:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
+    backgroundColor: "{colors.silver}"
+    textColor: "{colors.night}"
     rounded: "{rounded.control}"
   yes-key:
-    backgroundColor: "{colors.record-pink}"
+    backgroundColor: "{colors.sky}"
     textColor: "{colors.night}"
     rounded: "{rounded.key}"
     size: "150px"
-  console-dialog:
-    backgroundColor: "{colors.night}"
-    textColor: "{colors.paper}"
+  console:
+    backgroundColor: "{colors.slate-panel}"
+    textColor: "{colors.silver}"
     rounded: "{rounded.panel}"
-    padding: "26px"
 ---
 
 # Design System: Placet
 
 ## Overview
 
-The deck is a call recording you can play. Placet records both voices on separate tracks, asks
-for a yes after the call, labels it and licenses it, so every surface borrows that format: an
-agent track above a centre line, a customer track below it, and a pink record light for the one
-moment that matters. Posters (opening, problem, solution, demand, close) are the call itself on a
-plum-black ground. Data slides are the archive: white paper, ink figures, the same rounded bar
-marks the waveform uses. A pink playhead scrubs between slides and carries the section name.
+The deck is a call recording you can play, presented like a keynote at night. Placet records both
+voices on separate tracks, asks for a yes after the call, labels it and licenses it, so every slide
+borrows that format: silver agent track above a centre line, sky-blue customer track below, and a
+lit playhead. Every slide is dark. Posters (opening, problem, solution, demand, close) add a slow
+aurora and a live waveform the pointer can scrub; data slides keep the same marks for their charts.
 
 ## Colors
 
 ### Primary
-- **Record pink** `#ff488b`: the yes, Placet's share, the focal mark on a chart, the playhead. Marks
-  only on white; as text on white use **record pink ink** `#d81b67` (4.9:1).
+- **Sky** `#5ab9fc` (9:1 on night): the yes, Placet's share, the focal line or bar of a chart, the
+  playhead and the section cue. **Sky light** `#9ad3ff` only inside the key's gradient.
 
 ### Neutral
-- **Night** `#0d060b` with **night surface** `#1b0e17` and **plum** `#470c35`: poster grounds and the
-  presenter chrome. Text on night is white; secondary text is `#b3a8b0` (8.6:1).
-- **Paper** `#ffffff` and **ink** `#101421`: every data slide. Secondary ink is ink at 68% (6.3:1);
-  rules are ink at 14% to 25%.
+- **Night** `#0a0d14`, **slate panel** `#131824`, **slate raised** `#1a2131`: grounds and panels.
+- **Silver** `#e9edf3` for type (16.5:1), **silver 2** `#c3cad6` for strong secondary, **stone**
+  `#8891a1` for secondary text (6.1:1). Rules are silver at 10% to 18%.
 
 ### Named Rules
-- **The record light rule.** Pink appears once per view, on the thing the presenter is pointing at.
-- **Losses are plum, not pink.** Negative values use loss plum `#9c2a6b` and sit below the centre
-  line, so a loss never reads as Placet's share.
+- **The record light rule.** Sky appears on the one thing the presenter is pointing at.
+- **Context is slate, losses are red.** Chart context uses `#5c667a`; negative values use `#f07a7a`
+  and sit below the zero line. No gold, no violet.
 
 ## Typography
 
-One family carries the deck: Host Grotesk at weight 500 for posters, headlines and figures, 400
-for body. Geist Mono is for technical content only: timecodes, call IDs, track names, axis units,
-arrow labels and slide numbers.
+Funnel Display at 400 sets posters, headlines and figures; Funnel Sans sets text; Geist Mono is for
+technical text only (timecodes, call IDs, track names, units, arrow labels, slide numbers).
 
 ### Hierarchy
 - Poster word 120 to 212px, fitted to one line and to the room above the claims.
 - Headline 58px, one line, shrunk to fit; never preceded by a kicker.
-- Figures 50 to 104px, tabular numerals, tracking -0.035em to -0.045em.
-- Body 24 to 31px; labels 16 to 20px.
+- Figures 50 to 104px, tabular numerals; body 24 to 31px; labels 16 to 20px.
 
 ### Named Rules
-- **No eyebrows.** The page label lives in the running foot at the bottom left, never above a heading.
+- **No eyebrows.** The page label lives in the running foot at the bottom left.
 
 ## Layout
 
 A 1280 by 720 stage scaled to the window, 72px gutters. The top rail (64px) holds the wordmark,
-section cues and the rupee/dollar switch; the current section carries a 3px pink cue under it.
-Headlines start at 92px; bodies at 196 to 226px; the running foot sits 28px from the bottom.
+section cues with a glowing sky underline, and the ₹/$ switch; a 2px sky progress line runs along
+the stage top. Headlines start at 92px, bodies at 196 to 226px, the running foot 28px from the bottom.
 
 ## Elevation & Depth
 
-Flat. Rules and tints separate things; the only shadows are the soft offset shadow under the yes
-key and the console dialog.
+Depth comes from light, not boxes: a faint sky radial in the top right of every slide, the poster
+aurora, and soft glows on the few lit things (playhead, key, Placet's chart mark). Panels are slate
+with a 1px silver rule; the console and dialogs add a long soft shadow.
 
 ## Shapes
 
-Bars end in a 4px round and sit square on their baseline. Controls use 6px corners, panels 10px,
-the yes key 18px. Waveform bars are fully rounded pills, 5px wide on a 12px pitch.
+Bars end in a 5px round on a square baseline; waveform bars are full pills. Controls 8px, canvas
+blocks 10px, console and dialogs 14px, the yes key 22px.
 
 ## Components
 
+### Yes key
+Sky gradient square with an inner highlight, two pulse rings, and a magnetic lean toward the pointer
+(clamped to 18px). The outline variant (silver ring) is used when sky is already spent on the slide.
+
 ### Segment switch
-Hairline-outlined group; the selected option is an ink knob that slides. Every chart that can change
-has one, and T flips the one on screen.
+Hairline group with a silver knob that springs between options; T flips the switch on screen.
 
 ### Slider
-A 2px track with a pink 8 by 32px playhead thumb.
-
-### Yes key
-A pink rounded square with the word above and the figure below; the outline variant (white ring)
-is used when pink is already spent on the slide.
+A 3px track filled in sky up to a silver thumb with a sky halo.
 
 ### Console
-The live demo is drawn as Placet's own console: a title bar, two canvas tracks, the transcript, a
-labels panel, and a night dialog that asks the press-1 question.
+The live demo: title bar marked "sample call", canvas tracks with a glowing customer track, a typed
+transcript, labels that decode into place, and a dialog that asks the press-1 question; a yes draws
+a check and scatters light, a no wipes the transcript.
 
 ### Diagrams
-Orthogonal connectors only, labels in Geist Mono caps on an opaque mask beside their line, 6px node
-corners, one pink focal node per diagram.
+Orthogonal connectors, Geist Mono caps labels on a mask beside their line, 10px node corners, one sky
+focal node, no glow, dashed paths that march.
+
+## Motion
+
+- **Playhead transition**: 780ms (1050ms with the section flag), cubic-bezier(.83,0,.17,1); the next
+  slide unblurs and settles from 104% while the old one sinks to 95% and dims.
+- **Letters**: headlines rise letter by letter out of an 8 to 10px blur, 20ms apart, expo out.
+- **Counters**: figures roll digit columns into place, 1.3s, left to right.
+- **Charts**: bars grow with a slight overshoot, lines draw with a light at their head.
+- Everything rests and nothing hides under reduced motion.
 
 ## Do's and Don'ts
 
 ### Do:
-- Draw every chart mark as a rounded bar or a 3px line in ink, with pink on the one series that is Placet.
-- Keep a legend when two series share a chart, and keep every figure in the ₹/$ switch.
-- Let one moment move on each slide: the playhead, a chart drawing in, or figures counting up.
+- Keep one lit thing per view and let everything else stay silver and slate.
+- Keep a legend for two-series charts and every figure in the ₹/$ switch.
+- Keep poster effects cheap: soft gradients and transforms, no per-frame blur filters.
 
 ### Don't:
 - Don't put a label, kicker or section number above a heading.
+- Don't use gold, violet, gradient text or glow on diagrams.
 - Don't use mono for prose or taglines.
-- Don't fade in every item on a page; content is visible at rest.
-- Don't use violet, gradients or glow on text.
