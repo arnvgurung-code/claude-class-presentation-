@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Placet — Business Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400..900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#B8B5AE;--ink:#0D0D0C;--red:#C40202;
+  --i70:rgba(13,13,12,.68);--i45:rgba(13,13,12,.45);--i25:rgba(13,13,12,.22);--i12:rgba(13,13,12,.12);--i06:rgba(13,13,12,.07);
+  --fd:"Anton",Impact,"Arial Narrow",sans-serif;
+  --ft:"Roboto Condensed","Roboto","Arial Narrow",sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#0D0D0C;font-family:var(--ft);font-stretch:75%;color:var(--ink);-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}button{cursor:pointer;background:none;border:0}
+svg{display:block;overflow:visible}svg text{font-family:var(--ft);font-stretch:75%;fill:var(--ink);font-weight:600}
+:focus-visible{outline:3px solid var(--red);outline-offset:4px}
+#stage{position:absolute;left:50%;top:calc(50% - var(--nav,22px));width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--s,1));overflow:hidden;background:var(--bg)}
+body.fs #stage{--nav:0px}
+.slide{position:absolute;inset:0;background:var(--bg);overflow:hidden;visibility:hidden}
+.slide.active,.slide.leaving{visibility:visible}.slide.active{z-index:2}.slide.leaving{z-index:1;pointer-events:none}
+.slide aside.notes{display:none}
+.pgno{position:absolute;right:72px;bottom:26px;font-size:18px;font-weight:700;color:var(--i45);font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.pgno i{font-style:normal;color:var(--red);letter-spacing:4px;margin-right:12px}
+.ko .pgno{display:none}
+
+/* top bar: logo + sections; the red pill marks where we are */
+#top{position:absolute;left:0;right:0;top:0;height:78px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:0 72px;pointer-events:none}
+#top .logo{font-family:var(--fd);font-size:34px;line-height:.9;letter-spacing:.01em;text-transform:uppercase}
+#top .logo small{display:block;font-family:var(--ft);font-size:10.5px;font-weight:800;letter-spacing:.46em;margin-top:5px}
+#secs{position:relative;display:flex;gap:2px;pointer-events:auto}
+#secs button{position:relative;z-index:1;font-size:17px;font-weight:700;padding:7px 14px;border-radius:999px;transition:color .4s}
+#secs button.cur{color:var(--bg)}
+#secs .pill{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;background:var(--red);opacity:0;transition:left .6s var(--ease),width .6s var(--ease),opacity .4s}
+
+/* type */
+.eb{font-family:var(--ft);font-size:24px;font-weight:800;color:var(--red);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;line-height:1.1}
+.h2{position:absolute;left:72px;right:72px;top:96px;font-family:var(--fd);font-weight:400;font-size:80px;line-height:.92;text-transform:uppercase;letter-spacing:.004em;
+  clip-path:inset(100% -4% -12% -4%);transform:translateY(34px);transition:clip-path .9s var(--ease) .05s,transform .9s var(--ease) .05s}
+.on .h2{clip-path:inset(-12% -4% -12% -4%);transform:none}
+.h2 .eb{display:block;margin-bottom:8px}
+.h2 .ht{display:block;white-space:nowrap}
+.bd{position:absolute;left:72px;right:72px;top:250px;bottom:70px}
+.bd.hi{top:204px}
+.ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 110px 0}
+.h1{font-family:var(--fd);font-weight:400;font-size:100px;line-height:.94;text-transform:uppercase;letter-spacing:.004em}
+.hero{font-family:var(--fd);font-weight:400;font-size:210px;line-height:.9;letter-spacing:-.005em}
+.sub{font-size:40px;font-weight:600;color:var(--i70);line-height:1.18;margin-top:22px}
+.t36{font-size:36px;line-height:1.2;font-weight:600}.t32{font-size:32px;line-height:1.24;font-weight:600}.t28{font-size:28px;line-height:1.25;font-weight:600}
+.dim{color:var(--i70)}.red{color:var(--red)}.b{font-weight:800}
+.n{font-variant-numeric:tabular-nums lining-nums}
+.D{font-family:var(--fd);font-weight:400;text-transform:uppercase}
+
+/* builds */
+.bld{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .9s var(--ease);transition-delay:calc(var(--k,0)*110ms + 300ms)}
+.on .bld{opacity:1;transform:none}
+.st{opacity:.12;transition:opacity .6s}.st.shown{opacity:1}
+.pages{position:absolute;inset:0}
+.page{position:absolute;inset:0;opacity:0;visibility:hidden;transform:translateY(22px);transition:opacity .4s,transform .7s var(--ease),visibility 0s .4s}
+.page.cur{opacity:1;visibility:inherit;transform:none;transition:opacity .5s .12s,transform .8s var(--ease) .12s,visibility 0s}
+
+/* ---------- hero slides, built like a poster ---------- */
+.kw{position:absolute;left:40px;right:40px;top:var(--kt,118px);text-align:center;font-family:var(--fd);font-weight:400;text-transform:uppercase;line-height:.84;white-space:nowrap;letter-spacing:-.008em;overflow:hidden;padding-top:.1em;z-index:2}
+.kw .r{color:var(--red)}
+.kw i{font-style:normal;display:inline-block;transform:translateY(112%);transition:transform 1s var(--ease);transition-delay:calc(var(--j,0)*48ms + 120ms)}
+.kw i.sp{width:.2em}
+.on .kw i{transform:none}
+.kc{position:absolute;top:var(--ct,478px);font-size:38px;font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:.004em;z-index:3;opacity:0;transform:translateY(20px);transition:opacity .6s ease .75s,transform .9s var(--ease) .75s}
+.kc{max-width:520px}.kc.l{left:72px}.kc.r{left:var(--crx,640px);max-width:calc(1000px - var(--crx,640px))}
+.kc small{display:block;font-size:24px;font-weight:700;color:var(--i70);letter-spacing:.02em;margin-top:8px;text-transform:none}
+.on .kc{opacity:1;transform:none}
+.badge{position:absolute;right:66px;top:var(--bt,438px);width:196px;height:196px;border-radius:50%;background:var(--red);color:var(--bg);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--fd);font-size:44px;line-height:.94;text-transform:uppercase;z-index:4;
+  transform:rotate(-34deg) scale(0);transition:transform .9s cubic-bezier(.34,1.56,.64,1) 1.05s}
+.badge>span{display:block}
+.on .badge{transform:rotate(-10deg) scale(1)}
+.badge.sm{font-size:40px}
+.strap{position:absolute;left:0;right:0;bottom:0;height:48px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;letter-spacing:.44em;text-transform:uppercase;white-space:nowrap;z-index:5;padding-left:.44em}
+.wv{position:absolute;left:40px;top:0;width:1200px;height:720px;z-index:1;pointer-events:none}
+.wv rect{fill:var(--red);transform-box:fill-box;transform-origin:center;transform:scaleY(0);transition:transform 1.1s var(--ease);transition-delay:calc(var(--j,0)*9ms + 250ms)}
+.on .wv rect{transform:none}
+/* the 1 key */
+.key{display:inline-flex;align-items:center;justify-content:center;width:.74em;height:.8em;margin-left:.1em;border-radius:.11em;background:var(--red);color:var(--bg);line-height:1;vertical-align:.02em;
+  box-shadow:inset 0 -.075em 0 rgba(13,13,12,.4),inset 0 .02em 0 rgba(255,255,255,.22)}
+.key b{font-weight:400;font-size:.62em;transform:translateY(-.06em)}
+.on .key{animation:press 1.3s var(--ease) 1s both}
+@keyframes press{0%{transform:none}16%{transform:translateY(.05em);box-shadow:inset 0 -.025em 0 rgba(13,13,12,.4),inset 0 .02em 0 rgba(255,255,255,.18)}42%,100%{transform:none}}
+@media (prefers-reduced-motion:reduce){.bld,.page,.h2,.kw i,.kc,.badge,.wv rect{transition:none!important}.on .key{animation:none}}
+
+/* tables */
+table.tb{border-collapse:collapse;width:100%;font-size:34px;font-weight:600}
+.tb th{font-size:21px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70);text-align:left;padding:0 18px 14px 0}
+.tb td{padding:12px 18px 12px 0;border-top:2px solid var(--i25);line-height:1.15}
+.tb .r{text-align:right;font-variant-numeric:tabular-nums lining-nums}
+.tb tr.tot td{font-weight:800;border-top:3px solid var(--ink)}
+.tb tr.hl td{color:var(--red);font-weight:800}
+.tb .neg{color:var(--red)}
+
+/* controls */
+.seg{display:inline-flex;background:var(--i12);border-radius:999px;padding:5px;gap:4px}
+.seg button{font-size:24px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:8px 22px;border-radius:999px;color:var(--i70);transition:background .3s,color .3s}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.btn{font-size:24px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:10px 26px;border-radius:999px;background:var(--i12);color:var(--ink)}
+.btn:hover{background:var(--ink);color:var(--bg)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;background:var(--i25);border-radius:3px}
+input[type=range]::-moz-range-track{height:6px;background:var(--i25);border-radius:3px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:var(--red);margin-top:-14px;border:4px solid var(--ink)}
+input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:var(--red);border:4px solid var(--ink)}
+.ctl{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+
+/* bar list */
+.hb{display:grid;grid-template-columns:var(--lw,380px) 1fr var(--vw,170px);align-items:center;gap:26px;margin:0 0 20px;font-size:34px;font-weight:700;line-height:1.1}
+.hb .bar{height:42px;position:relative}
+.hb .bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ink);transition:width 1.1s var(--ease)}
+.hb:first-child .bar i{background:var(--red)}
+.hb b{text-align:right;font-family:var(--fd);font-weight:400;font-size:38px;line-height:1;font-variant-numeric:tabular-nums}
+
+/* chrome outside the stage */
+#wave{position:fixed;left:0;right:0;bottom:0;height:44px;display:flex;justify-content:center;align-items:center;gap:3px;z-index:20;transition:opacity .5s}
+body.fs #wave{opacity:0}body.fs #wave:hover{opacity:1}
+#wave button{width:10px;height:30px;position:relative;padding:0}
+#wave button i{position:absolute;left:3px;top:11px;width:4px;height:8px;border-radius:2px;background:rgba(184,181,174,.3)}
+#wave button.past i{background:rgba(184,181,174,.75)}#wave button.cur i{background:var(--red);top:6px;height:18px}
+#wave .tip{position:fixed;bottom:46px;transform:translateX(-50%);background:var(--bg);color:var(--ink);font-size:15px;font-weight:700;padding:4px 10px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s}
+body.idle #wave{opacity:.3}body.fs.idle #wave{opacity:0}
+#hud{position:fixed;right:14px;bottom:8px;display:flex;gap:6px;z-index:21;opacity:0;transition:opacity .4s}
+body:not(.idle) #hud{opacity:1}
+#hud button{color:var(--bg);font-size:13px;font-weight:700;border-radius:999px;padding:5px 11px;background:rgba(184,181,174,.14)}
+#hud button:hover{background:var(--bg);color:var(--ink)}
+#black{position:fixed;inset:0;background:#000;z-index:90;display:none}
+#laser{position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:rgba(230,20,20,.95);box-shadow:0 0 0 5px rgba(230,20,20,.3),0 0 20px 8px rgba(230,20,20,.45);pointer-events:none;z-index:95;display:none}
+body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
+#menu{position:fixed;inset:0;z-index:80;background:#B8B5AE;color:var(--ink);display:none;overflow:auto;padding:44px 60px}
+#menu.on{display:block}
+#menu h2{font-family:var(--fd);font-weight:400;font-size:52px;text-transform:uppercase;margin-bottom:22px}
+#menu .mcols{columns:4;column-gap:40px}
+#menu .mch{break-inside:avoid;margin-bottom:22px}
+#menu .mch h4{font-size:16px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+#menu .mch button{display:block;text-align:left;font-size:19px;font-weight:600;line-height:1.3;padding:3px 0;width:100%;color:var(--i70)}
+#menu .mch button span{display:inline-block;width:30px;opacity:.6}
+#menu .mch button.cur,#menu .mch button:hover{color:var(--ink)}
+#menu .mch button.cur{color:var(--red)}
+#menu .keys{margin-top:20px;font-size:15px;color:var(--i70)}
+#menu kbd{font-family:inherit;border:1px solid var(--i45);border-radius:4px;padding:0 6px;margin:0 3px}
+#notes{position:fixed;left:50%;transform:translateX(-50%);bottom:52px;width:min(900px,92vw);z-index:70;background:#0D0D0C;color:#B8B5AE;border-radius:12px;padding:14px 20px;font-size:20px;line-height:1.4;display:none;border:1px solid rgba(184,181,174,.25)}
+#notes.on{display:block}#notes .nt{display:flex;justify-content:space-between;font-size:14px;color:rgba(184,181,174,.6);margin-bottom:6px}
+
+/* ---------- per-slide ---------- */
+.c3{display:grid;grid-template-columns:repeat(3,1fr);gap:56px;text-align:left;width:100%;margin-top:10px}
+.c3 b{display:block;font-family:var(--fd);font-weight:400;font-size:76px;line-height:.95;text-transform:uppercase}
+.c3 span{display:block;font-size:34px;font-weight:600;color:var(--i70);margin-top:14px;line-height:1.18}
+.c3 .red b{color:var(--red)}
+.rows>div{display:grid;grid-template-columns:400px 1fr;gap:40px;align-items:center;padding:12px 0;border-top:2px solid var(--i25)}
+.rows b{display:block;font-family:var(--fd);font-weight:400;font-size:44px;line-height:1;text-transform:uppercase}
+.rows small{display:block;font-size:24px;font-weight:600;color:var(--i70);margin-top:6px}
+.rows span{font-size:36px;font-weight:700;line-height:1.15}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+.steps .num{font-family:var(--fd);font-size:130px;line-height:.9;color:var(--red)}
+.steps b{display:block;font-family:var(--fd);font-weight:400;font-size:52px;line-height:1;text-transform:uppercase;margin-top:14px}
+.steps span{display:block;font-size:31px;font-weight:600;color:var(--i70);line-height:1.18;margin-top:10px}
+.cmp{width:100%;border-collapse:collapse}
+.cmp th{font-size:22px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--i70);padding:16px 8px;text-align:center;line-height:1.1;vertical-align:bottom}
+.cmp th:first-child{text-align:left;padding-left:0}
+.cmp th.us{font-family:var(--fd);font-weight:400;letter-spacing:.02em;font-size:38px;color:var(--red);background:var(--ink)}
+.cmp td{font-size:34px;font-weight:700;padding:20px 8px;white-space:nowrap;border-top:2px solid var(--i25);text-align:center}
+.cmp td:first-child{text-align:left;padding-left:0}
+.cmp td.us{background:var(--ink);border-top-color:rgba(184,181,174,.18)}
+.ok,.no,.part{display:inline-block;width:40px;height:40px;border-radius:50%;position:relative;vertical-align:middle;transform:scale(1.2)}
+.ok{background:var(--ink)}.ok::after{content:"";position:absolute;left:12px;top:7px;width:10px;height:19px;border-right:5px solid var(--bg);border-bottom:5px solid var(--bg);transform:rotate(45deg)}
+.us .ok{background:var(--red)}
+.no{border:3px solid var(--i45)}.no::before,.no::after{content:"";position:absolute;left:16px;top:6px;width:3px;height:22px;background:var(--i45);transform:rotate(45deg)}.no::after{transform:rotate(-45deg)}
+.part{border:3px solid var(--ink);background:linear-gradient(90deg,var(--ink) 50%,transparent 50%)}
+.tl3{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;position:relative;margin-top:30px}
+.tl3::before{content:"";position:absolute;left:30px;right:30px;top:28px;height:5px;background:var(--ink)}
+.tl3>div{position:relative;flex:1;text-align:center}
+.tl3 i{display:block;width:60px;height:60px;border-radius:50%;margin:0 auto 18px;background:var(--bg);border:5px solid var(--ink)}
+.tl3 .key2 i{background:var(--red);border-color:var(--red)}
+.tl3 b{display:block;font-family:var(--fd);font-weight:400;font-size:50px;line-height:1;text-transform:uppercase}
+.tl3 .key2 b{color:var(--red)}
+.tl3 span{display:block;font-size:31px;font-weight:600;color:var(--i70);margin-top:10px;line-height:1.2}
+.dec{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:24px;margin-top:34px;width:100%}
+.dec>div{text-align:left}.dec small{display:block;font-size:24px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70)}
+.dec b{display:block;font-family:var(--fd);font-weight:400;font-size:52px;line-height:1;text-transform:uppercase;margin-top:8px}
+.dec .arr{font-family:var(--fd);font-size:56px;color:var(--i45)}
+.dec .choice b{color:var(--red)}
+.msz{display:grid;grid-template-columns:470px 1fr;gap:60px;align-items:center}
+.msz .it{padding:12px 0;border-top:2px solid var(--i25)}
+.msz .it span{font-size:28px;font-weight:700;color:var(--i70)}
+.msz .it b{display:block;font-family:var(--fd);font-weight:400;font-size:76px;line-height:1;text-transform:uppercase}
+.msz .it.us b{color:var(--red)}
+/* demo */
+.dmo{display:grid;grid-template-columns:600px 1fr;gap:56px;position:relative;height:100%}
+#dual{display:block;width:600px;height:96px}
+.dbar{display:flex;justify-content:space-between;font-size:24px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--i70);margin-bottom:10px}
+.live{display:inline-flex;align-items:center;gap:10px;color:var(--ink)}
+.live i{width:14px;height:14px;border-radius:50%;background:var(--red);animation:blink 1s infinite}
+.live.ended i{background:var(--i45);animation:none}
+@keyframes blink{50%{opacity:.25}}
+.tx{height:290px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;margin-top:16px}
+.tline{font-size:34px;line-height:1.18;font-weight:700;animation:fadeUp .5s var(--ease)}
+.tline small{display:block;font-size:20px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70)}
+.tline.c small{color:var(--red)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.pii{background:var(--ink);color:var(--bg);font-size:24px;font-weight:800;padding:0 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.06em}
+.dlab{transition:opacity .5s}.dlab.dim{opacity:.12}
+.labr{padding:12px 0;border-top:2px solid var(--i25);opacity:.35;transition:opacity .4s}
+.labr.on{opacity:1}
+.labr span{display:block;font-size:21px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70)}
+.labr b{display:block;font-family:var(--fd);font-weight:400;font-size:40px;text-transform:uppercase;min-height:46px;line-height:1.1}
+.labr.dec2 b{color:var(--red)}
+.ivr,.res{position:absolute;right:0;top:0;width:480px;padding:30px;background:var(--ink);color:var(--bg);border-radius:20px;opacity:0;pointer-events:none;transform:scale(.96);transition:opacity .5s,transform .7s var(--ease)}
+.ivr.on,.res.on{opacity:1;pointer-events:auto;transform:none}
+.ivr-q{font-size:36px;font-weight:700;line-height:1.15}
+.ivr-k{display:flex;gap:14px;margin-top:24px}
+.ivr-k button{flex:1;font-family:var(--fd);font-size:36px;text-transform:uppercase;padding:14px;border-radius:14px;background:rgba(184,181,174,.12);text-align:left;color:var(--bg)}
+.ivr-k button b{display:inline-block;width:52px;height:52px;line-height:52px;text-align:center;border-radius:10px;background:var(--red);color:var(--bg);margin-right:12px;font-weight:400}
+.ivr-k button:hover{background:rgba(184,181,174,.24)}
+.res b{display:block;font-family:var(--fd);font-weight:400;font-size:54px;text-transform:uppercase;margin-bottom:10px;line-height:1}
+.res span{display:block;font-size:30px;font-weight:600;color:rgba(184,181,174,.8);line-height:1.25;margin-top:6px}
+.res.ok2 b{color:var(--red)}
+.replay{position:absolute;right:0;bottom:0}
+/* poll */
+.pc{display:flex;gap:140px;justify-content:center;margin-top:26px}
+.pcol{text-align:center}
+.pcol>span{display:block;font-size:30px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--i70)}
+.pn{font-family:var(--fd);font-size:200px;line-height:1;font-variant-numeric:tabular-nums}
+.pcol:first-child .pn{color:var(--red)}
+.pcol .btn{font-size:44px;padding:0 28px;margin:0 6px;line-height:1.35}
+.pres{font-size:34px;font-weight:600;color:var(--i70);margin-top:24px;min-height:46px}
+.pres b{color:var(--ink);font-weight:900}
+.bump{animation:bump .4s ease}@keyframes bump{40%{transform:scale(1.1)}}
+/* tiers */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;width:100%;margin-top:40px;text-align:left}
+.tiers div{padding-top:14px;border-top:3px solid var(--ink)}
+.tiers b{display:block;font-family:var(--fd);font-weight:400;font-size:66px;line-height:1}
+.tiers span{display:block;font-size:28px;font-weight:700;color:var(--i70);margin-top:8px}
+.tiers .us{border-top-color:var(--red)}.tiers .us b{color:var(--red)}
+.tiers.big b{font-size:118px}.tiers.big span{font-size:32px}
+/* chains */
+.chain4{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.chain4>div{border-top:3px solid var(--ink);padding-top:14px}
+.chain4 span{display:block;font-size:26px;font-weight:700;color:var(--i70);line-height:1.15;min-height:64px}
+.chain4 b{display:block;font-family:var(--fd);font-weight:400;font-size:66px;line-height:1;margin-top:8px;white-space:nowrap;text-transform:uppercase}
+.chain4.lg b{font-size:84px}.chain4.lg span{font-size:28px}
+.chain4>div:last-child{border-top-color:var(--red)}.chain4>div:last-child b{color:var(--red)}
+.sld{display:grid;grid-template-columns:1fr 1fr;gap:20px 70px;margin-top:48px}
+.sld label{display:block;font-size:24px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--i70)}
+.sld label b{float:right;font-family:var(--fd);font-weight:400;font-size:38px;color:var(--ink);letter-spacing:0;margin-top:-10px}
+/* equation */
+.eq{display:flex;align-items:baseline;justify-content:center;gap:26px;font-family:var(--fd);font-size:120px;line-height:1;font-variant-numeric:tabular-nums}
+.eq em{font-style:normal;color:var(--i45)}
+/* kpi */
+.kg{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 36px}
+.kg>div{border-top:3px solid var(--ink);padding-top:12px}
+.kg b{display:block;font-family:var(--fd);font-weight:400;font-size:70px;line-height:1;white-space:nowrap;text-transform:uppercase}
+.kg span{display:block;font-size:27px;font-weight:700;color:var(--i70);margin-top:10px;line-height:1.2}
+.k2{grid-template-columns:1fr 1fr;gap:56px 60px}.k2 b{font-size:124px}.k2 span{font-size:32px}
+.k2>div:first-child{border-top-color:var(--red)}.k2>div:first-child b{color:var(--red)}
+.rd span{display:block;font-size:24px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--i70)}
+.rd b{display:block;font-family:var(--fd);font-weight:400;font-size:100px;line-height:1.02;white-space:nowrap;text-transform:uppercase}
+.rd b.neg{color:var(--red)}
+.wfw{display:grid;grid-template-columns:720px 1fr;gap:50px;align-items:start}
+/* funnel */
+.fr{display:grid;grid-template-columns:330px 1fr;align-items:center;gap:24px;height:58px}
+.fr .fb{height:44px;background:var(--ink);display:flex;align-items:center;justify-content:flex-end;padding-right:12px;color:var(--bg);font-family:var(--fd);font-size:30px;width:0;transition:width 1s var(--ease)}
+.fr:last-child .fb{background:var(--red)}
+.fr .fl{font-size:32px;font-weight:700}
+.fr .fl em{font-style:normal;font-weight:600;color:var(--i45);margin-left:10px}
+.clr{display:grid;grid-template-columns:260px 160px 1fr;align-items:center;gap:24px;padding:8px 0;line-height:1.1;border-top:2px solid var(--i25)}
+.clr span{font-size:32px;font-weight:700;color:var(--i70)}
+.clr b{font-family:var(--fd);font-weight:400;font-size:50px;line-height:1;text-align:right;white-space:nowrap}
+.clr.tot b{color:var(--red);font-size:64px}
+/* risks */
+.rk>div{display:grid;grid-template-columns:480px 1fr;gap:40px;padding:16px 0;border-top:2px solid var(--i25);align-items:center}
+.rk b{font-family:var(--fd);font-weight:400;font-size:46px;text-transform:uppercase;line-height:1}
+.rk span{font-size:34px;font-weight:700;color:var(--i70)}
+.pv4{display:grid;grid-template-columns:1fr 1fr;gap:40px 60px}
+.pv4>div{border-top:3px solid var(--ink);padding-top:12px}
+.pv4 small{display:block;font-size:22px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.pv4 b{display:block;font-family:var(--fd);font-weight:400;font-size:54px;line-height:1;text-transform:uppercase;margin-top:6px}
+.pv4 span{display:block;font-size:30px;font-weight:600;color:var(--i70);margin-top:8px}
+.ba td,.ba th{transition:color .5s,opacity .5s}
+.ba.v-b td:nth-child(3),.ba.v-a td:nth-child(2){opacity:.35}
+.ba.v-b td:nth-child(2),.ba.v-a td:nth-child(3){color:var(--red);font-weight:800}
+/* canvas */
+.bmc{display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:1fr 1fr 1fr;grid-template-areas:"kp kp ka ka vp vp cr cr cs cs" "kp kp kr kr vp vp ch ch cs cs" "co co co co km km rs rs rs rs";gap:8px;height:100%}
+.bk{background:var(--i12);border-radius:6px;padding:16px 18px;text-align:left;font-family:var(--fd);font-size:30px;line-height:1;text-transform:uppercase;display:flex;align-items:flex-start;color:var(--ink);transition:background .3s,color .3s}
+.bk:hover{background:var(--ink);color:var(--bg)}
+.bk.vp{background:var(--red);color:var(--bg)}
+.srcl li{font-size:24px;font-weight:600;line-height:1.3;margin:0 0 12px 28px;color:var(--i70)}
+.srcl li::marker{color:var(--red)}
+.tlsvg text{font-size:26px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;fill:var(--ink)}
+
+/* ---------- added: currency switch, year 1, motion ---------- */
+x-m{display:inline-block}
+#curT{pointer-events:auto;display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:var(--i12);margin:0 auto 0 34px}
+#curT button{font-size:16px;font-weight:800;min-width:40px;padding:5px 12px;border-radius:999px;color:var(--i70);transition:background .3s,color .3s}
+#curT button.on{background:var(--ink);color:var(--bg)}
+.y1w{display:grid;grid-template-columns:740px 1fr;gap:44px}
+.y1r>div{padding:10px 0 12px;border-top:2px solid var(--i25)}
+.y1r span{display:block;font-size:22px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70)}
+.y1r b{display:block;font-family:var(--fd);font-weight:400;font-size:60px;line-height:1.05;white-space:nowrap}
+.y1r b.neg{color:var(--red)}
+.y1c{margin-top:4px;flex-wrap:nowrap;gap:28px}
+.y1c label{display:block;font-size:24px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--i70)}
+.y1c label b{float:right;font-family:var(--fd);font-weight:400;font-size:34px;color:var(--ink);letter-spacing:0;margin-top:-8px}
+.y1c .btn{min-width:130px}
+.meter{height:14px;background:var(--i12);margin-top:22px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--ink);transition:width .9s var(--ease)}
+.meter.full i{background:var(--red)}
+.tl3::before{transform-origin:left center}
+.on .wv rect{animation:idle 1.7s ease-in-out calc(1.7s + var(--j)*35ms) infinite alternate}
+.on .wv rect:nth-child(3n){animation-duration:2.1s}.on .wv rect:nth-child(3n+1){animation-duration:1.3s}
+@keyframes idle{from{transform:scaleY(1)}to{transform:scaleY(.78)}}
+@media (prefers-reduced-motion:reduce){.on .wv rect{animation:none!important}.meter i{transition:none}}
+
+/* ---------- added: hover focus, poster letters ---------- */
+.steps>div:not(.bld),.c3>div:not(.bld),.tiers>div:not(.bld),.pv4>div:not(.bld),.rk>div:not(.bld),.rows>div:not(.bld),.kg>div:not(.bld){transition:opacity .35s}
+.steps:hover>div:not(:hover),.c3:hover>div:not(:hover),.tiers:hover>div:not(:hover),.pv4:hover>div:not(:hover),.rk:hover>div:not(:hover),.rows:hover>div:not(:hover),.kg:hover>div:not(:hover){opacity:.32}
+.tb tr:not(:first-child) td{transition:background .2s}.tb tr:not(:first-child):hover td{background:var(--i06)}
+.kdone .kw i{transition:transform .45s var(--ease);transition-delay:0s}
+.kdone .kw i:hover{transform:translateY(-7%)}
+.bmc .bk{transition:background .3s,color .3s,transform .3s var(--ease)}.bmc .bk:hover{transform:translateY(-3px)}
+@media (prefers-reduced-motion:reduce){.kdone .kw i:hover,.bmc .bk:hover{transform:none}}
+svg{-webkit-user-select:none;user-select:none}
+
+/* ---------- v12: presenter steps, chart switches, spotlight ---------- */
+.tgbar{position:absolute;right:72px;top:89px;height:40px;z-index:6;pointer-events:none;opacity:0;transition:opacity .6s ease .45s}
+.on .tgbar{opacity:1}
+.tgg{position:absolute;right:0;top:0;display:flex;align-items:center;gap:12px;white-space:nowrap;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .5s var(--ease),visibility 0s .3s}
+.tgg.cur{opacity:1;visibility:inherit;transform:none;pointer-events:auto;transition:opacity .45s .2s,transform .8s var(--ease) .2s,visibility 0s}
+.tgg kbd,.ikbd{font-family:var(--ft);font-size:14px;font-weight:800;color:var(--i70);border:1.5px solid var(--i45);border-radius:5px;padding:1px 7px;transition:opacity .4s}
+body.idle .tgg kbd,body.idle .ikbd{opacity:0}
+.tg.seg{padding:4px;gap:3px;position:relative}
+.tg.seg button{position:relative;z-index:1;font-size:18px;padding:5px 15px;letter-spacing:.05em;transition:color .35s}
+.tg.seg button.on{background:none;color:var(--bg)}
+.tg.seg .knob{position:absolute;z-index:0;top:4px;bottom:4px;left:4px;width:0;border-radius:999px;background:var(--ink);transition:left .5s var(--ease),width .5s var(--ease)}
+.pgno .bts{display:inline-flex;gap:5px;margin-right:14px;vertical-align:3px}
+.pgno .bts b{display:block;width:16px;height:5px;border-radius:3px;background:var(--i25);transition:background .3s}
+.pgno .bts b.on{background:var(--red)}
+.spot>*{transition:opacity .45s ease}
+.spot>:not(.fo){opacity:.2}
+table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:opacity .45s ease}table.spot tr:not(.fo){opacity:.2}
+#curT{position:relative}#curT button{position:relative;z-index:1}#curT button.on{background:none}
+#curT .knob{position:absolute;z-index:0;top:3px;bottom:3px;left:3px;width:0;border-radius:999px;background:var(--ink);transition:left .5s var(--ease),width .5s var(--ease)}
+#toast{position:fixed;left:50%;bottom:58px;transform:translate(-50%,10px);background:#0D0D0C;color:#B8B5AE;font-family:var(--ft);font-stretch:75%;font-size:17px;font-weight:800;letter-spacing:.04em;padding:9px 18px;border-radius:999px;border:1px solid rgba(184,181,174,.3);opacity:0;transition:opacity .3s,transform .5s var(--ease);z-index:99;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#hSteps.off{opacity:.55}
+
+/* buyers */
+.deals{display:grid;grid-template-columns:repeat(3,1fr);gap:0 44px}
+.dcol h4{font-size:21px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:10px;line-height:1.1}
+.dl{border-top:3px solid var(--ink);padding:12px 0 16px;overflow:hidden}
+.dl b{display:block;font-family:var(--fd);font-weight:400;font-size:54px;line-height:1.02;white-space:nowrap;text-transform:uppercase}
+.dl em{display:block;font-style:normal;font-family:var(--fd);font-size:32px;line-height:1.05;text-transform:uppercase;margin-top:4px;color:var(--red)}
+.dl span{display:block;font-size:24px;font-weight:700;color:var(--i70);line-height:1.2;margin-top:6px}
+.dl.g b{font-size:44px}
+.dl.g em{font-family:var(--ft);font-weight:800;font-size:25px;letter-spacing:.01em;text-transform:none;color:var(--ink);margin-top:6px;white-space:nowrap}
+.deals.spot>.fo .dl{border-top-color:var(--red)}
+.dcol{transition:opacity .45s ease}
+
+/* canvas: map on the left, the block in focus on the right */
+.bmw{display:grid;grid-template-columns:720px 1fr;gap:40px;height:100%}
+.bmc .bk{flex-direction:column;justify-content:space-between;font-size:21px;padding:11px 12px 12px;line-height:1.02;overflow:hidden;position:relative}
+.bmc .bk small{display:block;font-family:var(--ft);font-weight:800;font-size:17px;letter-spacing:.01em;text-transform:none;line-height:1.12;color:var(--i70);transition:color .3s}
+.bmc .bk.vp small{color:rgba(184,181,174,.88)}
+.bmc .bk:hover{background:var(--i25);color:var(--ink);transform:none}
+.bmc .bk.vp:hover{background:var(--red);color:var(--bg)}
+.bmc .bk.fo{background:var(--ink);color:var(--bg)}
+.bmc .bk.fo small{color:rgba(184,181,174,.78)}
+.bmc .bk.vp.fo{background:var(--red);box-shadow:0 0 0 4px var(--ink)}
+.bmc .bk::after{content:"";position:absolute;left:0;bottom:0;height:5px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.bmc .bk.fo::after{transform:scaleX(1)}.bmc .bk.vp.fo::after{background:var(--ink)}
+.bmp{border-top:3px solid var(--red);padding-top:12px;position:relative}
+.bmp small{display:block;font-size:20px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70)}
+.bmp h3{font-family:var(--fd);font-weight:400;font-size:54px;line-height:1;text-transform:uppercase;color:var(--red);margin:8px 0 16px}
+.bmp ul{margin:0;padding:0}
+.bmp li{font-size:29px;font-weight:700;line-height:1.17;margin:0 0 11px 30px}
+.bmp li::marker{color:var(--red)}
+
+/* accelerators */
+.acc .ar{display:grid;grid-template-columns:300px 200px 1fr 220px;gap:28px;align-items:center;padding:11px 0;border-top:2px solid var(--i25)}
+.acc .ar.hd{border-top:0;padding:0 0 10px}
+.acc .ar.hd span{font-size:20px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70)}
+.acc .ar.hd span.r{text-align:right}
+.acc .ar b{font-family:var(--fd);font-weight:400;font-size:44px;line-height:1;text-transform:uppercase;white-space:nowrap}
+.acc .amt{font-size:32px;font-weight:800;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.acc .mt{height:24px;background:var(--i12);position:relative}
+.acc .mt i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ink);transition:width 1.1s var(--ease)}
+.acc .mt em{position:absolute;right:0;top:-6px;bottom:-6px;width:3px;background:var(--ink)}
+.acc .ar.full .mt i{background:var(--red)}
+.acc .vd{font-family:var(--fd);font-size:40px;line-height:1;text-align:right;white-space:nowrap;text-transform:uppercase}
+.acc .ar.short .vd{color:var(--red)}
+
+/* section wipe and the ticker strap */
+#wipe{position:absolute;inset:0;z-index:40;background:var(--red);display:flex;align-items:center;justify-content:center;pointer-events:none;visibility:hidden;overflow:hidden}
+#wipe b{font-family:var(--fd);font-weight:400;font-size:220px;line-height:.9;text-transform:uppercase;color:var(--bg);white-space:nowrap}
+.strap.tk{justify-content:flex-start;padding-left:0;overflow:hidden}
+.strap .trk{display:flex;flex:none;white-space:nowrap;will-change:transform}
+.strap .trk span{padding-right:.44em}
+.on .strap .trk{animation:tick var(--td,80s) linear infinite}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.on .strap .trk{animation:none}.tgg,.tg.seg .knob{transition:none}}
+</style>
+</head>
+<body>
+<div id="stage">
+<!-- 1 COVER -->
+<section class="slide ko" data-id="cover" data-title="Placet" data-sec="Opening">
+  <svg class="wv" id="wvC" viewBox="0 0 1200 720" aria-hidden="true"></svg>
+  <h1 class="kw" data-max="370">Placet</h1>
+  <p class="kc l">Real calls.<br>Real consent.<small>Ready for AI</small></p>
+  <p class="kc r">Latin for<br>“it pleases”<small>The word used to vote yes</small></p>
+  <div class="badge"><span>Press<br>1</span></div>
+  <div class="strap">Indian call centres · Consented calls · Labelled decisions · AI training data</div>
+  <aside class="notes">Placet is Latin for “it pleases”, the word used to vote yes. Our business rests on one yes: a caller pressing 1 after a support call.</aside>
+</section>
+
+<!-- 2 PROBLEM -->
+<section class="slide ko" data-id="problem" data-title="The problem" data-sec="Problem">
+  <h2 class="kw" data-max="340"><span class="r">Mis</span>heard</h2>
+  <p class="kc l">Voice AI doesn’t<br>understand India<small>It has never heard real Indian customers</small></p>
+  <p class="kc r" style="--crx:720px;max-width:490px">Real calls exist.<br>They get deleted.<small>Centres record millions of hours, then wipe them</small></p>
+  <div class="strap">Actors play customers · No proof of consent · Real calls wiped</div>
+  <aside class="notes">AI agents now answer India’s phones, but they learned from scripts and foreign data. Three gaps: actors play customers, real recordings have no proof of consent, and call centres delete millions of real hours.</aside>
+</section>
+
+<!-- 3 SOLUTION -->
+<section class="slide ko" data-id="solution" data-title="Our solution" data-sec="Solution">
+  <h2 class="kw" data-max="340">Press <span class="key"><b>1</b></span></h2>
+  <p class="kc l">Free tools for<br>call centres<small>₹9 lakh of software and hardware each. We don’t pay them; we equip them</small></p>
+  <p class="kc r">Consented calls<br>for AI companies<small>Labelled for intent, emotion and decisions</small></p>
+  <div class="badge"><span>₹2,800<br><span style="font-size:.62em">an hour</span></span></div>
+  <div class="strap">Record · Ask · Label · License</div>
+  <aside class="notes">Call centres get recording, speech analytics, a quality dashboard and headsets for free. After each call, the caller can press 1 to allow AI training. We label those calls and license them to AI companies at ₹2,800 an hour.</aside>
+</section>
+
+<!-- 4 HOW -->
+<section class="slide" data-id="how" data-title="How it works" data-sec="Solution">
+  <h2 class="h2"><span class="eb">How it works</span><span class="ht">Four steps. One yes</span></h2>
+  <div class="bd"><div class="pages">
+    <div class="page" data-eb="How it works" data-t="Four steps. One yes"><div class="steps">
+      <div><div class="num">1</div><b>Record</b><span>Both voices on separate tracks</span></div>
+      <div><div class="num">2</div><b>Ask</b><span>After the call: press 1 to allow</span></div>
+      <div><div class="num">3</div><b>Label</b><span>Names muted. Intent, emotion, decision</span></div>
+      <div><div class="num">4</div><b>License</b><span>Sold to many buyers. Deleted on request</span></div>
+    </div></div>
+    <div class="page" data-eb="Consent" data-t="Asked after the call"><div class="tl3">
+      <div><i></i><b>Call ends</b><span>A 15-second message plays</span></div>
+      <div class="key2"><i></i><b>Press 1</b><span>Logged with the call ID</span></div>
+      <div><i></i><b>SMS receipt</b><span>Withdraw any time</span></div></div>
+      <p class="t36 dim" style="text-align:center;margin-top:60px">No answer, or 2? Deleted within 24 hours.</p></div>
+    <div class="page" data-eb="Our edge" data-t="Every call holds a real decision"><div class="dec">
+      <div><small>Options</small><b>Cancel, or fast delivery</b></div><span class="arr">→</span>
+      <div class="choice"><small>Choice</small><b>Fast delivery</b></div><span class="arr">→</span>
+      <div><small>Reason</small><b>Birthday tomorrow</b></div></div>
+      <p class="t36 dim" style="margin-top:64px">Scripts and synthetic data can’t produce this honestly.</p></div>
+  </div></div>
+  <aside class="notes">Three parts: the four steps; consent asked at the end, because asking at the start disturbs the call centre’s business; and the decision labels, which nobody else sells.</aside>
+</section>
+
+<!-- 5 DEMO -->
+<section class="slide" data-id="demo" data-title="Live demo" data-sec="Solution">
+  <h2 class="h2"><span class="eb">Live demo</span><span class="ht">One call, start to finish</span></h2>
+  <div class="tgbar"><div class="tgg"><kbd>T</kbd><div class="tg seg" data-tg="call" role="group" aria-label="Which call"><button data-v="0" class="on">Late order</button><button data-v="1">Blocked card</button><button data-v="2">Data plan</button></div></div></div>
+  <div class="bd" style="top:214px;bottom:56px"><div class="dmo">
+    <div>
+      <div class="dbar"><span class="live" id="liveTag"><i></i><em style="font-style:normal">Live</em></span><span id="callTime" class="n">00:00</span></div>
+      <canvas id="dual" width="600" height="96"></canvas>
+      <div class="tx" id="tx"></div>
+    </div>
+    <div class="dlab" id="labels">
+      <div class="labr"><span>Intent</span><b id="lInt">–</b></div>
+      <div class="labr"><span>Emotion</span><b id="lEmo">–</b></div>
+      <div class="labr dec2"><span>Decision</span><b id="lDec">–</b></div>
+      <div class="labr"><span>Outcome</span><b id="lOut">–</b></div>
+    </div>
+    <div class="ivr" id="ivr"><div class="ivr-q">Can we use this call to train AI? Your name will be muted.</div><div class="ivr-k"><button data-k="1"><b>1</b>Yes</button><button data-k="2"><b>2</b>No</button></div></div>
+    <div class="res ok2" id="receipt"><b>Consent recorded</b><span>Call <i id="rcId" style="font-style:normal">7F3A</i>, at <i id="rcTime" style="font-style:normal">–</i></span><span>SMS receipt sent</span></div>
+    <div class="res" id="shred"><b>Deleted</b><span>No yes, so the audio is wiped.</span><span>It never left the call centre.</span></div>
+    <button class="btn replay" id="replay">Replay</button>
+  </div></div>
+  <aside class="notes">About 12 seconds of call; labels fill in on the right. Click once to skip to the question. When it appears, ask the room: would you press 1 or 2? Your next click presses 1; the 2 key presses 2. T or the switch at the top plays another call: a blocked card or a data plan.</aside>
+</section>
+
+<!-- 6 TODAY + COMPETITION -->
+<section class="slide" data-id="compete" data-title="Today and competition" data-sec="Competition">
+  <h2 class="h2"><span class="eb">How it’s solved today</span><span class="ht">Every fix misses something</span></h2>
+  <div class="bd hi" style="top:214px"><div class="pages">
+    <div class="page" data-eb="How it’s solved today" data-t="Every fix misses something"><div class="rows">
+      <div><div><b>Data vendors</b><small>e.g. Shaip, Appen</small></div><span>Many “call-centre” sets are simulated</span></div>
+      <div><div><b>Crowd apps</b><small>e.g. Karya</small></div><span>People read sentences aloud</span></div>
+      <div><div><b>Open datasets</b><small>e.g. AI4Bharat IndicVoices</small></div><span>Free, but not support calls</span></div>
+      <div><div><b>Synthetic data</b><small>AI-generated calls</small></div><span>No real people at all</span></div>
+    </div></div>
+    <div class="page" data-eb="Competition" data-t="Only Placet does all four"><table class="cmp">
+      <tr><th></th><th>Data<br>vendors</th><th>Crowd<br>apps</th><th>Open<br>data</th><th>Synthetic</th><th class="us">Placet</th></tr>
+      <tr><td>Real customer calls</td><td><i class="part"></i></td><td><i class="no"></i></td><td><i class="no"></i></td><td><i class="no"></i></td><td class="us"><i class="ok"></i></td></tr>
+      <tr><td>Indian customers</td><td><i class="part"></i></td><td><i class="ok"></i></td><td><i class="ok"></i></td><td><i class="part"></i></td><td class="us"><i class="ok"></i></td></tr>
+      <tr><td>Real decisions labelled</td><td><i class="no"></i></td><td><i class="no"></i></td><td><i class="no"></i></td><td><i class="no"></i></td><td class="us"><i class="ok"></i></td></tr>
+      <tr><td>Consent proof per call</td><td><i class="part"></i></td><td><i class="ok"></i></td><td><i class="ok"></i></td><td><i class="no"></i></td><td class="us"><i class="ok"></i></td></tr>
+    </table></div>
+  </div></div>
+  <aside class="notes">Page one: how the industry fills the gap today. Vendors such as Shaip sell real and simulated sets; their real Indian sets are mostly Indian agents with US customers. Karya pays people to read text aloud. IndicVoices is free, but only 17% is conversation and none is customer support. Page two: only we combine real Indian customers, real decisions and per-call consent proof. Half circle means partly.</aside>
+</section>
+
+<!-- 7 DEMAND -->
+<section class="slide ko" data-id="demand" data-title="Market demand" data-sec="Market">
+  <h2 class="kw" data-max="330">Demand <span class="r">+45%</span></h2>
+  <p class="kc l">A year, for real<br>Indian call data<small>Hours bought by AI companies</small></p>
+  <p class="kc r">₹3,750 crore<br>raised in 2026<small>By Indian-language AI start-ups</small></p>
+  <div class="badge sm"><span>76%<br><span style="font-size:.62em">prefer<br>a call</span></span></div>
+  <div class="strap">More money · More voice AI · Consent law from 2027</div>
+  <aside class="notes">Money is pouring into Indian voice AI, and 76% of Indians prefer a voice call with a business. From 2027, India’s data law requires provable consent, which is exactly what we sell.</aside>
+</section>
+
+<!-- 8 GROWTH -->
+<section class="slide" data-id="growth" data-title="Demand growth" data-sec="Market">
+  <h2 class="h2"><span class="eb">Market demand</span><span class="ht">6X more demand by 2031</span></h2>
+  <div class="tgbar"><div class="tgg"><kbd>T</kbd><div class="tg seg" data-tg="gr" role="group" aria-label="Show hours or value"><button data-v="h" class="on">Hours</button><button data-v="v">Value</button></div></div></div>
+  <div class="bd hi" style="top:226px"><svg id="grChart" data-cur width="1088" height="420" viewBox="0 0 1088 420" role="img" aria-label="Indian call data bought each year, 2026 to 2031"></svg></div>
+  <aside class="notes">Hours of real Indian call data that AI companies buy each year: 3 lakh in 2026, growing 45% a year to 19.2 lakh in 2031. Red is our share, written under each year. Clicks: 2027, then 2031, then the same chart in money.</aside>
+</section>
+
+<!-- 9 SIZE -->
+<section class="slide" data-id="size" data-title="Market size" data-sec="Market">
+  <h2 class="h2"><span class="eb">Market size, 2031</span><span class="ht">A ₹538 crore market</span></h2>
+  <div class="tgbar"><div class="tgg"><kbd>T</kbd><div class="tg seg" data-tg="sz" role="group" aria-label="Which year"><button data-v="2027">2027</button><button data-v="2031" class="on">2031</button></div></div></div>
+  <div class="bd hi" style="top:214px"><div class="msz">
+    <svg id="szC" width="470" height="440" viewBox="0 0 470 440" aria-hidden="true"></svg>
+    <div id="szI">
+      <div class="it bld" style="--k:1"><span>Total market</span><b id="szT">₹538 crore</b></div>
+      <div class="it bld" style="--k:2"><span>Needs real, consented calls, 60%</span><b id="szS">₹323 crore</b></div>
+      <div class="it us bld" style="--k:3"><span id="szOL">Our sales, 5.6% of it</span><b id="szO">₹30 crore</b></div>
+    </div></div></div>
+  <aside class="notes">TAM, SAM and SOM. 19.2 lakh hours at ₹2,800 is ₹538 crore. 60% of buyers need real, consented calls: ₹323 crore. Our 2031 plan is ₹30 crore, only 5.6% of the market. Clicks walk through the three circles; T shows 2027.</aside>
+</section>
+
+<!-- 10 BUYERS -->
+<section class="slide" data-id="buyers" data-title="Who buys this data" data-sec="Market">
+  <h2 class="h2"><span class="eb">Who has paid</span><span class="ht">They already pay for real conversations</span></h2>
+  <div class="bd hi" style="top:224px"><div class="pages">
+    <div class="page" data-eb="Who has paid" data-t="They already pay for real conversations"><div class="deals">
+      <div class="dcol"><h4>Big tech</h4>
+        <div class="dl"><b>₹94 crore</b><em>Google</em><span>Spirit Airlines’ business and customer-service data, at auction, 2026</span></div>
+        <div class="dl"><b>1.5 lakh hours</b><em>Google</em><span>Project Vaani’s target, funded by Google, across all 773 districts</span></div></div>
+      <div class="dcol"><h4>Data buyers</h4>
+        <div class="dl"><b>₹9,400 crore</b><em>micro1</em><span>To license company records over 12 months, from Oct 2026</span></div>
+        <div class="dl"><b>₹2.35 crore</b><em>Mercor</em><span>Its top listed price for one call centre’s records</span></div></div>
+      <div class="dcol"><h4>Paid to speakers</h4>
+        <div class="dl"><b>₹28 a minute</b><em>Neon</em><span>Paid to people for their phone calls, then sold to AI firms</span></div>
+        <div class="dl"><b>₹1,600 an hour</b><em>Babel Audio</em><span>Paid to people who record conversations for AI labs</span></div></div>
+    </div></div>
+    <div class="page" data-eb="Who will buy from us" data-t="Six kinds of buyer"><div class="deals">
+      <div class="dcol"><h4>Building in India</h4>
+        <div class="dl g"><b>Indian voice AI</b><em>Sarvam AI, Bolna, Ringg</em><span>Sarvam raised ₹3,250 crore in 2026</span></div>
+        <div class="dl g"><b>Call-centre AI</b><em>Gnani.ai, Uniphore</em><span>Gnani trains on 14 million hours of phone audio</span></div></div>
+      <div class="dcol"><h4>Worldwide</h4>
+        <div class="dl g"><b>Global AI labs</b><em>Google, Microsoft, Meta</em><span>Five big-tech firms paid 80% of Appen’s revenue</span></div>
+        <div class="dl g"><b>Data companies</b><em>micro1, Mercor, Appen</em><span>Mercor’s sales run at ₹18,800 crore a year</span></div></div>
+      <div class="dcol"><h4>Big users</h4>
+        <div class="dl g"><b>Banks and insurers</b><em>In-house AI teams</em><span>Voice AI serves 4.5 crore policyholders of one insurer</span></div>
+        <div class="dl g"><b>Government, research</b><em>Bhashini, IISc, IIT Madras</em><span>Bhashini helped fund 7,348 hours of Indian speech</span></div></div>
+    </div></div>
+  </div></div>
+  <aside class="notes">Page one, three kinds of buyer that already pay. Big tech: Google paid $10 million for Spirit Airlines’ customer-service data, and funds Project Vaani, 1.5 lakh hours of Indian speech. Data buyers: micro1 has set aside $1 billion to license company records; Mercor lists up to $250,000 for one call centre’s records. Even individuals get paid: Neon paid 30 cents a minute for phone calls, Babel Audio $17 an hour. Page two, who we will sell to. Clicks spotlight one column at a time.</aside>
+</section>
+
+<!-- 10 MODEL -->
+<section class="slide" data-id="model" data-title="Price and revenue" data-sec="Model">
+  <h2 class="h2"><span class="eb">Price</span><span class="ht">₹2,800 an hour, on average</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="1"><kbd>T</kbd><div class="tg seg" data-tg="rv" role="group" aria-label="Which year"><button data-v="2030" class="on">2030</button><button data-v="2031">2031</button></div></div></div>
+  <div class="bd"><div class="pages">
+    <div class="page" data-eb="Price" data-t="₹2,800 an hour, on average"><div class="tiers big" style="margin-top:6px">
+      <div><b>₹1,900</b><span>Audio and transcript</span></div>
+      <div class="us"><b>₹2,800</b><span>+ Intent and emotion</span></div>
+      <div><b>₹3,800</b><span>+ Decision and outcome</span></div></div>
+      <p class="t36 dim" style="margin-top:56px">Priced per hour of audio. Market prices run $15 to $65.</p></div>
+    <div class="page" data-eb="Revenue, 2030" data-t="₹17.5 crore from four streams"><div id="rvBars" style="--lw:420px;--vw:190px"></div></div>
+  </div></div>
+  <aside class="notes">Price rises with label depth. Custom collection starts at ₹5,600; a 200-hour monthly subscription is ₹4.8 lakh. Page two: subscriptions are more than half of revenue, so it repeats. Click once to see 2031: ₹30 crore.</aside>
+</section>
+
+<!-- 11 UNIT -->
+<section class="slide" data-id="unit" data-title="Unit economics" data-sec="Model">
+  <h2 class="h2"><span class="eb">Unit economics: one 50-agent centre, a month</span><span class="ht">Each centre earns <span id="uHt">₹13.9 lakh</span></span></h2>
+  <div class="tgbar"><div class="tgg"><kbd>T</kbd><div class="tg seg" data-tg="unit" role="group" aria-label="Callers who press 1"><button data-v="10">10% say yes</button><button data-v="20" class="on">20%</button><button data-v="30">30%</button></div></div></div>
+  <div class="bd"><div class="chain4 lg">
+    <div class="bld" style="--k:1"><span>Hours of calls</span><b>5,000</b></div>
+    <div class="bld" style="--k:2"><span>Usable, consented hours</span><b id="uMade">420</b></div>
+    <div class="bld" style="--k:3"><span>Hours sold, twice each</span><b id="uSold">840</b></div>
+    <div class="bld" style="--k:4"><span>Left after costs</span><b id="uLeft">₹13.9 L</b></div>
+  </div>
+  <div class="sld bld" style="--k:5;grid-template-columns:1fr;margin-top:34px"><label>Callers who press 1 <b id="uRateV">20%</b><input type="range" id="uRate" min="10" max="30" step="1" value="20" aria-label="Share of callers who press 1"></label></div>
+  <p class="t32 dim bld" id="uTxt" style="--k:6;margin-top:16px">Revenue ₹23.5 lakh. Labelling ₹9.2 lakh. Free software ₹0.35 lakh. The ₹3 lakh of hardware pays back in a week.</p></div>
+  <aside class="notes">One unit is 50 agents. 60% of calls are usable, 20% of callers say yes, 70% pass checks: 420 hours a month, each sold twice. 2030 figures. Click once: even if only 10% of callers say yes, a centre still earns ₹6.8 lakh a month. Click again for 30%: ₹21 lakh.</aside>
+</section>
+
+<!-- 12 CANVAS -->
+<section class="slide" data-id="canvas" data-title="Business model canvas" data-sec="Model">
+  <h2 class="h2"><span class="eb">Business model canvas</span><span class="ht">Ten blocks, one business</span></h2>
+  <div class="bd" style="top:208px;bottom:58px"><div class="bmw">
+    <div class="bmc" id="bmc">
+      <button class="bk" style="grid-area:kp" data-o="8" data-i="Call centres that serve their own customers|Cloud-telephony firms|Labellers in smaller cities|Lawyers and security auditors">Key partners<small>Call centres</small></button>
+      <button class="bk" style="grid-area:ka" data-o="7" data-i="Equip and support centres|Ask for consent after each call|Mute, label and check|License, and delete on request">Key activities<small>Equip, ask, label</small></button>
+      <button class="bk" style="grid-area:kr" data-o="6" data-i="Consent records and call IDs|Archive of consented hours|Labelling pipeline|Buyers’ trust">Key resources<small>Consent records</small></button>
+      <button class="bk vp" style="grid-area:vp" data-o="0" data-i="For AI companies: real Indian calls, real decisions, provable consent|For call centres: free recording, analytics and headsets">Value proposition<small>Real calls, real consent</small></button>
+      <button class="bk" style="grid-area:cr" data-o="3" data-i="Founder-led sales|Yearly subscriptions|Data cards and audit reports">Relationships<small>Founder-led</small></button>
+      <button class="bk" style="grid-area:ch" data-o="2" data-i="Direct outreach and AI events|Data marketplaces|Telephony partners, to reach centres">Channels<small>Direct, partners</small></button>
+      <button class="bk" style="grid-area:cs" data-o="1" data-i="Indian voice-AI startups|In-house AI teams|Speech-analytics firms|Universities|Global AI labs">Customers<small>Voice-AI teams</small></button>
+      <button class="bk" style="grid-area:co" data-o="9" data-i="Labelling and checks: 30% of price|Salaries: the biggest fixed cost|Free tools for centres">Costs<small>Labelling, salaries</small></button>
+      <button class="bk" style="grid-area:km" data-o="5" data-i="20% of callers press 1|Each hour sold twice|₹1,700 left per hour|Break-even at 4 centres">Key numbers<small>20% say yes</small></button>
+      <button class="bk" style="grid-area:rs" data-o="4" data-i="Subscriptions 55%|Ready-made licences 25%|Custom collection 15%|Test sets 5%">Revenue<small>Subscriptions first</small></button>
+    </div>
+    <div class="bmp" id="bmp"><small id="bmpN">1 of 10</small><h3 id="bmpT"></h3><ul id="bmpL"></ul></div>
+  </div></div>
+  <aside class="notes">The canvas is always on screen; the panel on the right shows the block in focus. Each click moves to the next block: value, customers, channels, relationships, revenue, key numbers, resources, activities, partners, costs. You can also click any block.</aside>
+</section>
+
+<!-- 13 FUNDING -->
+<section class="slide" data-id="funding" data-title="Investment and funding" data-sec="Financials">
+  <h2 class="h2"><span class="eb">Investment needed</span><span class="ht">₹1.41 crore runs year one</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="cash" role="group" aria-label="Cash or profit"><button data-v="c" class="on">Cash in the bank</button><button data-v="p">Monthly profit</button></div></div></div>
+  <div class="bd"><div class="pages">
+    <div class="page" data-eb="Investment needed" data-t="₹1.41 crore runs year one"><svg id="cashChart" data-cur width="1088" height="320" viewBox="0 0 1088 330" role="img" aria-label="Cash in the bank, or profit, each month, 2027 to 2029"></svg><p class="t32 dim" style="margin-top:8px">After year one, sales pay for everything. Cash never drops below ₹20 lakh.</p></div>
+    <div class="page" data-eb="Funding" data-t="Three ways to raise it. We pick one"><div class="c3">
+      <div><b style="color:var(--i45)">Savings</b><span>Full control, far too small</span></div>
+      <div><b style="color:var(--i45)">Bank loan</b><span>Needs collateral and revenue</span></div>
+      <div class="red"><b>Accelerator</b><span>Money and mentors before revenue</span></div></div></div>
+    <div class="page" data-eb="Funding" data-t="Four of five accelerators can fund it"><div class="acc" id="acc"></div></div>
+  </div></div>
+  <aside class="notes">Page one: we raise $150K, ₹1.41 crore, once. It carries year one; from February 2028 sales cover every month’s costs, and cash never drops below ₹20 lakh. Clicks: end of year one, the lowest point, then the same months as profit. Page two: the options. Page three: each bar is how much of our ₹1.41 crore a programme covers. Antler India, Peak XV’s Surge, Techstars and Y Combinator each invest at least $150K; 100X.VC falls about ₹16 lakh short. Anything above $150K stays in the bank as a reserve.</aside>
+</section>
+
+<!-- 14 COSTS -->
+<section class="slide" data-id="costs" data-title="Costs and margin" data-sec="Financials">
+  <h2 class="h2"><span class="eb">Fixed costs, 2030</span><span class="ht">₹52 lakh a month to run</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="fx" role="group" aria-label="Which year"><button data-v="y1">Year one</button><button data-v="2030" class="on">2030</button></div></div>
+    <div class="tgg" data-pg="1"><kbd>T</kbd><div class="tg seg" data-tg="vr" role="group" aria-label="Per hour made or sold"><button data-v="m" class="on">Per hour made</button><button data-v="s">Per hour sold</button></div></div></div>
+  <div class="bd"><div class="pages">
+    <div class="page" data-eb="Fixed costs, 2030" data-t="₹52 lakh a month to run"><div id="fxBars" style="--lw:420px;--vw:150px"></div></div>
+    <div class="page" data-eb="Variable costs, per hour made" data-t="₹2,200 to make an hour"><div id="vrBars" style="--lw:420px;--vw:170px"></div><p class="t32 dim" style="margin-top:24px">Making an hour costs ₹2,200. Selling it twice makes it ₹1,100.</p></div>
+    <div class="page" data-eb="Contribution margin" data-t="₹1,700 left from every hour"><div style="text-align:center;padding-top:6px">
+      <div class="eq"><span id="cmP">₹2,800</span><em>−</em><span id="cmCost">₹1,100</span><em>=</em><span class="red" id="cmVal">₹1,700</span></div>
+      <p class="t36 dim" style="margin-top:20px"><span id="cmPct">61%</span> of every hour pays for fixed costs and profit.</p>
+      <div class="ctl" style="margin-top:36px;justify-content:center"><span class="t28 dim">Times each hour is sold</span><div class="tg seg" data-tg="lic" id="licSeg"><button data-v="1">1×</button><button data-v="1.5">1.5×</button><button data-v="2" class="on">2×</button><button data-v="2.5">2.5×</button></div><kbd class="ikbd">T</kbd></div></div></div>
+  </div></div>
+  <aside class="notes">Fixed costs a month in 2030; one click shows year one, ₹5.5 lakh a month. Then the cost to make an hour, ₹2,200; one click shows it per hour sold, ₹1,100, because each hour is sold twice. Then the margin: clicks show selling each hour once (₹600 left) and 2.5 times.</aside>
+</section>
+
+<!-- 15 SALES -->
+<section class="slide" data-id="sales" data-title="Sales and profit" data-sec="Financials">
+  <h2 class="h2"><span class="eb">Sales, 2030</span><span class="ht">₹1.46 crore a month</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="1"><kbd>T</kbd><div class="tg seg" data-tg="wf" role="group" aria-label="If sales change"><button data-v="-20">Sales −20%</button><button data-v="0" class="on">Plan</button><button data-v="20">Sales +20%</button></div></div></div>
+  <div class="bd"><div class="pages">
+    <div class="page" data-eb="Sales, 2030" data-t="₹1.46 crore a month"><div class="chain4" id="chn"></div>
+      <div class="sld">
+        <label>Our market share <b id="vShare">4.7%</b><input type="range" id="sShare" min="1.5" max="9" step=".001" value="4.707" aria-label="Our market share"></label>
+        <label>Price per hour <b id="vPrice">₹2,800</b><input type="range" id="sPrice" min="1900" max="3800" step="50" value="2800" aria-label="Price per hour"></label>
+      </div></div>
+    <div class="page" data-eb="A typical month, 2030" data-t="₹34 lakh profit a month"><div class="wfw">
+      <svg id="wf" width="720" height="380" viewBox="0 0 720 380"></svg>
+      <div><div class="rd"><span>Operating profit</span><b id="pE" class="red">₹34 L</b></div>
+        <label class="t28 dim" style="display:block;margin-top:40px">If sales change <b id="vDelta" style="color:var(--ink)">0%</b><input type="range" id="sDelta" min="-30" max="30" step="5" value="0"></label></div>
+    </div></div>
+  </div></div>
+  <aside class="notes">Market demand times our share times price. Clicks: if we win only half our planned share, then if we charge ₹3,800 for decision labels. Page two: sales ₹146 lakh, minus ₹60 lakh variable, minus ₹52 lakh fixed. Clicks: sales 20% lower still leaves ₹17 lakh profit; 20% higher.</aside>
+</section>
+
+<!-- 16 BREAK-EVEN -->
+<section class="slide" data-id="breakeven" data-title="Break-even" data-sec="Financials">
+  <h2 class="h2"><span class="eb">Break-even point</span><span class="ht">3,141 hours a month</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="1"><kbd>T</kbd><div class="tg seg" data-tg="be" role="group" aria-label="Hours sold a month"><button data-v="2000">2,000 hrs</button><button data-v="3141">3,141</button><button data-v="5202" class="on">5,202, plan</button></div></div>
+    <div class="tgg" data-pg="3"><kbd>T</kbd><div class="tg seg" data-tg="sens" role="group" aria-label="Table or chart"><button data-v="t" class="on">Table</button><button data-v="g">Chart</button></div></div></div>
+  <div class="bd"><div class="pages">
+    <div class="page" data-eb="Break-even point" data-t="3,141 hours a month"><div class="kg k2" style="grid-template-columns:1fr 1fr 1fr">
+      <div><b>3,141</b><span>hours sold a month</span></div><div><b>₹88 L</b><span>of sales a month</span></div><div><b>4</b><span>centres, 200 agents</span></div></div>
+      <p class="t32 dim" style="margin-top:40px">₹53.4 lakh of fixed costs ÷ ₹1,700 per hour.</p></div>
+    <div class="page" data-eb="Break-even chart" data-t="Below the line, we lose money"><div style="display:grid;grid-template-columns:740px 1fr;gap:40px">
+      <div><svg id="beChart" width="740" height="320" viewBox="0 0 800 360"></svg>
+        <label class="t28 dim" style="display:block;margin-top:4px">Hours sold a month <b id="vVol" style="color:var(--ink)">5,202</b><input type="range" id="sVol" min="0" max="7000" step="1" value="5202" aria-label="Hours sold a month"></label></div>
+      <div class="rd" style="padding-top:20px"><span id="beL">Profit a month</span><b id="beR">₹34 L</b></div></div></div>
+    <div class="page" data-eb="Time to break-even" data-t="Profitable from February 2028">
+      <div class="kg k2"><div><b>Feb 2028</b><span>profit every month from here</span></div><div><b>Jan 2030</b><span>all money spent is earned back</span></div></div>
+      <svg class="tlsvg" width="1088" height="140" viewBox="0 0 1088 140" style="margin-top:44px">
+        <line x1="8" x2="244" y1="56" y2="56" stroke="rgba(13,13,12,.2)" stroke-width="12" stroke-linecap="round"/><line x1="244" x2="1080" y1="56" y2="56" stroke="#0D0D0C" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="244" cy="56" r="18" fill="#C40202"/><circle cx="662" cy="56" r="15" fill="#B8B5AE" stroke="#0D0D0C" stroke-width="6"/>
+        <text x="0" y="22">Launch, 2027</text><text x="244" y="114" text-anchor="middle">Break-even</text><text x="662" y="22" text-anchor="middle">Payback</text><text x="1088" y="114" text-anchor="end">2031</text></svg></div>
+    <div class="page" data-eb="Sensitivity" data-t="What moves break-even"><div id="sensT"><table class="tb"><tr><th>If this changes</th><th class="r">Break-even hours</th></tr>
+      <tr class="hl"><td>Nothing</td><td class="r">3,141</td></tr><tr><td>Price up to ₹3,300</td><td class="r">2,411</td></tr><tr><td>Price down to ₹2,300</td><td class="r">4,508</td></tr><tr><td>Fixed costs up 20%</td><td class="r">3,774</td></tr><tr><td>Each hour sold 2.5 times</td><td class="r">2,763</td></tr></table></div>
+      <svg id="sensC" width="1088" height="380" viewBox="0 0 1088 380" style="display:none" role="img" aria-label="Break-even hours in each case"></svg></div>
+  </div></div>
+  <aside class="notes">Four pages: the point, the chart, the timing, and what moves it. On the chart, clicks move the line to 3,141 hours (no profit, no loss), then to 2,000 (a loss); you can also drag. Our 2030 plan sells 5,202 hours a month, well above break-even. Last page: one click turns the table into a chart.</aside>
+</section>
+
+<!-- 17 RETURNS -->
+<section class="slide" data-id="year1" data-title="Year 1 financials" data-sec="Financials">
+  <h2 class="h2"><span class="eb">Year 1, 2027, month by month</span><span class="ht">Losses shrink to ₹1.2 lakh by December</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="y1" role="group" aria-label="Sales and costs, or cash"><button data-v="b" class="on">Sales and costs</button><button data-v="c">Cash</button></div></div></div>
+  <div class="bd hi" style="top:214px"><div class="pages">
+    <div class="page" data-eb="Year 1, 2027, month by month" data-t="Losses shrink to ₹1.2 lakh by December"><div class="y1w">
+      <div><svg id="y1Chart" data-cur width="740" height="330" viewBox="0 0 760 340" role="img" aria-label="Monthly sales and costs in 2027"></svg>
+        <div class="ctl y1c"><button class="btn" id="y1Play">Play</button><label style="flex:1">Month <b id="y1M">Dec 2027</b><input type="range" id="y1S" min="1" max="12" step="1" value="12" aria-label="Month of 2027"></label></div></div>
+      <div class="y1r">
+        <div><span>Sales</span><b id="y1R">₹19.6 L</b></div>
+        <div><span>Costs</span><b id="y1C">₹29.3 L</b></div>
+        <div><span>Profit</span><b id="y1E" class="neg">−₹9.7 L</b></div>
+        <div><span>Cash in the bank</span><b id="y1K">₹7.4 Cr</b></div>
+      </div></div></div>
+    <div class="page" data-eb="Year 1 profit and loss" data-t="₹1.41 crore carries year one, ₹23 lakh to spare"><div id="y1T"></div></div>
+    <div class="page" data-eb="Year 1 costs" data-t="₹1.96 crore spent in year one"><div id="y1Bars" style="--lw:500px;--vw:160px"></div><p class="t32 dim" style="margin-top:10px">Sales bring in ₹78 lakh of cash; buyers still owe ₹20 lakh at year end. The accelerator money covers the other ₹1.18 crore.</p></div>
+  </div></div>
+  <aside class="notes">Year one, 2027, on $150K (₹1.41 crore). January: the cheque lands, the first centre is equipped, and we pay for the legal opinion and launch. The founders take no salary this year. February and March: recording, consent and 120 free-sample hours, no sales yet. From April we sell, from 78 hours in April to 700 in December, and the monthly loss falls to ₹1.2 lakh. The months play by themselves; click once to see cash in the bank instead. Page two: the quarterly profit and loss; we end the year with ₹23 lakh in the bank. From February 2028 every month makes a profit. Page three: where the ₹1.96 crore goes.</aside>
+</section>
+
+<section class="slide" data-id="returns" data-title="Five-year plan and returns" data-sec="Financials">
+  <h2 class="h2"><span class="eb">Five-year plan</span><span class="ht">₹30 crore revenue by 2031</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="pjv" role="group" aria-label="Table or chart"><button data-v="t" class="on">Table</button><button data-v="g">Chart</button></div><div class="tg seg" data-tg="pjk" role="group" aria-label="Demand"><button data-v="0.7">Demand −30%</button><button data-v="1" class="on">Plan</button><button data-v="1.3">+30%</button></div></div>
+    <div class="tgg" data-pg="2"><kbd>T</kbd><div class="tg seg" data-tg="pb" role="group" aria-label="Total or each year"><button data-v="c" class="on">Total so far</button><button data-v="y">Each year</button></div></div></div>
+  <div class="bd hi" style="top:214px"><div class="pages">
+    <div class="page" data-eb="Five-year plan" data-t="₹30 crore revenue by 2031">
+      <div id="pjOut"></div><p class="t28 dim" id="pjNote" style="margin-top:12px"></p></div>
+    <div class="page" data-eb="Returns" data-t="2031 profit alone is 5.1× the investment"><div class="kg k2" id="roiK" style="margin-top:20px"></div></div>
+    <div class="page" data-eb="Payback" data-t="Paid back by January 2030"><div style="display:grid;grid-template-columns:740px 1fr;gap:40px"><svg id="pbChart" width="740" height="380" viewBox="0 0 800 400"></svg>
+      <div style="padding-top:20px"><div class="rd"><span id="pbLowL">Lowest point, Oct 2028</span><b class="neg" id="pbLow">−₹1.2 Cr</b></div><div class="rd" style="margin-top:30px"><span>Cash left then</span><b id="pbCush">₹21 L</b></div></div></div></div>
+  </div></div>
+  <aside class="notes">A loss in 2027, small profit in 2028, then growing profit. Clicks: the chart, then demand 30% lower, then 30% higher: at 30% lower, cash would run about ₹2 lakh short in late 2029, so we would slow hiring. ROI is 2031 profit after tax over the $150K invested. Cash is lowest in October 2028, at ₹21 lakh, and cumulative cash flow turns positive for good in January 2030. One click shows the cash each year adds.</aside>
+</section>
+
+<!-- 18 OPERATIONS -->
+<section class="slide" data-id="ops" data-title="Team and marketing" data-sec="Operations">
+  <h2 class="h2"><span class="eb">Team</span><span class="ht">4 people to start, 30 by 2031</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="team" role="group" aria-label="Which year"><button data-v="y1" class="on">Year one</button><button data-v="2031">2031</button></div></div>
+    <div class="tgg" data-pg="2"><kbd>T</kbd><div class="tg seg" data-tg="mk" role="group" aria-label="Which year"><button data-v="y1">Year one</button><button data-v="2030" class="on">2030</button></div></div></div>
+  <div class="bd hi" style="top:220px"><div class="pages">
+    <div class="page" data-eb="Team" data-t="4 people to start, 30 by 2031"><div id="teamB" style="display:none;--lw:520px;--vw:110px;margin-top:6px"></div><table class="tb" id="teamT" style="font-size:32px">
+      <tr><th>Role</th><th class="r"><span class="cx" data-usd="$ a month">₹ a month</span></th></tr>
+      <tr><td>Founders, CEO and CTO: no salary in year one</td><td class="r">0</td></tr><tr><td>Machine-learning engineer</td><td class="r"><span class="mny" data-v="150000" data-s="n">1,50,000</span></td></tr>
+      <tr><td>Operations and quality lead</td><td class="r"><span class="mny" data-v="70000" data-s="n">70,000</span></td></tr><tr><td>Labellers in smaller cities</td><td class="r">paid per hour</td></tr>
+      <tr class="tot"><td>Year one, with benefits</td><td class="r">₹2.4 lakh</td></tr></table></div>
+    <div class="page" data-eb="Marketing" data-t="Win buyers with proof, not ads"><div class="steps" style="margin-top:16px">
+      <div><div class="num" style="font-size:96px">8w</div><b>Free sample</b><span>10 labelled hours</span></div>
+      <div><div class="num" style="font-size:96px">6w</div><b>Publish</b><span>How our consent works</span></div>
+      <div><div class="num" style="font-size:96px">4w</div><b>Outreach</b><span>50 voice-AI teams</span></div>
+      <div><div class="num" style="font-size:96px">0</div><b>Launch</b><span>Live demo at an AI meetup</span></div></div>
+      <p class="t32 dim" style="margin-top:40px">Weeks before launch. One-time budget: ₹4 lakh.</p></div>
+    <div class="page" data-eb="Marketing budget, 2030" data-t="₹4.5 lakh a month"><div id="mkBars" style="--lw:420px;--vw:150px;margin-top:10px"></div><p class="t32 dim" style="margin-top:8px">Year one: ₹1 lakh a month, mostly free samples.</p></div>
+    <div class="page" data-eb="Operations" data-t="Eight numbers we watch weekly"><div class="kg" style="margin-top:10px">
+      <div><b class="red">20%</b><span>callers press 1</span></div><div><b>70%</b><span>hours pass checks</span></div><div><b>95%</b><span>labellers agree</span></div><div><b>24 h</b><span>to act on a withdrawal</span></div>
+      <div><b>30 days</b><span>to delete everywhere</span></div><div><b>14 days</b><span>call to data</span></div><div><b>₹2,000</b><span>cost per hour, 2031</span></div><div><b>2×</b><span>sales per hour</span></div></div></div>
+  </div></div>
+  <aside class="notes">Year one is lean: two unpaid founders, an ML engineer and an operations lead, plus labellers paid per hour in smaller cities. One click shows the 30 people of 2031. Founders start drawing ₹50,000 a month in 2028, and we hire as sales grow. The marketing page clicks back to year one’s ₹1 lakh a month. Our buyers are a few hundred technical teams, so samples and demos beat advertising. Last page: the numbers we track every week.</aside>
+</section>
+
+<!-- 19 CUSTOMERS -->
+<section class="slide" data-id="customers" data-title="Customers" data-sec="Operations">
+  <h2 class="h2"><span class="eb">Customers</span><span class="ht">375 companies are buying</span></h2>
+  <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="by" role="group" aria-label="Companies or sales"><button data-v="n" class="on">Companies</button><button data-v="s">Our sales, 2030</button></div></div></div>
+  <div class="bd hi" style="top:226px"><div class="pages">
+    <div class="page" data-eb="Customers" data-t="375 companies are buying"><div id="byBars" style="--lw:520px;--vw:170px;margin-top:10px"></div></div>
+    <div class="page" data-eb="Sales funnel, first year" data-t="375 companies. 3 loyal buyers"><div id="fun"></div></div>
+    <div class="page" data-eb="Customer value" data-t="A repeat buyer is worth ₹51 lakh"><div style="display:grid;grid-template-columns:660px 1fr;gap:50px">
+      <div><div class="clr"><span>Average order</span><b>₹14 L</b><span></span></div>
+        <div class="clr"><span>× Orders a year</span><b id="cOrd">2</b><input type="range" id="sOrd" min="1" max="4" step="1" value="2"></div>
+        <div class="clr"><span>× Margin</span><b>61%</b><span></span></div>
+        <div class="clr"><span>× Years</span><b id="cYrs">3</b><input type="range" id="sYrs" min="1" max="5" step="1" value="3"></div>
+        <div class="clr tot"><span class="b" style="color:var(--ink)">Lifetime value</span><b id="cClv">₹51 L</b><span></span></div></div>
+      <div class="rd"><span>Value ÷ ₹1.6 L to win one</span><b id="cRatio" style="font-size:150px">31×</b><p class="t28 dim">Above 3× is healthy.</p></div></div></div>
+  </div></div>
+  <aside class="notes">Who buys: Indian voice-AI startups are the biggest group. One click shows where our 2030 sales come from: only 15 global labs, but ₹3.1 crore. The funnel: from 375 companies to 3 yearly subscribers. Winning a buyer costs ₹1.6 lakh: year one’s ₹16 lakh of marketing plus ₹3.6 lakh of free samples, shared by 12 buyers. Founder-led selling keeps this low; repeat orders are where we profit. Clicks: one order a year for one year still pays 5×; two a year for five years pays 53×.</aside>
+</section>
+
+<!-- 20 RISKS -->
+<section class="slide" data-id="risks" data-title="Risks and plan B" data-sec="Risks">
+  <h2 class="h2"><span class="eb">Risks</span><span class="ht">Profit a month in 2030, five ways</span></h2>
+  <div class="bd hi" style="top:226px"><div class="pages">
+    <div class="page" data-eb="Risks" data-t="Profit a month in 2030, five ways"><table class="tb" id="scT"><tr><th>Scenario</th><th class="r">Hours</th><th class="r">Price</th><th class="r"><span class="cx" data-usd="$ thousand">₹ lakh</span></th><th style="width:330px"></th></tr></table></div>
+    <div class="page" data-eb="Risks" data-t="Four risks, four answers"><div class="rk">
+      <div><b>Too few buyers</b><span>Pre-sold orders and subscriptions</span></div>
+      <div><b>Consent challenged</b><span>Lawyer’s opinion before launch</span></div>
+      <div><b>A data leak</b><span>ISO 27001; names muted twice</span></div>
+      <div><b>A centre leaves</b><span>Hardware is loaned; replace in weeks</span></div></div></div>
+    <div class="page" data-eb="Plan B" data-t="What if buyers pay only ₹2,000?"><div class="kg k2" style="margin-top:6px"><div><b id="planH">6,089</b><span>hours a month to break even, up from 3,141</span></div><div><b id="planE">−₹7.6 L</b><span>a month in 2030, instead of +₹34 lakh</span></div></div>
+      <div class="sld" style="grid-template-columns:1fr;margin-top:30px"><label>Price buyers pay <b id="planPV">₹2,000</b><input type="range" id="planP" min="1800" max="3300" step="50" value="2000" aria-label="Price per hour"></label></div></div>
+    <div class="page" data-eb="Plan B" data-t="Four ways to pivot"><div class="pv4">
+      <div><small>Pivot 1</small><b>Sell our software</b><span>₹1,000 an agent; break-even at 88 centres</span></div>
+      <div><small>Pivot 2</small><b>Test sets</b><span>Small, premium, higher price</span></div>
+      <div><small>Pivot 3</small><b>Consent up front</b><span>Paid speakers who agree first</span></div>
+      <div><small>Pivot 4</small><b>Analytics</b><span>Dashboards centres pay for</span></div></div></div>
+  </div></div>
+  <aside class="notes">Five scenarios; clicks show the weak case, which loses ₹17 lakh a month, then our plan. Then the four big risks and our answers. Then plan B: clicks drop the price to ₹1,800, then lift it to ₹2,400; you can also drag. If buyers pay only ₹2,000, we pivot. Selling our software needs no AI buyers; 88 centres is 0.27% of India’s BPM workforce.</aside>
+</section>
+
+<!-- 21 ASK -->
+<section class="slide" data-id="ask" data-title="The ask" data-sec="Ask">
+  <h2 class="h2"><span class="eb">The ask</span><span class="ht">₹1.41 crore, then sales pay</span></h2>
+  <div class="bd"><div class="pages">
+    <div class="page" data-eb="The ask" data-t="₹1.41 crore, then sales pay"><div class="kg k2"><div><b>₹1.41 Cr</b><span>one accelerator cheque, January 2027, for year one</span></div><div><b>Feb 2028</b><span>profit every month from here</span></div></div>
+      <p class="t36 dim" style="margin-top:40px">No loan, no second round. Cash never drops below ₹20 lakh.</p></div>
+    <div class="page" data-eb="Next 90 days" data-t="What we prove first"><div class="steps" style="grid-template-columns:repeat(3,1fr);margin-top:10px">
+      <div><div class="num">1</div><b>Legal opinion</b><span>On after-call consent</span></div>
+      <div><div class="num">2</div><b>Pilot</b><span>2 centres, 100 agents</span></div>
+      <div><div class="num">3</div><b>Proof</b><span>500 hours, 2 buyer letters</span></div></div></div>
+  </div></div>
+  <aside class="notes">We ask for $150K, ₹1.41 crore, once. It runs year one; after that, sales pay for growth. Four of the five accelerators we looked at invest at least that much. Then what the next 90 days prove.</aside>
+</section>
+
+<!-- 22 THANKS -->
+<section class="slide ko" data-id="thanks" data-title="Thank you" data-sec="Ask">
+  <h2 class="kw" data-max="330">Thank <span class="r">you</span></h2>
+  <p class="kc l">Questions?</p>
+  <p class="kc r">Real calls.<br>Real consent.</p>
+  <div class="badge"><span>Press<br>1</span></div>
+  <div class="strap">Indian call centres · Consented calls · Labelled decisions · AI training data</div>
+  <aside class="notes">Take questions. Press M to jump to any slide.</aside>
+</section>
+
+<!-- SOURCES -->
+<section class="slide" data-id="sources" data-title="Sources" data-sec="Ask" data-nocur>
+  <h2 class="h2"><span class="eb">Appendix</span><span class="ht">Sources: market and plan</span></h2>
+  <div class="bd" style="top:214px"><div class="pages">
+    <div class="page" data-eb="Appendix" data-t="Sources: market and plan"><ul class="srcl">
+      <li>Indian-language AI start-up funding, 2026 ($399 million ≈ ₹3,750 crore; Sarvam $346 million): Tracxn, via Business Standard, Oct 2026</li>
+      <li>76% prefer a voice call with a business: Truecaller consumer report, 2026</li>
+      <li>Consent rules: Digital Personal Data Protection Act 2023 and DPDP Rules 2025</li>
+      <li>Speech-data prices ($15–65 an hour): UsergyAI listing on Hugging Face; call-centre dataset bids on Freelancer, 2026</li>
+      <li>Industry practice: Shaip speech-data catalogue (real and simulated call-centre sets); Karya (read-aloud collection); AI4Bharat IndicVoices (read 9%, extempore 74%, conversational 17%)</li>
+      <li>Accelerator terms: Y Combinator, Techstars, 100X.VC, Antler India, 2026. Peak XV Surge invests up to $5 million a startup: TechCrunch, Sept 2026. BPM workforce: AFP. $1 = ₹94, Nov 2026</li>
+    </ul></div>
+    <div class="page" data-eb="Appendix" data-t="Sources: buyers"><ul class="srcl">
+      <li>Google won Spirit Airlines’ business data at auction for $10 million, over Mercor: CX Today, Aug 2026</li>
+      <li>micro1 commits $1 billion over 12 months to buy and license company data: Let’s Data Science, Oct 2026. Mercor lists $20K–$250K for call centres of 50 to 5,000 agents: Don’t Do It Yourself, Oct 2026; Mercor at a $2 billion run rate: Dealroom, Jul 2026</li>
+      <li>Project Vaani, funded by Google, targets 150,000 hours from all 773 districts: IISc and ARTPARK. Microsoft sourced Indian speech data through Karya: Bloomberg, Nov 2023</li>
+      <li>Neon paid 30 cents a minute for phone calls and sold them to AI firms: TechCrunch, Sept 2025. Babel Audio pays $17 an hour for recorded conversations: Bloomberg, 2026</li>
+      <li>Five customers (Microsoft, Apple, Meta, Google, Amazon) paid 80% of Appen’s revenue: CNBC, 2023. Gnani.ai trains on 14 million hours of phone audio: Gnani.ai. Sarvam voice agents serve 45 million policyholders: Sarvam Series B, Jun 2026</li>
+      <li>IndicVoices, 7,348 hours, funded by Bhashini (MeitY) and non-profits: Inc42, Mar 2024</li>
+    </ul></div>
+  </div></div>
+  <aside class="notes">Where the outside facts come from. Market demand and size are our own optimistic projection: 3 lakh hours in 2026, growing 45% a year.</aside>
+</section>
+
+</div><!-- /stage -->
+<nav id="wave" aria-label="Slides"></nav>
+<div id="hud"><button id="hMenu">Slides (M)</button><button id="hNotes">Notes (N)</button><button id="hLaser">Laser (L)</button><button id="hFull">Full screen (F)</button><button id="hCur">₹ / $ (D)</button><button id="hSteps">Steps on (S)</button></div>
+<div id="menu" role="dialog" aria-label="All slides"><h2>All slides</h2><div class="mcols" id="mcols"></div>
+  <div class="keys"><kbd>→</kbd><kbd>Space</kbd> next step <kbd>←</kbd> back <kbd>↓</kbd> skip the steps <kbd>T</kbd> switch the chart <kbd>S</kbd> steps on or off <kbd>D</kbd> ₹ or $ <kbd>1</kbd><kbd>2</kbd> answer in the demo <kbd>M</kbd> this list <kbd>N</kbd> notes <kbd>L</kbd> laser <kbd>B</kbd> black screen <kbd>F</kbd> full screen <kbd>Esc</kbd> close</div></div>
+<div id="notes"><div class="nt"><span id="nTitle"></span><span id="nTimer">00:00</span></div><div id="nBody"></div></div>
+<div id="black"></div><div id="laser"></div>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg',stage=$('#stage'),slides=$$('.slide');
+const hooks={};let cur=-1;
+const idx=id=>slides.findIndex(s=>s.dataset.id===id);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const eo=k=>1-Math.pow(1-k,3),EASE='cubic-bezier(.16,1,.3,1)',lerp=(a,b,k)=>a+(b-a)*k;
+function anim(fn,dur){if(RM){fn(1);return;}const t0=performance.now();(function f(t){const k=Math.min(1,Math.max(0,(t-t0)/(dur||1000)));fn(eo(k));if(k<1)requestAnimationFrame(f);})(t0);}
+const TW={};function tween(key,dur,fn){const tk=(TW[key]=(TW[key]||0)+1);if(RM){fn(1);return;}const t0=performance.now();(function f(t){if(TW[key]!==tk)return;const k=Math.min(1,Math.max(0,(t-t0)/dur));fn(eo(k));if(k<1)requestAnimationFrame(f);})(t0);}
+function S(p,tag,a,txt){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;if(p)p.appendChild(e);return e;}
+function clear(e){while(e.firstChild)e.removeChild(e.firstChild);}
+const nIN=v=>Math.round(v).toLocaleString('en-IN'),inr=v=>(v<0?'−':'')+'₹'+nIN(Math.abs(v));
+const sg=v=>v<-.0049?'−':'';
+function bump(e){if(!e)return;e.classList.remove('bump');void e.offsetWidth;e.classList.add('bump');}
+const ASH='#0D0D0C',RED='#C40202',BG='#B8B5AE',A45='rgba(13,13,12,.45)',A18='rgba(13,13,12,.2)',A70='rgba(13,13,12,.68)';
+function restyle(e){if(!e)return;const d=e.style.display;e.style.display='none';void e.offsetWidth;e.style.display=d;}   /* rebuilds styles that a running animation may have left stale */
+function fade(e,dur){if(e&&!RM)e.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:dur||520,easing:EASE});}
+
+/* ================= money: rupees or dollars, $1 = ₹94 ================= */
+const FX=94,LK=1e5/FX/1e3,CRM=1e7/FX/1e6;   // ₹1 lakh in $ thousand; ₹1 crore in $ million
+let CUR='inr';try{if(localStorage.getItem('placetCur')==='usd')CUR='usd';}catch(e){}
+function usd(v,st){const neg=v<0,d=Math.abs(v)/FX;let s;
+  if(d===0)s='0';
+  else if(st==='d1')s=d.toFixed(1);
+  else if(st==='n')s=Math.round(d).toLocaleString('en-US');
+  else if(d>=999.5e6){const b=d/1e9;s=(b>=9.95?Math.round(b):+b.toFixed(1))+'B';}
+  else if(d>=999500){const m=d/1e6;s=(m>=10?Math.round(m):+m.toFixed(1))+'M';}
+  else if(d>=999.5){const k=d/1e3;s=(k>=9.95?Math.round(k):+k.toFixed(1))+'K';}
+  else if(d>=9.995)s=String(Math.round(d));
+  else s=d.toFixed(2);
+  return (neg?'−':'')+(st==='n'?'':'$')+s;}
+const mt=(v,inrText,st)=>CUR==='inr'?inrText:usd(v,st);
+const MRX=/([+−-]?)₹(\d[\d,]*(?:\.\d+)?)(\s?(?:lakh|crore|L|Cr)(?![A-Za-z]))?/g;
+function wrapMoney(root){if(!root)return;const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;
+    if(!p||p.closest('.mny,script,style,svg,[data-nocur]'))return NodeFilter.FILTER_REJECT;return n.nodeValue.indexOf('₹')>-1?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;}}),list=[];
+  while(w.nextNode())list.push(w.currentNode);
+  list.forEach(n=>{const t=n.nodeValue;MRX.lastIndex=0;if(!MRX.test(t))return;MRX.lastIndex=0;const f=document.createDocumentFragment();let last=0,m;
+    while((m=MRX.exec(t))){if(m.index>last)f.appendChild(document.createTextNode(t.slice(last,m.index)));
+      const num=parseFloat(m[2].replace(/,/g,'')),suf=(m[3]||'').trim(),mul=suf==='lakh'||suf==='L'?1e5:suf==='crore'||suf==='Cr'?1e7:1,neg=m[1]==='−'||m[1]==='-';
+      const sp=document.createElement('x-m');sp.className='mny';sp.dataset.v=(neg?-1:1)*num*mul;if(m[1]==='+')sp.dataset.p='+';sp.dataset.inr=m[0];sp.textContent=m[0];f.appendChild(sp);last=m.index+m[0].length;}
+    if(last<t.length)f.appendChild(document.createTextNode(t.slice(last)));n.parentNode.replaceChild(f,n);});}
+function paintEl(e){if(e.dataset.inr==null)e.dataset.inr=e.textContent;e.textContent=CUR==='inr'?e.dataset.inr:(e.dataset.p||'')+usd(+e.dataset.v,e.dataset.s);}
+function paint(root){root=root||document;$$('.mny',root).forEach(paintEl);$$('.cx',root).forEach(e=>{if(e.dataset.inr==null)e.dataset.inr=e.textContent;e.textContent=CUR==='inr'?e.dataset.inr:e.dataset.usd;});}
+function money(root){wrapMoney(root);paint(root);}
+function setMoney(e,v,inrText,st){if(!e)return;e.classList.add('mny');e.dataset.v=v;e.dataset.inr=inrText;if(st)e.dataset.s=st;else delete e.dataset.s;paintEl(e);}
+const CURH=[];let cuTok=0;
+function syncCur(){$$('#curT button').forEach(b=>b.classList.toggle('on',b.dataset.c===CUR));knob($('#curT'));}
+function setCur(c){if(c===CUR)return;CUR=c;cuTok++;try{localStorage.setItem('placetCur',c);}catch(e){}
+  syncCur();paint();fitAllH();CURH.forEach(f=>f());fitDl();$$('.tg.seg').forEach(knob);
+  if(!RM){const s=slides[cur];$$('.mny',s).forEach((e,i)=>e.animate([{opacity:0,transform:'translateY(.5em)'},{opacity:1,transform:'none'}],{duration:460,delay:Math.min(i,24)*16,easing:EASE,fill:'backwards'}));
+    $$('svg[data-cur]',s).forEach(g=>g.animate([{opacity:.2},{opacity:1}],{duration:460,easing:'ease-out'}));}}
+wrapMoney(document.body);paint();
+
+/* fit */
+function fit(){const fs=!!document.fullscreenElement;document.body.classList.toggle('fs',fs);stage.style.setProperty('--s',Math.min(innerWidth/1280,(innerHeight-(fs?0:44))/720));}
+addEventListener('resize',fit);document.addEventListener('fullscreenchange',fit);fit();
+
+/* page number, page dots and step ticks */
+slides.forEach((s,i)=>{if(s.classList.contains('ko'))return;const d=document.createElement('div');d.className='pgno';d.innerHTML='<i></i><span class="bts"></span>'+(i+1);s.appendChild(d);});
+
+/* headlines: one line, shrunk to fit */
+function fitH(h){const t=$('.ht',h);if(!t)return;t.style.fontSize='';let fs=parseFloat(getComputedStyle(h).fontSize);while(t.scrollWidth>h.clientWidth+1&&fs>50){fs-=2;t.style.fontSize=fs+'px';}}
+const fitAllH=()=>$$('.h2').forEach(fitH);
+function shrink(el,min){el.style.fontSize='';let fs=parseFloat(getComputedStyle(el).fontSize);while(el.scrollWidth>el.clientWidth+1&&fs>min){fs-=1;el.style.fontSize=fs+'px';}}
+function fitDl(){$$('.dl b,.dl em').forEach(e=>shrink(e,22));}
+function fitBk(){$$('#bmc .bk').forEach(e=>shrink(e,15));}
+
+/* hero words: split into letters, sized to the width of the stage */
+function splitKo(w){let j=0;const wrap=document.createElement('span');wrap.className='kin';wrap.style.display='inline-block';
+  const walk=(node,into)=>{[...node.childNodes].forEach(c=>{if(c.nodeType===3){[...c.textContent].forEach(ch=>{const i=document.createElement('i');if(ch===' '){i.className='sp';i.innerHTML='&nbsp;';}else i.textContent=ch;i.style.setProperty('--j',j++);into.appendChild(i);});}
+    else if(c.classList&&c.classList.contains('key')){const i=document.createElement('i');i.style.setProperty('--j',j++);i.appendChild(c.cloneNode(true));into.appendChild(i);}
+    else{const sp=c.cloneNode(false);walk(c,sp);into.appendChild(sp);}});};
+  walk(w,wrap);w.textContent='';w.appendChild(wrap);w.setAttribute('aria-label',wrap.textContent.replace(/\s+/g,' ').trim());}
+$$('.kw').forEach(splitKo);
+function fitKo(s){const w=$('.kw',s);if(!w)return;const k=$('.kin',w);w.style.fontSize='100px';const fs=Math.min(+w.dataset.max||330,100*1200/k.offsetWidth);w.style.fontSize=fs+'px';
+  const wh=w.offsetHeight,cb=[...$$('.kc',s)].reduce((m,c)=>Math.max(m,c.offsetHeight),0),total=wh+34+cb,kt=Math.max(90,78+(594-total)/2),ct=kt+wh+34;
+  s.style.setProperty('--kt',kt+'px');s.style.setProperty('--ct',ct+'px');s.style.setProperty('--bt',Math.min(ct-30,672-196-26)+'px');
+  const wv=$('.wv',s);if(wv)drawWave(wv,kt+wh*.5,wh);}
+function drawWave(svg,cy,wh){clear(svg);svg._bars=[];const n=74,gap=1200/n;for(let i=0;i<n;i++){const env=Math.pow(Math.sin(Math.PI*(i+.5)/n),.55),v=Math.abs(.62*Math.sin(i*.55+.4)+.38*Math.sin(i*.19+1.3)),h=Math.max(10,wh*1.2*env*(.22+.78*v));
+  const r=S(svg,'rect',{x:i*gap+gap/2-3.5,y:cy-h/2,width:7,height:h,rx:3.5});r.style.setProperty('--j',Math.abs(i-n/2));svg._bars.push({r,h0:h,cy,x:i*gap+gap/2,cur:1});}}
+/* the black strap on poster slides runs like a ticker */
+$$('.strap').forEach(st=>{const t=st.textContent.trim();st.classList.add('tk');st.setAttribute('aria-label',t);st.innerHTML='<div class="trk" aria-hidden="true">'+Array(4).fill('<span>'+t+' ·</span>').join('')+'</div>';});
+function tkDur(){$$('.strap .trk').forEach(k=>{const w=k.scrollWidth/2;if(w)k.style.setProperty('--td',(w/34).toFixed(1)+'s');});}
+const fitAll=()=>{fitAllH();$$('.slide.ko').forEach(fitKo);fitDl();fitBk();tkDur();$$('.tg.seg').forEach(knob);knob($('#curT'));};
+
+/* ================= motion: numbers count up, items arrive one after another ================= */
+const CU_SEL='.kg b,.chain4 b,.tiers b,.msz .it b,.rd b,.hb b,.clr b,.dl:not(.g) b,.acc .vd';
+function countUp(el,delay){if(RM)return;const tg=el.querySelector('.mny')||el,txt=tg._cuT!=null?tg._cuT:tg.textContent,m=txt.match(/^([^\d]*?)(\d[\d,]*(?:\.\d+)?)([\s\S]*)$/);
+  if(!m||/[A-Za-z]/.test(m[1]))return;const raw=m[2],num=parseFloat(raw.replace(/,/g,''));if(!num)return;
+  const dec=(raw.split('.')[1]||'').length,grp=raw.indexOf(',')>-1?(/\d,\d\d,\d/.test(raw)?'en-IN':'en-US'):null;
+  const fmt=v=>{let s=v.toFixed(dec);if(grp){const p=s.split('.');s=Number(p[0]).toLocaleString(grp)+(p[1]?'.'+p[1]:'');}return m[1]+s+m[3];};
+  const me=(tg._cuK=(tg._cuK||0)+1),tok=cuTok;tg._cuT=txt;let last=fmt(0);tg.textContent=last;const t0=performance.now()+(delay||0);
+  (function f(t){if(tg._cuK!==me)return;if(tg.textContent!==last){tg._cuT=null;return;}if(tok!==cuTok){if(!tg.classList.contains('mny'))tg.textContent=txt;tg._cuT=null;return;}
+    const k=Math.min(1,Math.max(0,(t-t0)/950));last=k>=1?txt:fmt(num*eo(k));tg.textContent=last;if(k<1)requestAnimationFrame(f);else tg._cuT=null;})(performance.now());}
+function countAll(root,base,skipPages){$$(CU_SEL,root).forEach((e,i)=>{if(skipPages&&e.closest('.page'))return;if(e.closest('[style*="display:none"]'))return;countUp(e,base+i*80);});}
+const IT_SEL='.steps>div,.c3>div,.kg>div,.chain4>div,.tiers>div,.rows>div,.rk>div,.pv4>div,.tl3>div,.dec>*,.hb,.fr,.clr,.tb tr,.cmp tr,.sld,.ctl,.y1r>div,.page>p,.rd,.dcol h4,.dl,.acc .ar';
+function revealPage(p,base){if(!p)return;base=base||0;
+  if(!RM){$$(IT_SEL,p).forEach((e,i)=>e.animate([{opacity:0,transform:'translateY(22px)'},{opacity:1,transform:'none'}],{duration:720,delay:base+90+Math.min(i,14)*65,easing:EASE,fill:'backwards'}));special(p,base);}
+  countAll(p,base+160,false);}
+function special(p,base){
+  const ok=$$('.cmp td.us .ok',p);if(ok.length){const rows=$$('.cmp tr',p).length;ok.forEach((e,i)=>e.animate([{transform:'scale(0)'},{transform:'scale(1.6)',offset:.6},{transform:'scale(1.2)'}],{duration:620,delay:base+rows*65+380+i*150,easing:'ease-out',fill:'backwards'}));}
+  const tl=$('.tl3',p);if(tl){try{tl.animate([{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{pseudoElement:'::before',duration:1200,delay:base+160,easing:EASE,fill:'backwards'});}catch(e){}
+    $$('.tl3 i',p).forEach((e,i)=>e.animate([{transform:'scale(0)'},{transform:'scale(1.3)',offset:.6},{transform:'none'}],{duration:620,delay:base+260+i*360,easing:'ease-out',fill:'backwards'}));
+    const k=$('.tl3 .key2 i',p);if(k)k.animate([{boxShadow:'0 0 0 0 rgba(196,2,2,.55)'},{boxShadow:'0 0 0 30px rgba(196,2,2,0)'}],{duration:1300,delay:base+1100,iterations:3,easing:'ease-out'});}
+  const ts=$('.tlsvg',p);if(ts){$$('line',ts).forEach((l,i)=>{const len=Math.abs(l.x2.baseVal.value-l.x1.baseVal.value);l.style.strokeDasharray=len;l.animate([{strokeDashoffset:len},{strokeDashoffset:0}],{duration:950,delay:base+160+i*850,easing:EASE,fill:'backwards'});});
+    $$('circle',ts).forEach((c,i)=>{c.style.transformBox='fill-box';c.style.transformOrigin='center';c.animate([{transform:'scale(0)'},{transform:'scale(1.5)',offset:.6},{transform:'none'}],{duration:620,delay:base+950+i*850,easing:'ease-out',fill:'backwards'});});}}
+
+/* ================= switches: every chart has one; T flips the one on screen ================= */
+const TG={};
+function knob(seg){if(!seg)return;let k=$('.knob',seg);if(!k){k=document.createElement('i');k.className='knob';seg.insertBefore(k,seg.firstChild);}const on=$('button.on',seg);
+  if(on&&on.offsetWidth){k.style.left=on.offsetLeft+'px';k.style.width=on.offsetWidth+'px';k.style.opacity=1;}else k.style.opacity=0;}
+function mkTg(name,fn){const el=$('.tg[data-tg="'+name+'"]');if(!el)return null;const on=$('button.on',el),o={name,el,fn,v:on?on.dataset.v:null,opts:$$('button',el).map(b=>b.dataset.v)};TG[name]=o;
+  $$('button',el).forEach(b=>{b.setAttribute('aria-pressed',b===on);b.addEventListener('click',()=>tgSet(name,b.dataset.v));});return o;}
+function tgMark(name,v){const o=TG[name];if(!o)return;o.v=o.opts.includes(v)?v:null;$$('button',o.el).forEach(b=>{const on=b.dataset.v===o.v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});knob(o.el);}
+function tgSet(name,v,quiet){const o=TG[name];if(!o||o.v===v)return;tgMark(name,v);o.fn(v,!!quiet);}
+function tgCycle(){const s=slides[cur],pg=s._pg||0,g=$$('.tgg',s).find(e=>e.dataset.pg==null||+e.dataset.pg===pg);let el=g?$('.tg',g):null;
+  if(!el){const p=pages(s);el=$('.tg',p.length?p[pg]:s);}if(!el)return;const o=TG[el.dataset.tg];if(!o)return;const i=o.opts.indexOf(o.v);tgSet(o.name,o.opts[(i+1)%o.opts.length]);}
+function updTgg(s){const pg=s._pg||0;$$('.tgg',s).forEach(g=>{const on=g.dataset.pg==null||+g.dataset.pg===pg;if(on&&!g.classList.contains('cur')){g.classList.add('cur');restyle(g);$$('.tg.seg',g).forEach(knob);}else if(!on)g.classList.remove('cur');});}
+/* move a slider smoothly, as if someone dragged it */
+function slideTo(inp,v,quiet,cb){const a=+inp.value;if(quiet||RM||Math.abs(a-v)<1e-9){inp.value=v;cb();return;}tween(inp.id,850,k=>{inp.value=lerp(a,v,k);if(k>=1)inp.value=v;cb();});}
+
+/* ================= steps: each click of the clicker shows the next thing on a page ================= */
+const BEATS={};let STEPS=true;try{if(localStorage.getItem('placetSteps')==='off')STEPS=false;}catch(e){}
+function beats(id,pg,n,set){BEATS[id+':'+pg]={n,set};}
+const bkey=s=>s.dataset.id+':'+(s._pg||0);
+function beatN(s){const b=BEATS[bkey(s)];return b&&STEPS?b.n:0;}
+function updPg(s){const d=$('.pgno',s);if(!d)return;const p=pages(s),n=s._pg||0;$('i',d).textContent=p.length>1?p.map((x,i)=>i===n?'●':'○').join(''):'';
+  const N=beatN(s),k=s._bt||0;$('.bts',d).innerHTML=N?Array.from({length:N},(_,i)=>'<b'+(i<k?' class="on"':'')+'></b>').join(''):'';}
+function setBeat(s,i){const b=BEATS[bkey(s)];s._bt=i;if(b)b.set(i,false);updPg(s);}
+function resetBeat(s){s._bt=0;const b=BEATS[bkey(s)];if(b)b.set(0,true);updPg(s);}
+/* spotlight: one item (or a few) at full strength, the rest stepped back */
+function spot(el,ix){if(!el)return;const set=Array.isArray(ix)?ix:(ix==null||ix<0?[]:[ix]),kids=el.tagName==='TABLE'?[...el.rows]:[...el.children];
+  el.classList.toggle('spot',set.length>0);kids.forEach((k,i)=>k.classList.toggle('fo',set.includes(i)));}
+
+/* pages: each page carries its own eyebrow and headline */
+const pages=s=>$$('.page',s);
+slides.forEach(s=>{const ht=$('.h2 .ht',s);if(ht)ht.dataset.src=ht.textContent;});
+function retitle(s,eb,t,quiet){const h=$('.h2',s);if(!h)return;const ebE=$('.eb',h),ht=$('.ht',h);if(ht.dataset.src===t&&(!ebE||eb==null||ebE.textContent===eb))return;
+  const swap=()=>{if(ebE&&eb!=null)ebE.textContent=eb;ht.textContent=t;ht.dataset.src=t;money(ht);fitH(h);};h.getAnimations().forEach(a=>a.cancel());
+  if(quiet||RM||!s.classList.contains('active')){swap();return;}
+  h.animate([{opacity:1},{opacity:0}],{duration:160,fill:'forwards'}).onfinish=()=>{swap();h.getAnimations().forEach(a=>a.cancel());
+    h.animate([{clipPath:'inset(100% -4% -12% -4%)',transform:'translateY(34px)'},{clipPath:'inset(-12% -4% -12% -4%)',transform:'none'}],{duration:800,easing:EASE});};}
+function pageTitle(s,n,eb,t,quiet){const p=pages(s)[n];if(!p)return;p.dataset.eb=eb;p.dataset.t=t;if((s._pg||0)===n)retitle(s,eb,t,quiet);}
+function setPage(s,n,quiet){const p=pages(s);if(!p.length)return;const was=s._pg;s._pg=n;p.forEach((x,i)=>{if(i===was&&i!==n)x.getAnimations({subtree:true}).forEach(a=>{if(a.effect&&a.effect.target!==x)a.cancel();});x.classList.toggle('cur',i===n);});[...p[n].children].forEach(restyle);updTgg(s);resetBeat(s);
+  const pg=p[n];if(pg.dataset.t)retitle(s,pg.dataset.eb||'',pg.dataset.t,quiet);
+  if(!quiet)revealPage(pg,0);
+  const hk=hooks[s.dataset.id];if(hk&&hk.page&&!quiet)hk.page(n);}
+function setHead(s,pg){const h=$('.h2',s),ht=$('.ht',h);if(!h||s._pg==null||pages(s)[s._pg]!==pg)return;ht.textContent=pg.dataset.t;ht.dataset.src=pg.dataset.t;money(ht);fitH(h);}
+
+/* transitions: the old slide fades, the new one builds itself; a red wipe opens each new section */
+const WP=document.createElement('div');WP.id='wipe';WP.innerHTML='<b></b>';stage.appendChild(WP);let wiping=null;
+function wipe(dir,label,swap){const b=$('b',WP);b.textContent=label;WP.style.visibility='visible';let swapped=false;const doSwap=()=>{if(!swapped){swapped=true;swap();}};
+  const end=()=>{WP.getAnimations().forEach(a=>a.cancel());b.getAnimations().forEach(a=>a.cancel());WP.style.visibility='hidden';wiping=null;};
+  wiping={finish(){end();doSwap();}};
+  b.animate([{transform:'translateX('+dir*40+'%)'},{transform:'translateX('+(-dir*12)+'%)'}],{duration:960,easing:'cubic-bezier(.3,.6,.4,1)',fill:'forwards'});
+  WP.animate([{transform:'translateX('+dir*101+'%)'},{transform:'translateX(0)'}],{duration:310,easing:'cubic-bezier(.7,0,.84,0)',fill:'forwards'}).onfinish=()=>{doSwap();
+    WP.animate([{transform:'translateX(0)'},{transform:'translateX('+(-dir*101)+'%)'}],{duration:480,delay:150,easing:'cubic-bezier(.16,1,.3,1)',fill:'forwards'}).onfinish=end;};}
+function go(n){n=Math.max(0,Math.min(slides.length-1,n));if(wiping)wiping.finish();if(n===cur)return;
+  const a=cur>=0?slides[cur]:null,b=slides[n];
+  if(a&&!RM&&a.dataset.sec!==b.dataset.sec&&b.dataset.sec!=='Opening'){wipe(n<cur?-1:1,b.dataset.sec,()=>show(n));return;}
+  show(n);}
+function show(n){if(n===cur)return;
+  const prev=cur>=0?slides[cur]:null,next=slides[n],back=n<cur;
+  if(prev){clearTimeout(prev._t);prev.getAnimations().forEach(a=>a.cancel());prev.classList.remove('active');prev.classList.add('leaving');
+    if(!RM)prev.animate([{opacity:1},{opacity:0}],{duration:280,easing:'ease-in',fill:'forwards'});
+    prev._t=setTimeout(()=>{prev.getAnimations({subtree:true}).forEach(a=>a.cancel());prev.classList.remove('leaving','on');},300);const h=hooks[prev.dataset.id];if(h&&h.leave)h.leave();}
+  clearTimeout(next._t);next.getAnimations().forEach(a=>a.cancel());next.classList.remove('leaving','on');next.classList.add('active');restyle(next);
+  if(!RM&&prev)next.animate([{opacity:0},{opacity:1}],{duration:260,delay:140,easing:'ease-out',fill:'backwards'});
+  if(prev){prev.classList.remove('kdone');clearTimeout(prev._kd);}clearTimeout(next._kd);next.classList.remove('kdone');if(next.classList.contains('ko'))next._kd=setTimeout(()=>next.classList.add('kdone'),2400);
+  cur=n;const p=pages(next);if(p.length)setPage(next,back?p.length-1:0,true);else{updTgg(next);resetBeat(next);}
+  requestAnimationFrame(()=>requestAnimationFrame(()=>next.classList.add('on')));
+  countAll(next,420,true);if(p.length)revealPage(p[next._pg],220);
+  if(next.dataset.id==='canvas'&&!RM)$$('#bmc .bk').forEach((b,i)=>b.animate([{opacity:0,transform:'scale(.9)'},{opacity:1,transform:'none'}],{duration:650,delay:260+i*70,easing:EASE,fill:'backwards'}));
+  const h=hooks[next.dataset.id];if(h)setTimeout(()=>{if(cur!==n)return;if(h.enter)h.enter();if(h.page&&p.length)h.page(next._pg);},prev?380:200);
+  try{history.replaceState(null,'','#'+next.dataset.id);}catch(e){}
+  updWave();updTop();updNotes();if(!started&&n>0){started=true;t0=Date.now();}}
+let started=false,t0=0;
+function next(){if(wiping){wiping.finish();return;}const s=slides[cur];if(s.dataset.id==='demo'&&demoNext())return;
+  const n=beatN(s),b=s._bt||0;if(b<n){setBeat(s,b+1);return;}
+  const p=pages(s);if(p.length&&s._pg<p.length-1){setPage(s,s._pg+1);return;}go(cur+1);}
+function prev(){if(wiping){wiping.finish();return;}const s=slides[cur],b=s._bt||0;if(b>0&&beatN(s)){setBeat(s,b-1);return;}
+  const p=pages(s);if(p.length&&s._pg>0){setPage(s,s._pg-1);return;}go(cur-1);}
+function skipNext(){if(wiping){wiping.finish();return;}const s=slides[cur],p=pages(s);if(p.length&&s._pg<p.length-1){setPage(s,s._pg+1);return;}go(cur+1);}
+function skipPrev(){if(wiping){wiping.finish();return;}const s=slides[cur],p=pages(s);if(p.length&&s._pg>0){setPage(s,s._pg-1);return;}go(cur-1);}
+
+/* top bar: logo, the ₹/$ switch, and the red pill that shows the section we are in */
+const SECS=['Problem','Solution','Competition','Market','Model','Financials','Operations','Risks','Ask'];
+const topBar=document.createElement('div');topBar.id='top';
+topBar.innerHTML='<div class="logo">Placet<small>Consented call data</small></div><div id="curT" role="group" aria-label="Currency"><button data-c="inr" aria-label="Show rupees">₹</button><button data-c="usd" aria-label="Show dollars">$</button></div><nav id="secs" aria-label="Sections"><span class="pill"></span></nav>';stage.appendChild(topBar);
+$$('#curT button').forEach(b=>b.addEventListener('click',()=>setCur(b.dataset.c)));
+const secs=$('#secs',topBar),pill=$('.pill',secs);
+SECS.forEach(sec=>{const b=document.createElement('button');b.textContent=sec;b.dataset.sec=sec;b.addEventListener('click',()=>{const i=slides.findIndex(s=>s.dataset.sec===sec);if(i>=0)go(i);});secs.appendChild(b);});
+function updTop(){const sec=slides[cur].dataset.sec;let hit=null;$$('button',secs).forEach(b=>{const on=b.dataset.sec===sec;b.classList.toggle('cur',on);if(on)hit=b;});
+  if(hit){pill.style.left=hit.offsetLeft+'px';pill.style.width=hit.offsetWidth+'px';pill.style.opacity=1;}else pill.style.opacity=0;}
+
+/* nav */
+const wave=$('#wave'),tip=document.createElement('div');tip.className='tip';wave.appendChild(tip);
+slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label',(i+1)+'. '+s.dataset.title);b.innerHTML='<i></i>';b.addEventListener('click',()=>go(i));
+  b.addEventListener('mouseenter',()=>{const r=b.getBoundingClientRect();tip.textContent=(i+1)+'. '+s.dataset.title;tip.style.left=(r.left+r.width/2)+'px';tip.style.opacity=1;});
+  b.addEventListener('mouseleave',()=>tip.style.opacity=0);wave.appendChild(b);});
+function updWave(){$$('button',wave).forEach((b,i)=>{b.classList.toggle('cur',i===cur);b.classList.toggle('past',i<cur);});}
+const mcols=$('#mcols'),groups={};
+slides.forEach((s,i)=>{const g=s.dataset.sec;if(!groups[g]){const d=document.createElement('div');d.className='mch';d.innerHTML='<h4>'+g+'</h4>';mcols.appendChild(d);groups[g]=d;}
+  const b=document.createElement('button');b.innerHTML='<span>'+(i+1)+'</span>'+s.dataset.title;b.addEventListener('click',()=>{toggleMenu(false);go(i);});groups[g].appendChild(b);});
+function toggleMenu(on){const m=$('#menu');on=on==null?!m.classList.contains('on'):on;m.classList.toggle('on',on);$$('button',mcols).forEach((b,i)=>b.classList.toggle('cur',i===cur));}
+function updNotes(){const s=slides[cur];$('#nTitle').textContent=(cur+1)+' / '+slides.length+'  '+s.dataset.title;const a=$('.notes',s);$('#nBody').textContent=a?a.textContent:'';}
+setInterval(()=>{if(!started)return;const t=Math.floor((Date.now()-t0)/1000);$('#nTimer').textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');},1000);
+const TOAST=document.createElement('div');TOAST.id='toast';document.body.appendChild(TOAST);
+function toast(t){TOAST.textContent=t;TOAST.classList.add('on');clearTimeout(TOAST._t);TOAST._t=setTimeout(()=>TOAST.classList.remove('on'),1500);}
+const toggleNotes=()=>$('#notes').classList.toggle('on'),toggleLaser=()=>document.body.classList.toggle('laser'),flipCur=()=>setCur(CUR==='inr'?'usd':'inr');
+function toggleBlack(){const b=$('#black');b.style.display=b.style.display==='block'?'none':'block';}
+function toggleFull(){try{if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen();}catch(e){}}
+function syncSteps(){const b=$('#hSteps');b.textContent='Steps '+(STEPS?'on':'off')+' (S)';b.classList.toggle('off',!STEPS);}
+function toggleSteps(){STEPS=!STEPS;try{localStorage.setItem('placetSteps',STEPS?'on':'off');}catch(e){}syncSteps();const s=slides[cur];if(!STEPS&&s._bt)resetBeat(s);updPg(s);toast(STEPS?'Steps on: each click shows the next thing':'Steps off: each click turns the page');}
+$('#hMenu').onclick=()=>toggleMenu();$('#hNotes').onclick=toggleNotes;$('#hLaser').onclick=toggleLaser;$('#hFull').onclick=toggleFull;$('#hCur').onclick=flipCur;$('#hSteps').onclick=toggleSteps;$('#black').onclick=toggleBlack;syncSteps();
+addEventListener('keydown',e=>{const inR=e.target&&e.target.tagName==='INPUT';if(e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==='Escape'){toggleMenu(false);$('#black').style.display='none';$('#notes').classList.remove('on');return;}
+  if($('#menu').classList.contains('on')&&!'mM'.includes(e.key))return;
+  if(inR&&e.key.startsWith('Arrow'))return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next();}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();prev();}
+  else if(e.key==='ArrowDown'){e.preventDefault();skipNext();}else if(e.key==='ArrowUp'){e.preventDefault();skipPrev();}
+  else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
+  else if('mMgG'.includes(e.key))toggleMenu();else if('nN'.includes(e.key))toggleNotes();else if('lL'.includes(e.key))toggleLaser();
+  else if('dD'.includes(e.key))flipCur();else if('tT'.includes(e.key))tgCycle();else if('sS'.includes(e.key))toggleSteps();
+  else if((e.key==='1'||e.key==='2')&&slides[cur].dataset.id==='demo')demoAnswer(e.key);
+  else if('rR'.includes(e.key)&&slides[cur].dataset.id==='demo')runDemo();
+  else if('bB.'.includes(e.key))toggleBlack();else if('fF'.includes(e.key))toggleFull();});
+let idleT;addEventListener('mousemove',e=>{document.body.classList.remove('idle');clearTimeout(idleT);idleT=setTimeout(()=>document.body.classList.add('idle'),2500);const L=$('#laser');L.style.left=e.clientX+'px';L.style.top=e.clientY+'px';});
+let tsx=null,tsy=0;addEventListener('touchstart',e=>{if(e.target.closest('input,button,svg'))return;tsx=e.touches[0].clientX;tsy=e.touches[0].clientY;},{passive:true});
+addEventListener('touchend',e=>{if(tsx==null)return;const dx=e.changedTouches[0].clientX-tsx,dy=e.changedTouches[0].clientY-tsy;tsx=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+addEventListener('pointerup',()=>{const a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='BUTTON'))a.blur();});
+addEventListener('hashchange',()=>{const i=idx(location.hash.slice(1));if(i>=0)go(i);});
+
+/* ================= model (₹ lakh), month by month. Optimistic: market demand and size. Base: everything else.
+   $150K (₹1.41 crore) from one accelerator in January 2027 runs year one. After that, sales pay for everything. ================= */
+const YRS=[2027,2028,2029,2030,2031],PRICE=2800,RAISE=141;
+const SOLD={2027:3500,2028:12250,2029:30870,2030:62426,2031:107564.8};   // hours we sell each year
+const REUSE={2027:1.2,2028:1.5,2029:1.8,2030:2,2031:2};
+const CMADE={2027:3000,2028:2700,2029:2400,2030:2200,2031:2000};
+const CAPX={2027:4,2028:5,2029:10,2030:30,2031:40};      // laptops and servers, bought as people join
+const FANCH=[5.5,5.5,9,30,70.6,70.6];                     // fixed costs a month, each December; 2030 averages ₹52 lakh
+const SUBS={2027:0,2028:.3,2029:.45,2030:.55,2031:.55};    // share of sales from subscriptions, paid at the start of each month; the rest within 30 days
+const ONE=9,PILOT=60,KIT=3;                                // Jan 2027 legal opinion and launch; free-sample hours in Feb and Mar; hardware per centre
+const mkt=y=>3e5*Math.pow(1.45,y-2026);                   // hours of Indian call data bought by everyone, +45% a year
+const SHARE={};YRS.forEach(y=>SHARE[y]=SOLD[y]/mkt(y));
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],MONF=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const mname=t=>MON[t%12]+' '+(2027+Math.floor(t/12)),fname=t=>MONF[t%12]+' '+(2027+Math.floor(t/12));
+function plan(k){
+  const H=[],W=[0,0,0,1,2,3,4,5,6,7,8,9];YRS.forEach((y,yi)=>{const L=SOLD[y]*k;if(!yi){W.forEach(w=>H.push(L*w/45));return;}const s=H[H.length-1]*1.04,e=2*L/12-s;for(let i=0;i<12;i++)H.push(s+(e-s)*i/11);});H.push(H[59]*1.04);
+  const yr=t=>2027+Math.min(4,Math.floor(t/12)),Fm=t=>{const q=Math.floor(t/12),i=t%12;return q?FANCH[q]+(FANCH[q+1]-FANCH[q])*(i+1)/12:FANCH[0];};
+  let units=0;const MR=[];for(let t=0;t<60;t++){const y=yr(t),h=H[t],made=H[t+1]/REUSE[yr(t+1)]+(t===1||t===2?PILOT:0),need=Math.max(1,Math.ceil(made/420)),add=Math.max(0,need-units);units=Math.max(units,need);
+    const R=h*PRICE/1e5,V=made*CMADE[y]/1e5+units*.35,F=Fm(t)+(t?0:ONE);MR.push({t,y,h,made,units,R,V,F,E:R-V-F,hw:t?add*KIT:KIT,cap:CAPX[y]/12});}
+  MR.forEach((x,t)=>{x.cin=(t?MR[t-1].R*(1-SUBS[MR[t-1].y]):0)+x.R*SUBS[x.y];});
+  let loss=0,eq=RAISE;const capH=[];const D=YRS.map(y=>{const r=MR.filter(x=>x.y===y),s=q=>r.reduce((a,x)=>a+x[q],0);capH.push(s('hw')+s('cap'));const DA=capH.slice(-3).reduce((a,b)=>a+b,0)/3,E=s('E'),EBIT=E-DA;let tx=0;
+    if(EBIT<0)loss+=-EBIT;else{const u=Math.min(loss,EBIT);loss-=u;tx=(EBIT-u)*.2517;}const PAT=EBIT-tx,roe=PAT/eq;eq+=PAT;return{y,M:mkt(y),L:s('h'),U:s('made'),units:r[11].units,R:s('R'),V:s('V'),F:s('F'),E,DA,EBIT,tx,PAT,roe};});
+  let cash=RAISE,cum=0,low=1e9,lowT=0;MR.forEach(x=>{x.tax=x.t%12===11?D[x.y-2027].tx:0;x.cf=x.cin-x.V-x.F-x.hw-x.cap-x.tax;cash+=x.cf;cum+=x.cf;x.cash=cash;x.cum=cum;if(cash<low){low=cash;lowT=x.t;}});
+  D.forEach((d,i)=>{d.FCF=MR.slice(i*12,i*12+12).reduce((a,x)=>a+x.cf,0);d.cum=MR[i*12+11].cum;d.cashEnd=MR[i*12+11].cash;});
+  let beT=-1;for(let t=59;t>=0;t--){if(MR[t].E<0){beT=t+1;break;}}let pbT=-1;for(let t=59;t>=0;t--){if(MR[t].cum<0){pbT=t+1;break;}}
+  return{MR,D,low,lowT,beT,pbT};}
+const P=plan(1),MR=P.MR,D=P.D,M1=MR.slice(0,12);
+const toU=v=>CUR==='inr'?v/100:v*1e5/FX/1e6;
+const crL=v=>v>=1e7?'₹'+(v/1e7>=100?Math.round(v/1e7):+(v/1e7).toFixed(1))+' crore':'₹'+Math.round(v/1e5)+' lakh';   // a rupee amount in crore or lakh
+
+/* ================= bar lists ================= */
+function hbars(el,data,max,fmt){el.innerHTML=data.map(d=>'<div class="hb"><span>'+d[0]+'</span><div class="bar"><i data-w="'+(d[1]/max*100)+'"></i></div><b>'+fmt(d)+'</b></div>').join('');money(el);}
+function grow(root){$$('.hb .bar i',root).forEach((i,j)=>{i.style.transition='none';i.style.width=0;void i.offsetWidth;i.style.transition='';setTimeout(()=>i.style.width=i.dataset.w+'%',150+j*110);});}
+function hbSet(el,data,max,fmt,rebuild){const rows=$$('.hb',el);
+  if(rebuild||rows.length!==data.length){hbars(el,data,max,fmt);if(!RM)$$('.hb',el).forEach((r,i)=>r.animate([{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'}],{duration:600,delay:i*70,easing:EASE,fill:'backwards'}));grow(el);countAll(el,150,false);return;}
+  data.forEach((d,i)=>{const r=rows[i];$('span',r).textContent=d[0];const bi=$('.bar i',r);bi.dataset.w=d[1]/max*100;bi.style.width=bi.dataset.w+'%';const b=$('b',r);b.innerHTML=fmt(d);money(b);countUp(b,i*60);});}
+const L1=d=>'₹'+d[1].toFixed(1)+' L';
+const pg=(id,n)=>pages(slides[idx(id)])[n],SL=id=>slides[idx(id)];
+
+/* revenue by stream: 2030 or 2031 */
+const RVS=[['Subscriptions',.55],['Ready-made licences',.25],['Custom collection',.15],['Test sets',.05]],RVMAX=D[4].R/100*.55;
+const rvData=y=>RVS.map(r=>[r[0],D[y-2027].R/100*r[1]]),rvF=d=>'₹'+d[1].toFixed(1)+' Cr';
+hbars($('#rvBars'),rvData(2030),RVMAX,rvF);
+mkTg('rv',(v,q)=>{const y=+v;hbSet($('#rvBars'),rvData(y),RVMAX,rvF);pageTitle(SL('model'),1,'Revenue, '+y,'₹'+(D[y-2027].R/100).toFixed(1)+' crore from four streams',q);});
+beats('model',1,1,(i,q)=>tgSet('rv',i?'2031':'2030',q));
+hooks.model={page(n){if(n===1)grow(pg('model',1));}};
+
+/* fixed costs: 2030 or year one; variable costs: per hour made or sold */
+const FX30=[['Salaries',35],['Tech and cloud',5],['Sales and marketing',4.5],['Office and admin',3.5],['Legal and insurance',2.5],['Partner onboarding',1.5]],FXY1=[['Salaries',2.4],['Tech, office and legal',2.1],['Sales and marketing',1]];
+const fxF=d=>'₹'+d[1]+' L';
+hbars($('#fxBars'),FX30,35,fxF);
+mkTg('fx',(v,q)=>{const y1=v==='y1';hbSet($('#fxBars'),y1?FXY1:FX30,35,fxF,true);pageTitle(SL('costs'),0,y1?'Fixed costs, year one':'Fixed costs, 2030',y1?'₹5.5 lakh a month in 2027':'₹52 lakh a month to run',q);});
+beats('costs',0,1,(i,q)=>tgSet('fx',i?'y1':'2030',q));
+const VR=[['Labelling and checks',850],['Muting and storage',100],['AI pre-labelling',90],['Consent calls, SMS',60]],vrData=m=>VR.map(r=>[r[0],r[1]*(m?2:1)]),vrF=d=>'₹'+nIN(d[1]);
+hbars($('#vrBars'),vrData(true),1700,vrF);
+mkTg('vr',(v,q)=>{const m=v==='m';hbSet($('#vrBars'),vrData(m),1700,vrF);pageTitle(SL('costs'),1,m?'Variable costs, per hour made':'Variable costs, per hour sold',m?'₹2,200 to make an hour':'₹1,100 for each hour sold',q);});
+beats('costs',1,1,(i,q)=>tgSet('vr',i?'s':'m',q));
+
+/* marketing: 2030 or year one */
+const MK30=[['Conferences, travel',1.5],['Free samples',1.0],['Reports, content',0.75],['Online ads',0.75],['Referral bonuses',0.5]],MKY1=[['Free samples',0.5],['Conferences, travel',0.25],['Reports, content',0.15],['Online ads',0.1]];
+const mkF=d=>'₹'+d[1].toFixed(2)+' L';
+hbars($('#mkBars'),MK30,1.5,mkF);
+mkTg('mk',(v,q)=>{const y1=v==='y1';hbSet($('#mkBars'),y1?MKY1:MK30,1.5,mkF,true);pageTitle(SL('ops'),2,y1?'Marketing budget, year one':'Marketing budget, 2030',y1?'₹1 lakh a month in year one':'₹4.5 lakh a month',q);});
+beats('ops',2,1,(i,q)=>tgSet('mk',i?'y1':'2030',q));
+
+/* team: year one or 2031 */
+const TEAM31=[['Engineering and ML',9],['Labelling quality',6],['Centre partnerships',6],['Sales and data deals',5],['Legal, finance, admin',4]];
+hbars($('#teamB'),TEAM31,9,d=>d[1]);
+mkTg('team',(v,q)=>{const b=v==='2031',B=$('#teamB'),T=$('#teamT');B.style.display=b?'':'none';T.style.display=b?'none':'';
+  if(b){grow(B);countAll(B,150,false);if(!q&&!RM)$$('.hb',B).forEach((r,i)=>r.animate([{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'}],{duration:600,delay:i*70,easing:EASE,fill:'backwards'}));}
+  else if(!q&&!RM)$$('tr',T).forEach((r,i)=>r.animate([{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'}],{duration:600,delay:i*70,easing:EASE,fill:'backwards'}));});
+beats('ops',0,1,(i,q)=>tgSet('team',i?'2031':'y1',q));
+hooks.ops={page(n){if(n===2)grow(pg('ops',2));}};
+
+/* customers: how many companies, or how much they buy */
+const BYN=[['Indian voice-AI startups',150],['In-house AI at large firms',100],['Speech-analytics companies',60],['Universities and research labs',50],['Global AI labs',15]],BYS=[6.6,4.4,2.4,1,3.1];
+hbars($('#byBars'),BYN,150,d=>d[1]);
+mkTg('by',(v,q)=>{const s=v==='s';hbSet($('#byBars'),s?BYN.map((d,i)=>[d[0],BYS[i]]):BYN,s?6.6:150,s?(d=>'₹'+d[1].toFixed(1)+' Cr'):(d=>d[1]));
+  pageTitle(SL('customers'),0,s?'Customers, our sales in 2030':'Customers',s?'₹17.5 crore from five groups':'375 companies are buying',q);});
+beats('customers',0,1,(i,q)=>tgSet('by',i?'s':'n',q));
+
+/* year one costs */
+const Y1C=[['Labelling, checks, centre software',D[0].V],['Tech, office and legal',2.1*12+5],['Salaries',2.4*12],['Sales and marketing',1*12+4],['Laptops and centre kits',M1.reduce((a,r)=>a+r.hw+r.cap,0)]];
+hbars($('#y1Bars'),Y1C,Y1C[0][1],L1);
+
+/* ================= demand growth: hours or money; clicks walk through it ================= */
+const GY=[2026,...YRS];let grV='h',grHi=-1,grHov=-1,grNow=null,grG=[],grRO=null;
+function grTarget(v){const f=v==='h'?1/1e5:(CUR==='inr'?PRICE/1e7:PRICE/FX/1e6);return GY.map(y=>[mkt(y)*f,(y>2026?SOLD[y]:0)*f]);}
+const r1=x=>(Math.round(x*10+1e-9)/10).toFixed(1),grF=x=>grV==='h'||CUR!=='inr'?r1(x):String(Math.round(x));
+function grText(i){const y=GY[i],h=mkt(y),v=h*PRICE;
+  if(grV==='h')return y+': '+r1(h/1e5)+' lakh hours'+(i?'. We sell '+(SHARE[y]*100).toFixed(1)+'%':'');
+  return y+': worth '+mt(v,crL(v))+(i?'. Ours: '+mt(SOLD[y]*PRICE,crL(SOLD[y]*PRICE)):'');}
+function drawGrowth(vals,k){const svg=$('#grChart');clear(svg);grG=[];k=k==null?1:k;const base=338,mx=Math.max(...vals.map(v=>v[0]))||1,Y=v=>v/mx*262,X=i=>40+i*172,w=110;
+  S(svg,'text',{x:40,y:20,style:'font-size:28px;fill:'+A70},grV==='h'?'Lakh hours bought a year':(CUR==='inr'?'₹ crore':'$ million')+' spent a year');
+  S(svg,'rect',{x:40,y:38,width:20,height:20,fill:RED});S(svg,'text',{x:70,y:56,style:'font-size:28px;font-weight:800;fill:'+RED},'Placet’s share');
+  vals.forEach((v,i)=>{const h=Y(v[0])*k,ho=Y(v[1])*k,g=S(svg,'g',{});grG.push(g);
+    S(g,'rect',{x:X(i),y:base-h,width:w,height:Math.max(0,h),fill:ASH});if(ho>.5)S(g,'rect',{x:X(i),y:base-ho,width:w,height:ho,fill:RED});
+    S(g,'text',{x:X(i)+w/2,y:base-h-14,'text-anchor':'middle',style:'font-size:36px;font-weight:700'},grF(v[0]*k));
+    S(g,'text',{x:X(i)+w/2,y:base+38,'text-anchor':'middle',style:'font-size:28px;fill:'+A70},GY[i]);
+    if(i){const y=GY[i],o=SOLD[y]*PRICE;S(g,'text',{x:X(i)+w/2,y:base+72,'text-anchor':'middle',style:'font-size:26px;font-weight:800;fill:'+RED},grV==='h'?(SHARE[y]*100).toFixed(1)+'%':mt(o,o>=1e7?'₹'+(o/1e7).toFixed(1)+' Cr':'₹'+Math.round(o/1e5)+' L'));}});
+  grRO=S(svg,'text',{x:1088,y:20,'text-anchor':'end',style:'font-size:28px;font-weight:800'},'');
+  GY.forEach((y,i)=>{const hr=S(svg,'rect',{x:X(i)-24,y:0,width:w+48,height:420,fill:'transparent'});hr.style.cursor='pointer';hr.addEventListener('pointerenter',()=>{grHov=i;grPaint();});});
+  grPaint();}
+function grPaint(){const hi=grHov>=0?grHov:grHi;grG.forEach((g,i)=>g.setAttribute('opacity',hi<0||hi===i?1:.28));if(grRO)grRO.textContent=hi>=0?grText(hi):'';}
+$('#grChart').addEventListener('pointerleave',()=>{grHov=-1;grPaint();});
+mkTg('gr',(v,q)=>{const from=grNow;grV=v;const to=grTarget(v);if(q||!from){grNow=to;drawGrowth(to,1);return;}
+  tween('gr',900,k=>{grNow=from.map((a,i)=>[lerp(a[0],to[i][0],k),lerp(a[1],to[i][1],k)]);drawGrowth(grNow,1);});});
+beats('growth',0,3,(i,q)=>{grHi=i===1?1:i>=2?5:-1;const v=i===3?'v':'h';if(TG.gr.v!==v)tgSet('gr',v,q);else grPaint();});
+grNow=grTarget('h');drawGrowth(grNow,1);
+hooks.growth={enter(){grNow=grTarget(grV);anim(k=>drawGrowth(grNow,k),1400);}};CURH.push(()=>{grNow=grTarget(grV);drawGrowth(grNow,1);});
+
+/* ================= market size circles: 2027 or 2031 ================= */
+let szY=2031,szR=null,szHi=-1;
+function szData(y){const tot=mkt(y)*PRICE;return{tot,sam:tot*.6,ours:SOLD[y]*PRICE,sh:SHARE[y]};}
+const SZK=210/Math.sqrt(szData(2031).tot),szRad=y=>{const d=szData(y);return[d.tot,d.sam,d.ours].map(v=>Math.sqrt(v)*SZK);};
+function drawSize(rad,k){const svg=$('#szC');clear(svg);k=k==null?1:k;const b=430,fills=['rgba(13,13,12,.12)','rgba(13,13,12,.24)',RED],op=i=>szHi<0||szHi===i?1:.25;
+  rad.forEach((r,i)=>{const kk=Math.min(1,Math.max(0,k*1.6-i*.3));S(svg,'circle',{cx:235,cy:b-r*kk,r:Math.max(0,r*kk),fill:fills[i],opacity:op(i)});});
+  if(k<.98)return;const[r0,r1,r2]=rad,lab=(t,y,o,st)=>S(svg,'text',{x:235,y,'text-anchor':'middle',opacity:o,style:'font-size:28px;'+(st||'font-weight:600')},t);
+  lab('All',b-2*r0+42,op(0));if(r1>110)lab('Real, consented',b-2*r1+46,op(1));
+  if(r2>34)lab('Us',b-r2+10,op(2),'font-weight:700;fill:'+BG);
+  else{S(svg,'line',{x1:235+r2*.7,y1:b-r2*1.7,x2:316,y2:b-r2-62,stroke:RED,'stroke-width':3,opacity:op(2)});S(svg,'text',{x:322,y:b-r2-62,style:'font-size:28px;font-weight:800;fill:'+RED,opacity:op(2)},'Us');}}
+function szItems(y,an){const d=szData(y),c=v=>'₹'+Math.round(v/1e7)+' crore';
+  setMoney($('#szT'),d.tot,c(d.tot));setMoney($('#szS'),d.sam,c(d.sam));setMoney($('#szO'),d.ours,d.ours>=1e7?c(d.ours):'₹'+Math.round(d.ours/1e5)+' lakh');
+  $('#szOL').textContent='Our sales, '+(d.sh*100).toFixed(1)+'% of it';if(an)['#szT','#szS','#szO'].forEach((s,i)=>countUp($(s),i*90));}
+mkTg('sz',(v,q)=>{const y=+v,from=szR||szRad(szY),to=szRad(y);szY=y;szItems(y,!q);retitle(SL('size'),'Market size, '+y,'A '+'₹'+Math.round(szData(y).tot/1e7)+' crore market',q);
+  if(q){szR=to;drawSize(to,1);return;}tween('sz',1000,k=>{szR=from.map((r,i)=>lerp(r,to[i],k));drawSize(szR,1);});});
+beats('size',0,3,i=>{szHi=i-1;spot($('#szI'),i-1);drawSize(szR||szRad(szY),1);});
+szItems(2031,false);szR=szRad(2031);drawSize(szR,1);hooks.size={enter(){anim(k=>drawSize(szR,k),1400);}};
+
+/* ================= buyers: spotlight one column per click ================= */
+beats('buyers',0,3,i=>spot($('.deals',pg('buyers',0)),i-1));
+beats('buyers',1,3,i=>spot($('.deals',pg('buyers',1)),i-1));
+
+/* ================= unit economics: share of callers who press 1 ================= */
+function calcUnit(){const r=Math.round(+$('#uRate').value)/100,made=5000*.6*r*.7,sold=made*2,rev=sold*PRICE,lab=made*2200,left=rev-lab-35000,days=Math.round(3e5/left*30);
+  $('#uRateV').textContent=Math.round(r*100)+'%';$('#uMade').textContent=nIN(made);$('#uSold').textContent=nIN(sold);
+  setMoney($('#uLeft'),left,'₹'+(left/1e5).toFixed(1)+' L');setMoney($('#uHt'),left,'₹'+(left/1e5).toFixed(1)+' lakh');
+  const t=$('#uTxt');t.textContent='Revenue ₹'+(rev/1e5).toFixed(1)+' lakh. Labelling ₹'+(lab/1e5).toFixed(1)+' lakh. Free software ₹0.35 lakh. The ₹3 lakh of hardware pays back in '+(days<=7?'a week':days+' days')+'.';money(t);fitH($('.h2',SL('unit')));}
+$('#uRate').addEventListener('input',()=>{calcUnit();tgMark('unit',String(Math.round(+$('#uRate').value)));['#uMade','#uSold','#uLeft'].forEach(s=>bump($(s)));});calcUnit();
+mkTg('unit',(v,q)=>{['#uMade','#uSold','#uLeft'].forEach(s=>bump($(s)));slideTo($('#uRate'),+v,q,calcUnit);});
+beats('unit',0,2,(i,q)=>tgSet('unit',i===1?'10':i===2?'30':'20',q));
+
+/* ================= funding: cash in the bank, or profit, month by month ================= */
+let csV='c',csAt=-1,csTxt='',csPts=[];
+function drawCash(k){k=k==null?1:k;const svg=$('#cashChart');clear(svg);const u=CUR==='inr',f=u?1:LK,N=36,pv=csV==='p';
+  const lo=pv?-20:0,hi=pv?30:(u?150:160),st=pv?10:50,Y=v=>292-(v-lo)/(hi-lo)*262,XC=i=>80+i/N*990,XB=t=>80+(t+.5)/N*990;
+  for(let v=lo;v<=hi+1e-9;v+=st){S(svg,'line',{x1:80,x2:1070,y1:Y(v),y2:Y(v),stroke:v?A18:A45,'stroke-width':v?1.5:2});S(svg,'text',{x:68,y:Y(v)+9,'text-anchor':'end',style:'font-size:26px;fill:'+A70},sg(v)+Math.abs(v));}
+  const ul=S(svg,'text',{x:1070,y:16,'text-anchor':'end',style:'font-size:26px;fill:'+A70},(u?'₹ lakh':'$ thousand')+(pv?' of profit, each month':' in the bank, end of each month'));
+  [2027,2028,2029].forEach((y,i)=>{S(svg,'text',{x:XC(i*12+6),y:326,'text-anchor':'middle',style:'font-size:28px;fill:'+A70},y);if(i)S(svg,'line',{x1:XC(i*12),x2:XC(i*12),y1:Y(lo),y2:Y(lo)+10,stroke:A45,'stroke-width':2});});
+  const be=P.beT;
+  if(pv){const n=Math.round(k*N);MR.slice(0,N).forEach((m,t)=>{if(t>=n)return;const v=m.E*f,y0=Y(0),y1=Y(v);S(svg,'rect',{x:XB(t)-10,y:Math.min(y0,y1),width:20,height:Math.max(2,Math.abs(y1-y0)),rx:3,fill:v<0?RED:ASH});});
+    if(n>be){S(svg,'line',{x1:XC(be),x2:XC(be),y1:Y(lo),y2:Y(hi)+6,stroke:RED,'stroke-width':2,'stroke-dasharray':'6 8'});S(svg,'text',{x:XC(be)+12,y:Y(hi)+30,style:'font-size:26px;font-weight:800;fill:'+RED},'Profit every month from '+mname(be));}
+    csPts=MR.slice(0,N).map((m,t)=>[XB(t),Y(m.E*f)]);}
+  else{const vals=[RAISE,...MR.slice(0,N).map(x=>x.cash)].map(v=>v*f),n=Math.max(2,Math.round(k*N)+1),pts=vals.slice(0,n).map((v,i)=>[XC(i),Y(v)]);csPts=vals.map((v,i)=>[XC(i),Y(v)]);
+    S(svg,'path',{d:'M'+pts[0][0]+','+Y(0)+pts.map(p=>'L'+p[0]+','+p[1]).join('')+'L'+pts[pts.length-1][0]+','+Y(0)+'Z',fill:'rgba(13,13,12,.07)'});
+    S(svg,'polyline',{points:pts.map(p=>p.join(',')).join(' '),fill:'none',stroke:ASH,'stroke-width':5,'stroke-linejoin':'round'});
+    if(n>be+1){S(svg,'line',{x1:XC(be),x2:XC(be),y1:Y(0),y2:Y(hi)+6,stroke:RED,'stroke-width':2,'stroke-dasharray':'6 8'});S(svg,'text',{x:XC(be)+12,y:Y(hi)+30,style:'font-size:26px;font-weight:800;fill:'+RED},'Sales pay from here');}
+    S(svg,'circle',{cx:XC(0),cy:Y(vals[0]),r:10,fill:BG,stroke:ASH,'stroke-width':4});S(svg,'text',{x:XC(0)+18,y:Y(vals[0])-14,style:'font-size:28px;font-weight:800'},mt(RAISE*1e5,'₹1.41 crore')+' in');
+    const lt=P.lowT+1;if(n>lt){S(svg,'circle',{cx:XC(lt),cy:Y(vals[lt]),r:12,fill:RED});S(svg,'text',{x:XC(lt)+12,y:Y(vals[lt])-24,'text-anchor':'end',style:'font-size:26px;font-weight:800;fill:'+RED},'Lowest '+mt(P.low*1e5,'₹'+Math.round(P.low)+' lakh')+', '+mname(P.lowT));}}
+  const cl=S(svg,'line',{x1:0,x2:0,y1:Y(lo),y2:Y(hi),stroke:ASH,'stroke-width':2,opacity:0}),cd=S(svg,'circle',{cx:0,cy:0,r:9,fill:ASH,opacity:0}),ro=S(svg,'text',{x:1070,y:16,'text-anchor':'end',style:'font-size:28px;font-weight:800'},'');
+  const ptI=t=>pv?t:t+1;
+  const put=(t,txt)=>{if(t<0||!csPts[ptI(t)]){cl.setAttribute('opacity',0);cd.setAttribute('opacity',0);ro.textContent='';ul.setAttribute('opacity',1);return;}const p=csPts[ptI(t)];
+    cl.setAttribute('x1',p[0]);cl.setAttribute('x2',p[0]);cl.setAttribute('opacity',1);cd.setAttribute('cx',p[0]);cd.setAttribute('cy',p[1]);cd.setAttribute('opacity',1);ro.textContent=txt;ul.setAttribute('opacity',0);};
+  const hov=t=>{const m=MR[t];return mname(t)+': '+(pv?(m.E<0?'loss ':'profit ')+mt(Math.abs(m.E)*1e5,'₹'+Math.abs(m.E).toFixed(1)+' lakh'):mt(m.cash*1e5,'₹'+Math.round(m.cash)+' lakh'));};
+  if(k>=.999)put(csAt,csTxt);
+  const hit=S(svg,'rect',{x:80,y:0,width:990,height:300,fill:'transparent'});hit.style.cursor='crosshair';
+  const show=e=>{const r=svg.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*1088,t=pv?Math.max(0,Math.min(N-1,Math.floor((x-80)/990*N))):Math.max(1,Math.min(N,Math.round((x-80)/990*N)))-1;put(t,hov(t));};
+  hit.addEventListener('pointermove',show);hit.addEventListener('pointerdown',show);hit.addEventListener('pointerleave',()=>put(csAt,csTxt));}
+mkTg('cash',(v,q)=>{csV=v;if(q)drawCash(1);else anim(drawCash,1000);});
+const csNote=t=>t===11?'Dec 2027: year one ends with '+mt(MR[11].cash*1e5,'₹'+Math.round(MR[11].cash)+' lakh'):mname(t)+': '+mt(MR[t].cash*1e5,crL(MR[t].cash*1e5))+' in the bank';
+beats('funding',0,3,(i,q)=>{const v=i===3?'p':'c';csAt=i===1?11:i===2?35:-1;csTxt=csAt>=0?csNote(csAt):'';if(TG.cash.v!==v)tgSet('cash',v,q);else drawCash(1);});
+drawCash();CURH.push(()=>{csTxt=csAt>=0?csNote(csAt):'';drawCash();});
+
+/* accelerators: how much of the ₹1.41 crore each covers */
+const ACC=[['100X.VC','₹1.25 Cr',1.25],['Antler India','₹2.35 Cr',2.35],['Peak XV Surge','up to ₹47 Cr',47],['Techstars','₹2.07 Cr',2.07],['Y Combinator','₹4.7 Cr',4.7]];
+(function(){const el=$('#acc');el.innerHTML='<div class="ar hd"><span>Programme</span><span class="r">Invests</span><span>Share of the ₹1.41 crore we need</span><span class="r">Covers</span></div>'+ACC.map(a=>{const x=a[2]/(RAISE/100),full=x>=1;
+  return '<div class="ar '+(full?'full':'short')+'"><b>'+a[0]+'</b><span class="amt">'+a[1]+'</span><div class="mt"><i data-w="'+Math.min(100,x*100).toFixed(1)+'"></i>'+(full?'':'<em></em>')+'</div><span class="vd">'+(full?(x>=10?Math.round(x):x.toFixed(1))+'×':'₹'+Math.round(RAISE-a[2]*100)+' L short')+'</span></div>';}).join('');money(el);})();
+function growAcc(){$$('#acc .mt i').forEach((i,j)=>{i.style.transition='none';i.style.width=0;void i.offsetWidth;i.style.transition='';setTimeout(()=>i.style.width=i.dataset.w+'%',250+j*130);});}
+beats('funding',2,2,i=>spot($('#acc'),i===1?[0,1]:i===2?[0,2,3,4,5]:-1));
+hooks.funding={page(n){if(n===0)anim(drawCash,1700);if(n===2)growAcc();}};
+
+/* ================= contribution: times each hour is sold ================= */
+let licL=2;function cmUpd(){const c=2200/licL,m=PRICE-c;setMoney($('#cmP'),PRICE,inr(PRICE),'d1');setMoney($('#cmCost'),c,inr(c),'d1');setMoney($('#cmVal'),m,inr(m),'d1');$('#cmPct').textContent=Math.round(m/PRICE*100)+'%';
+  pageTitle(SL('costs'),2,'Contribution margin',inr(m)+' left from every hour'+(licL===1?' sold once':''),true);}
+mkTg('lic',v=>{licL=+v;cmUpd();[$('#cmVal'),$('#cmCost'),$('#cmPct')].forEach(bump);});cmUpd();
+beats('costs',2,2,(i,q)=>tgSet('lic',i===1?'1':i===2?'2.5':'2',q));
+hooks.costs={page(n){if(n<2)grow(pg('costs',n));}};
+
+/* ================= sales ================= */
+const SH0=SHARE[2030]*100;
+function calcSales(){const sh=+$('#sShare').value/100,p=+$('#sPrice').value,M=mkt(2030),mo=M*sh/12,sales=mo*p,units=Math.ceil(mo/2/420);
+  $('#vShare').textContent=(sh*100).toFixed(1)+'%';setMoney($('#vPrice'),p,inr(p));
+  const c=$('#chn');c.innerHTML='<div><span>Market demand, 2030</span><b>'+(M/1e5).toFixed(1)+' L hrs</b></div><div><span>Our share, per month</span><b>'+nIN(mo)+' hrs</b></div><div><span>× price per hour</span><b>'+inr(p)+'</b></div><div><span>Sales a month, from '+units+' centres</span><b>₹'+(sales/1e7).toFixed(2)+' Cr</b></div>';money(c);
+  pageTitle(SL('sales'),0,'Sales, 2030','₹'+(sales/1e7).toFixed(2)+' crore a month',true);}
+$('#sShare').value=SH0.toFixed(3);['sShare','sPrice'].forEach(id=>$('#'+id).addEventListener('input',calcSales));calcSales();
+beats('sales',0,2,(i,q)=>{slideTo($('#sShare'),i===1?SH0/2:SH0,q,calcSales);slideTo($('#sPrice'),i===2?3800:2800,q,calcSales);});
+
+/* monthly profit waterfall */
+const PLANH=SOLD[2030]/12;
+function drawWF(k){k=k==null?1:k;const f=CUR==='inr'?1:LK,d=+$('#sDelta').value/100,h=PLANH*(1+d),u=Math.ceil(h/2/420),Sx=h*PRICE/1e5,V=h/2*2200/1e5+u*.35,C=Sx-V,E=C-52,svg=$('#wf');clear(svg);
+  const Y=v=>300-v/200*270,bw=104,X=i=>8+i*142;S(svg,'line',{x1:0,x2:720,y1:Y(0),y2:Y(0),stroke:A45,'stroke-width':2});
+  S(svg,'text',{x:720,y:20,'text-anchor':'end',style:'font-size:26px;fill:'+A70},CUR==='inr'?'₹ lakh':'$ thousand');
+  const B=[['Sales',0,Sx,ASH],['Variable',C,Sx,'rgba(13,13,12,.3)'],['Margin',0,C,ASH],['Fixed',E,C,'rgba(13,13,12,.3)'],['Profit',0,E,RED]].map(b=>[b[0],b[1]*f,b[2]*f,b[3]]);
+  B.forEach((b,i)=>{const lo=Math.min(b[1],b[2]),hi=Math.max(b[1],b[2]),hh=(Y(lo)-Y(hi))*k,y=(i===1||i===3)?Y(hi):(b[2]>=0?Y(0)-hh:Y(0));S(svg,'rect',{x:X(i),y,width:bw,height:Math.max(2,hh),rx:6,fill:b[3]});
+    const val=(i===1||i===3)?-(hi-lo):b[2];S(svg,'text',{x:X(i)+bw/2,y:b[2]<0&&i===4?Y(0)+hh+36:y-14,'text-anchor':'middle',style:'font-size:32px;font-weight:700'+(i===4?';fill:'+RED:'')},sg(val)+Math.abs(val*k).toFixed(0));
+    S(svg,'text',{x:X(i)+bw/2,y:358,'text-anchor':'middle',style:'font-size:28px;fill:'+A70},b[0]);});
+  $('#vDelta').textContent=(d>0?'+':'')+Math.round(d*100)+'%';setMoney($('#pE'),E*1e5,(E<0?'−':'')+'₹'+Math.abs(E).toFixed(0)+' L');}
+$('#sDelta').addEventListener('input',()=>{drawWF();tgMark('wf',String(Math.round(+$('#sDelta').value)));});drawWF();
+mkTg('wf',(v,q)=>{slideTo($('#sDelta'),+v,q,()=>drawWF());bump($('#pE'));});
+beats('sales',1,2,(i,q)=>tgSet('wf',i===1?'-20':i===2?'20':'0',q));
+hooks.sales={page(n){if(n===1)anim(drawWF,1200);}};CURH.push(()=>drawWF());
+
+/* ================= break-even chart ================= */
+function drawBE(k){k=k==null?1:k;const f=CUR==='inr'?1:LK,svg=$('#beChart');clear(svg);const X=h=>70+h/7000*720,Y=v=>300-v/220*280,rev=h=>h*PRICE/1e5,cost=h=>52+Math.max(1,Math.ceil(h/2/420))*.35+h*1100/1e5,hm=7000*k;
+  [0,100,200].forEach(v=>{S(svg,'line',{x1:70,x2:790,y1:Y(v),y2:Y(v),stroke:A18,'stroke-width':1.5});S(svg,'text',{x:58,y:Y(v)+10,'text-anchor':'end',style:'font-size:28px;fill:'+A70},v);});
+  S(svg,'text',{x:76,y:16,style:'font-size:26px;fill:'+A70},(CUR==='inr'?'₹ lakh':'$ thousand')+' a month');
+  [0,2000,4000,6000].forEach(h=>S(svg,'text',{x:X(h),y:344,'text-anchor':'middle',style:'font-size:28px;fill:'+A70},nIN(h)));
+  let pc='',pr='';for(let h=0;h<=hm;h+=50){pc+=(h?'L':'M')+X(h)+','+Y(cost(h)*f);pr+=(h?'L':'M')+X(h)+','+Y(rev(h)*f);}
+  const v=+$('#sVol').value,p=rev(v)-cost(v);
+  if(k>.98){const xv=X(v),ys=[Y(rev(v)*f),Y(cost(v)*f)];S(svg,'rect',{x:xv-9,y:Math.min(...ys),width:18,height:Math.max(2,Math.abs(ys[0]-ys[1])),rx:4,fill:p<0?RED:ASH,opacity:.85});}
+  S(svg,'path',{d:pc,fill:'none',stroke:A70,'stroke-width':5});S(svg,'path',{d:pr,fill:'none',stroke:RED,'stroke-width':6});
+  if(k>.98){S(svg,'text',{x:790,y:Y(rev(7000)*f)-16,'text-anchor':'end',style:'font-size:30px;font-weight:700;fill:'+RED},'Revenue');S(svg,'text',{x:790,y:Y(cost(7000)*f)+40,'text-anchor':'end',style:'font-size:30px;font-weight:700;fill:'+A70},'Total cost');
+    S(svg,'circle',{cx:X(3141),cy:Y(rev(3141)*f),r:12,fill:BG,stroke:ASH,'stroke-width':5});S(svg,'text',{x:X(3141)-18,y:Y(rev(3141)*f)-24,'text-anchor':'end',style:'font-size:30px;font-weight:700'},'3,141');
+    S(svg,'line',{x1:X(v),x2:X(v),y1:Y(0),y2:Y(215),stroke:ASH,'stroke-width':2,'stroke-dasharray':'6 8'});}
+  $('#vVol').textContent=nIN(v);$('#beL').textContent=Math.abs(p)<.5?'No profit, no loss':p<0?'Loss a month':'Profit a month';const r=$('#beR'),pp=Math.abs(p)<.5?0:p;setMoney(r,pp*1e5,(pp<0?'−':'')+'₹'+Math.abs(pp).toFixed(0)+' L');r.className=(pp<0?'neg ':'')+'mny';}
+$('#sVol').addEventListener('input',()=>{drawBE();tgMark('be',String(Math.round(+$('#sVol').value)));});drawBE();
+(function(){const sv=$('#beChart');sv.style.cursor='ew-resize';sv.style.touchAction='none';const set=e=>{const r=sv.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*800;$('#sVol').value=Math.round(Math.max(0,Math.min(7000,(x-70)/720*7000)));drawBE();tgMark('be',$('#sVol').value);};
+  sv.addEventListener('pointerdown',e=>{sv.setPointerCapture(e.pointerId);set(e);});sv.addEventListener('pointermove',e=>{if(e.buttons)set(e);});})();
+mkTg('be',(v,q)=>slideTo($('#sVol'),+v,q,()=>drawBE()));
+beats('breakeven',1,2,(i,q)=>tgSet('be',i===1?'3141':i===2?'2000':'5202',q));
+
+/* sensitivity: table or chart */
+const SENS=[['Nothing changes',3141],['Price up to ',2411,3300],['Price down to ',4508,2300],['Fixed costs up 20%',3774],['Each hour sold 2.5 times',2763]];
+function drawSens(k){const svg=$('#sensC');clear(svg);k=k==null?1:k;const X0=470,X=h=>X0+h/5000*540,rh=64;
+  S(svg,'text',{x:X0,y:20,style:'font-size:26px;fill:'+A70},'Hours sold a month to break even');
+  SENS.forEach((r,i)=>{const y=52+i*rh,lab=r[2]?r[0]+mt(r[2],'₹'+nIN(r[2])):r[0],w=(X(r[1])-X0)*k;
+    S(svg,'text',{x:0,y:y+32,style:'font-size:32px;font-weight:700'+(i?'':';fill:'+RED)},lab);
+    S(svg,'rect',{x:X0,y:y+6,width:Math.max(2,w),height:38,rx:4,fill:i?(r[1]<3141?ASH:'rgba(13,13,12,.38)'):RED});
+    S(svg,'text',{x:X0+w+12,y:y+36,style:'font-size:32px;font-weight:800'},nIN(r[1]*k));});
+  const xr=X(3141);S(svg,'line',{x1:xr,x2:xr,y1:40,y2:52+5*rh,stroke:RED,'stroke-width':2.5,'stroke-dasharray':'6 8'});
+  S(svg,'text',{x:0,y:52+5*rh+44,style:'font-size:28px;font-weight:600;fill:'+A70},'Black: fewer hours needed. Grey: more.');}
+mkTg('sens',(v,q)=>{const g=v==='g';$('#sensT').style.display=g?'none':'';$('#sensC').style.display=g?'':'none';if(g){if(q)drawSens(1);else anim(drawSens,1100);}else if(!q)fade($('#sensT'));});
+beats('breakeven',3,1,(i,q)=>tgSet('sens',i?'g':'t',q));
+hooks.breakeven={page(n){if(n===1)anim(drawBE,1400);}};CURH.push(()=>{drawBE();drawSens();});
+
+/* ================= year 1: play the months ================= */
+let y1m=11,y1T=null,y1V='b';
+function drawY1(gi){if(y1V==='c'){drawY1C();return;}const svg=$('#y1Chart');clear(svg);const f=CUR==='inr'?1:LK,top=Math.ceil(Math.max(...M1.map(r=>Math.max(r.V+r.F,r.R)))*f/5)*5,Y=v=>280-v/top*240,gx=i=>78+i*56,bw=22;
+  Array.from({length:top/5+1},(_,i)=>i*5).forEach(v=>{S(svg,'line',{x1:64,x2:756,y1:Y(v),y2:Y(v),stroke:v?A18:A45,'stroke-width':v?1.5:2});S(svg,'text',{x:54,y:Y(v)+9,'text-anchor':'end',style:'font-size:24px;fill:'+A70},v);});
+  S(svg,'text',{x:64,y:14,style:'font-size:24px;fill:'+A70},(CUR==='inr'?'₹ lakh':'$ thousand')+' a month');
+  [['Costs',ASH],['Sales',RED]].forEach((l,j)=>{S(svg,'rect',{x:566+j*106,y:-4,width:18,height:18,fill:l[1]});S(svg,'text',{x:592+j*106,y:13,style:'font-size:24px;fill:'+A70},l[0]);});
+  M1.forEach((r,i)=>{const op=i<=y1m?1:.15,c=(r.V+r.F)*f,s=r.R*f;
+    const a=S(svg,'rect',{x:gx(i),y:Y(c),width:bw,height:Y(0)-Y(c),fill:ASH,opacity:op}),b=s>0?S(svg,'rect',{x:gx(i)+bw+3,y:Y(s),width:bw,height:Y(0)-Y(s),fill:RED,opacity:op}):null;
+    if(i===gi&&!RM)[a,b].forEach(e=>{if(!e)return;e.style.transformBox='fill-box';e.style.transformOrigin='bottom';e.animate([{transform:'scaleY(0)'},{transform:'none'}],{duration:480,easing:EASE});});
+    S(svg,'text',{x:gx(i)+bw+1.5,y:314,'text-anchor':'middle',style:'font-size:22px;'+(i===y1m?'font-weight:800;fill:'+RED:'fill:'+A70)},MON[i]);
+    const hit=S(svg,'rect',{x:gx(i)-4,y:20,width:bw*2+11,height:300,fill:'transparent'});hit.style.cursor='pointer';hit.addEventListener('click',()=>{y1Stop();y1Set(i,true);});});}
+function drawY1C(){const svg=$('#y1Chart');clear(svg);const f=CUR==='inr'?1:LK,vals=M1.map(r=>r.cash*f),st=RAISE*f,top=Math.ceil(st/25)*25,Y=v=>280-v/top*240,gx=i=>78+i*56+23.5;
+  for(let v=0;v<=top;v+=25){S(svg,'line',{x1:64,x2:756,y1:Y(v),y2:Y(v),stroke:v?A18:A45,'stroke-width':v?1.5:2});S(svg,'text',{x:54,y:Y(v)+9,'text-anchor':'end',style:'font-size:24px;fill:'+A70},v);}
+  S(svg,'text',{x:64,y:14,style:'font-size:24px;fill:'+A70},(CUR==='inr'?'₹ lakh':'$ thousand')+' in the bank, end of each month');
+  const pts=vals.map((v,i)=>[gx(i),Y(v)]),start=[64,Y(st)];
+  S(svg,'polyline',{points:[start,...pts].map(p=>p.join(',')).join(' '),fill:'none',stroke:A18,'stroke-width':4,'stroke-dasharray':'2 9','stroke-linecap':'round'});
+  S(svg,'path',{d:'M'+start[0]+','+Y(0)+'L'+[start,...pts.slice(0,y1m+1)].map(p=>p.join(',')).join('L')+'L'+pts[y1m][0]+','+Y(0)+'Z',fill:'rgba(13,13,12,.07)'});
+  S(svg,'polyline',{points:[start,...pts.slice(0,y1m+1)].map(p=>p.join(',')).join(' '),fill:'none',stroke:ASH,'stroke-width':5,'stroke-linejoin':'round'});
+  S(svg,'circle',{cx:start[0],cy:start[1],r:8,fill:BG,stroke:ASH,'stroke-width':4});
+  const p=pts[y1m],r=y1m>7;S(svg,'circle',{cx:p[0],cy:p[1],r:11,fill:RED});S(svg,'text',{x:p[0]+(r?-18:18),y:p[1]-18,'text-anchor':r?'end':'start',style:'font-size:28px;font-weight:800;fill:'+RED},mt(M1[y1m].cash*1e5,'₹'+Math.round(M1[y1m].cash)+' L'));
+  M1.forEach((m,i)=>{S(svg,'text',{x:gx(i),y:314,'text-anchor':'middle',style:'font-size:22px;'+(i===y1m?'font-weight:800;fill:'+RED:'fill:'+A70)},MON[i]);
+    const hit=S(svg,'rect',{x:gx(i)-28,y:20,width:56,height:300,fill:'transparent'});hit.style.cursor='pointer';hit.addEventListener('click',()=>{y1Stop();y1Set(i,true);});});}
+function y1Out(){const r=M1[y1m],c=r.V+r.F,e=$('#y1E');$('#y1M').textContent=MON[y1m]+' 2027';
+  setMoney($('#y1R'),r.R*1e5,r.R?'₹'+r.R.toFixed(1)+' L':'₹0');setMoney($('#y1C'),c*1e5,'₹'+c.toFixed(1)+' L');
+  setMoney(e,r.E*1e5,(r.E<0?'−':'')+'₹'+Math.abs(r.E).toFixed(1)+' L');e.classList.toggle('neg',r.E<0);setMoney($('#y1K'),r.cash*1e5,r.cash>=100?'₹'+(r.cash/100).toFixed(1)+' Cr':'₹'+r.cash.toFixed(1)+' L');}
+function y1Set(m,g){y1m=m;$('#y1S').value=m+1;drawY1(g?m:-1);y1Out();}
+function y1Stop(){clearInterval(y1T);y1T=null;$('#y1Play').textContent='Play';}
+function y1Play(from){y1Stop();let m=from;y1Set(m,true);$('#y1Play').textContent='Pause';y1T=setInterval(()=>{if(m>=11){y1Stop();return;}m++;y1Set(m,true);},560);}
+$('#y1Play').addEventListener('click',()=>{if(y1T)y1Stop();else y1Play(y1m>=11?0:y1m+1);});
+$('#y1S').addEventListener('input',e=>{y1Stop();y1Set(+e.target.value-1,false);});
+mkTg('y1',(v,q)=>{y1V=v;drawY1(-1);if(!q&&!RM)$('#y1Chart').animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:500,easing:EASE});});
+beats('year1',0,1,(i,q)=>tgSet('y1',i?'c':'b',q));
+const QS=[0,1,2,3].map(q=>{const s=M1.slice(q*3,q*3+3),t=k=>s.reduce((a,r)=>a+r[k],0);return{h:t('h'),R:t('R'),V:t('V'),F:t('F'),E:t('E'),cash:s[2].cash};});
+QS.push({h:QS.reduce((a,q)=>a+q.h,0),R:QS.reduce((a,q)=>a+q.R,0),V:QS.reduce((a,q)=>a+q.V,0),F:QS.reduce((a,q)=>a+q.F,0),E:QS.reduce((a,q)=>a+q.E,0),cash:M1[11].cash});
+function drawY1T(){const f=CUR==='inr'?1:LK,F=v=>{const x=v*f;return(x<-.049?'−':'')+Math.abs(x).toFixed(1);};
+  const rows=[['Hours sold',c=>nIN(c.h)],['Sales',c=>F(c.R)],['Variable costs',c=>F(c.V)],['Fixed costs',c=>F(c.F)],['Operating profit',c=>F(c.E),'hl'],['Cash in the bank',c=>F(c.cash),'tot']];
+  $('#y1T').innerHTML='<table class="tb"><tr><th>'+(CUR==='inr'?'₹ lakh':'$ thousand')+'</th><th class="r">Q1</th><th class="r">Q2</th><th class="r">Q3</th><th class="r">Q4</th><th class="r">Year</th></tr>'
+    +rows.map(r=>'<tr class="'+(r[2]||'')+'"><td>'+r[0]+'</td>'+QS.map(c=>'<td class="r">'+r[1](c)+'</td>').join('')+'</tr>').join('')+'</table>';}
+y1Set(11,false);drawY1T();
+hooks.year1={page(n){if(n===0)setTimeout(()=>{const s=slides[cur];if(s.dataset.id==='year1'&&s._pg===0)y1Play(0);},350);else y1Stop();if(n===2)grow(pg('year1',2));},leave(){y1Stop();}};
+CURH.push(()=>{drawY1(-1);drawY1T();});
+
+/* ================= five-year ================= */
+let pjV='t',pjK=1;
+function drawPJ(){const out=$('#pjOut'),u=CUR==='inr',F=v=>sg(toU(v))+Math.abs(toU(v)).toFixed(u?1:2),SP=pjK===1?P:plan(pjK),D=SP.D;pjNote(SP);
+  if(pjV==='g'){out.innerHTML='<svg id="pjChart" data-cur width="1088" height="320" viewBox="0 0 1088 340"></svg>';const svg=$('#pjChart'),mx=Math.max(...D.map(r=>toU(r.R))),mn=Math.min(0,...D.map(r=>toU(r.PAT))),Y=v=>280-(v-mn)/(mx-mn)*226;
+    S(svg,'line',{x1:0,x2:1088,y1:Y(0),y2:Y(0),stroke:A45,'stroke-width':2});
+    [['Revenue',ASH],['Profit after tax',RED]].forEach((s,j)=>{S(svg,'circle',{cx:10+j*160,cy:6,r:10,fill:s[1]});S(svg,'text',{x:26+j*160,y:15,style:'font-size:26px;fill:'+A70},s[0]);});
+    S(svg,'text',{x:1088,y:15,'text-anchor':'end',style:'font-size:26px;fill:'+A70},u?'₹ crore':'$ million');
+    D.forEach((r,i)=>{const gx=60+i*210;['R','PAT'].forEach((key,j)=>{const v=toU(r[key]),y=v>=0?Y(v):Y(0),h=Math.max(2,Math.abs(Y(v)-Y(0)));const rc=S(svg,'rect',{x:gx+j*74,y,width:66,height:h,rx:6,fill:j?RED:ASH});
+      rc.style.transformBox='fill-box';rc.style.transformOrigin=v>=0?'bottom':'top';if(!RM)rc.animate([{transform:'scaleY(0)'},{transform:'none'}],{duration:900,delay:i*90,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'});
+      S(svg,'text',{x:gx+j*74+33,y:v>=0?y-12:y+h+30,'text-anchor':'middle',style:'font-size:26px;font-weight:700'},F(r[key]));});
+      S(svg,'text',{x:gx+70,y:334,'text-anchor':'middle',style:'font-size:28px;fill:'+A70},r.y);});return;}
+  const rows=[['Revenue',r=>F(r.R),'b'],['EBITDA',r=>F(r.E)],['Profit after tax',r=>F(r.PAT),'hl']];
+  out.innerHTML='<table class="tb"><tr><th>'+(u?'₹ crore':'$ million')+'</th>'+D.map(r=>'<th class="r">'+r.y+'</th>').join('')+'</tr>'+rows.map(x=>'<tr class="'+(x[2]||'')+'"><td>'+x[0]+'</td>'+D.map(r=>{const t=x[1](r);return'<td class="r'+(t[0]==='−'?' neg':'')+'">'+t+'</td>';}).join('')+'</tr>').join('')
+   +'<tr><td>Centres (50 agents)</td>'+D.map(r=>'<td class="r">'+r.units+'</td>').join('')+'</tr></table>';}
+function pjNote(SP){const n=$('#pjNote'),L=v=>'₹'+Math.round(Math.abs(v))+' lakh';
+  n.textContent=SP.low>=0?'Cash never drops below '+L(SP.low)+' ('+fname(SP.lowT)+'). Paid back by '+fname(SP.pbT)+'.':'Cash would run '+L(SP.low)+' short in '+fname(SP.lowT)+', so we would slow hiring until sales catch up.';money(n);}
+mkTg('pjv',(v,q)=>{pjV=v;drawPJ();if(!q&&v==='t')fade($('#pjOut'));});
+mkTg('pjk',(v,q)=>{pjK=+v;drawPJ();if(!q&&!RM)$('#pjOut').animate([{opacity:.25},{opacity:1}],{duration:450,easing:'ease-out'});bump($('#pjNote'));});
+beats('returns',0,3,(i,q)=>{tgSet('pjv',i?'g':'t',q);tgSet('pjk',i===2?'0.7':i===3?'1.3':'1',q);});
+drawPJ();CURH.push(drawPJ);
+
+/* returns + payback */
+(function(){const r=D[4],pb=mname(P.pbT);
+  $('#roiK').innerHTML='<div><b>'+Math.round(r.PAT/RAISE*100)+'%</b><span>return on investment, 2031</span></div><div><b>'+Math.round(r.roe*100)+'%</b><span>return on equity, 2031</span></div><div><b>₹'+(r.E/100).toFixed(1)+' Cr</b><span>EBITDA 2031, '+Math.round(r.E/r.R*100)+'% margin</span></div><div><b>'+pb+'</b><span>payback</span></div>';money($('#roiK'));window._pb=pb;})();
+let pbV='c';
+function drawPB(k){k=k==null?1:k;const svg=$('#pbChart');clear(svg);const u=CUR==='inr',f=u?1:CRM,X=i=>60+i*140,yr=pbV==='y';
+  const vals=yr?D.map(r=>r.FCF/100*f):[0,...D.map(r=>r.cum/100*f)],st=yr?(u?1:.1):(u?2:.2);
+  const lo=Math.min(0,Math.floor(Math.min(...vals)/st)*st),hi=Math.ceil(Math.max(...vals)/st)*st,Y=v=>330-(v-lo)/(hi-lo)*270;
+  for(let v=lo;v<=hi+1e-9;v+=st){const vv=+v.toFixed(2);S(svg,'line',{x1:50,x2:790,y1:Y(vv),y2:Y(vv),stroke:vv?A18:A45,'stroke-width':vv?1.5:2});S(svg,'text',{x:40,y:Y(vv)+10,'text-anchor':'end',style:'font-size:26px;fill:'+A70},vv);}
+  S(svg,'text',{x:56,y:24,style:'font-size:26px;fill:'+A70},(u?'₹ crore':'$ million')+(yr?', added each year':', total so far'));
+  if(yr){YRS.forEach((y,i)=>S(svg,'text',{x:X(i+1),y:390,'text-anchor':'middle',style:'font-size:28px;fill:'+A70},y));
+    vals.forEach((v,i)=>{const vk=v*k,y=vk>=0?Y(vk):Y(0),h=Math.max(2,Math.abs(Y(vk)-Y(0)));S(svg,'rect',{x:X(i+1)-34,y,width:68,height:h,rx:6,fill:v<0?RED:ASH});
+      S(svg,'text',{x:X(i+1),y:vk>=0?y-14:y+h+34,'text-anchor':'middle',style:'font-size:30px;font-weight:700'},sg(vk)+Math.abs(vk).toFixed(u?1:2));});}
+  else{['Start',...YRS].forEach((y,i)=>S(svg,'text',{x:X(i),y:390,'text-anchor':'middle',style:'font-size:28px;fill:'+A70},y));
+    const n=1+Math.floor(k*5.999);S(svg,'polyline',{points:vals.slice(0,n).map((v,i)=>X(i)+','+Y(v)).join(' '),fill:'none',stroke:ASH,'stroke-width':5,'stroke-linejoin':'round'});
+    vals.slice(0,n).forEach((v,i)=>{S(svg,'circle',{cx:X(i),cy:Y(v),r:8,fill:BG,stroke:ASH,'stroke-width':4});if(i)S(svg,'text',{x:X(i),y:v<0?Y(v)+44:Y(v)-20,'text-anchor':'middle',style:'font-size:30px;font-weight:700'},sg(v)+Math.abs(v).toFixed(u?1:2));});
+    if(k>.98){const c=vals.findIndex((v,i)=>i>1&&vals[i-1]<0&&v>=0);if(c>0){const fr=-vals[c-1]/(vals[c]-vals[c-1]),xx=X(c-1)+(X(c)-X(c-1))*fr;S(svg,'circle',{cx:xx,cy:Y(0),r:14,fill:RED});S(svg,'text',{x:xx-18,y:Y(0)-22,'text-anchor':'end',style:'font-size:30px;font-weight:700;fill:'+RED},window._pb);}}}
+  const low=P.low-RAISE,cush=P.low;$('#pbLowL').textContent='Lowest point, '+mname(P.lowT);
+  setMoney($('#pbLow'),low*1e5,'−₹'+Math.abs(low/100).toFixed(1)+' Cr');setMoney($('#pbCush'),cush*1e5,cush<100?'₹'+Math.round(cush)+' L':'₹'+(cush/100).toFixed(1)+' Cr');}
+mkTg('pb',(v,q)=>{pbV=v;if(q)drawPB(1);else anim(drawPB,1000);});
+beats('returns',2,1,(i,q)=>tgSet('pb',i?'y':'c',q));
+drawPB();hooks.returns={page(n){if(n===2)anim(drawPB,1500);}};CURH.push(()=>drawPB());
+
+/* ================= funnel + CLV ================= */
+const FUN=[[375,'Building voice AI',''],[150,'Need real calls','40%'],[90,'We reach','60%'],[30,'Try a free sample','33%'],[12,'Buy once','40%'],[6,'Buy again','50%'],[3,'Sign yearly','50%']];
+$('#fun').innerHTML=FUN.map(f=>'<div class="fr"><div class="fb" data-w="'+Math.max(52,Math.sqrt(f[0]/375)*330)+'">'+f[0]+'</div><div class="fl">'+f[1]+(f[2]?'<em>'+f[2]+'</em>':'')+'</div></div>').join('');
+function growFun(){$$('#fun .fb').forEach((b,i)=>{b.style.transition='none';b.style.width=0;void b.offsetWidth;b.style.transition='';setTimeout(()=>b.style.width=b.dataset.w+'px',150+i*110);});}
+hooks.customers={page(n){if(n===0)grow(pg('customers',0));if(n===1)growFun();}};
+function calcCLV(){const o=+$('#sOrd').value,y=+$('#sYrs').value,clv=14*o*(1700/2800)*y,ratio=clv/1.6;$('#cOrd').textContent=o;$('#cYrs').textContent=y;setMoney($('#cClv'),clv*1e5,'₹'+clv.toFixed(0)+' L');
+  const r=$('#cRatio');r.textContent=(ratio>=10?Math.round(ratio):ratio.toFixed(1))+'×';r.style.color=ratio<3?RED:ASH;
+  pageTitle(SL('customers'),2,'Customer value',(o*y>1?'A repeat buyer is worth ₹':'A one-off buyer is worth ₹')+clv.toFixed(0)+' lakh',true);}
+['sOrd','sYrs'].forEach(id=>$('#'+id).addEventListener('input',()=>{calcCLV();bump($('#cClv'));}));calcCLV();
+beats('customers',2,2,(i,q)=>{const s=(id,v)=>slideTo($('#'+id),v,q,calcCLV);s('sOrd',i===1?1:2);s('sYrs',i===1?1:i===2?5:3);bump($('#cRatio'));});
+
+/* ================= scenarios ================= */
+const SCN=[['Weak',3000,2300],['Break-even',3141,2800],['Plan',5202,2800],['Strong',6500,3000],['Excellent',8000,3300]],scT=$('#scT');
+SCN.forEach((s,i)=>{const e=s[1]*(s[2]-1100)/1e5-Math.ceil(s[1]/2/420)*.35-52,ee=Math.abs(e)<.5?0:e,tr=document.createElement('tr');if(i===2)tr.className='hl';
+  tr.innerHTML='<td>'+s[0]+'</td><td class="r">'+nIN(s[1])+'</td><td class="r">'+inr(s[2])+'</td><td class="r"></td><td><svg width="330" height="36" viewBox="0 0 330 36"></svg></td>';tr._e=ee;scT.appendChild(tr);});money(scT);
+function scVals(){$$('tr',scT).slice(1).forEach(tr=>{const v=tr._e*(CUR==='inr'?1:LK);tr.children[3].textContent=sg(v)+Math.abs(v).toFixed(0);});}scVals();CURH.push(scVals);
+function drawSC(k){k=k==null?1:k;$$('tr',scT).slice(1).forEach(tr=>{const svg=$('svg',tr);clear(svg);const e=tr._e*k,w=Math.abs(e)/125*160;S(svg,'line',{x1:165,x2:165,y1:0,y2:36,stroke:A45,'stroke-width':2});
+  S(svg,'rect',{x:e<0?165-w:165,y:6,width:Math.max(2,w),height:24,rx:4,fill:e<0?RED:ASH});});}
+drawSC();
+
+/* ================= plan B: the price buyers pay ================= */
+function calcPlan(){const p=Math.round(+$('#planP').value/50)*50,m=p-1100;let h=Math.round(52e5/m);for(let i=0;i<40;i++){const nh=Math.round((52e5+Math.ceil(h/840)*35000)/m);if(nh===h)break;h=nh;}
+  const E=5202*m-Math.ceil(5202/840)*35000-52e5,s=SL('risks'),page=pages(s)[2];
+  $('#planH').textContent=nIN(h);$('#planH').nextElementSibling.textContent='hours a month to break even, '+(h>3141?'up from 3,141':h<3141?'down from 3,141':'as in our plan');
+  const e=$('#planE');setMoney(e,E,(E<0?'−':'+')+'₹'+(Math.abs(E)/1e5).toFixed(1)+' L');e.style.color=E<0?RED:ASH;setMoney($('#planPV'),p,inr(p));
+  page.dataset.t='What if buyers pay '+(p<2800?'only ':'')+'₹'+nIN(p)+'?';setHead(s,page);}
+$('#planP').addEventListener('input',()=>{calcPlan();bump($('#planH'));bump($('#planE'));});calcPlan();
+beats('risks',2,2,(i,q)=>{slideTo($('#planP'),i===1?1800:i===2?2400:2000,q,calcPlan);if(!q){bump($('#planH'));bump($('#planE'));}});
+beats('risks',0,2,i=>spot($('#scT'),i===1?[0,1]:i===2?[0,3]:-1));
+hooks.risks={page(n){if(n===0)anim(drawSC,1100);}};
+
+/* ================= demo: three calls; a click skips ahead, then presses 1 ================= */
+const tx=$('#tx'),dual=$('#dual'),dx=dual.getContext('2d');let dT=[],spk=null,dRun=false,tick=null,sec=0,callI=0,demoOn=false;
+function drawDual(){if(!dRun)return;dx.clearRect(0,0,600,96);const t=performance.now()/1000;dx.fillStyle='rgba(13,13,12,.25)';dx.fillRect(0,47,600,2);
+  for(let i=0;i<75;i++){const x=i*8+2,a=spk==='a'?.2+.8*Math.abs(Math.sin(i*.7+t*9)*Math.sin(i*.13+t*3.1)):.03,c=spk==='c'?.2+.8*Math.abs(Math.sin(i*.6-t*8)*Math.sin(i*.17-t*2.7)):.03;
+    dx.fillStyle=ASH;dx.fillRect(x,46-a*42,4,a*42);dx.fillStyle=RED;dx.fillRect(x,50,4,c*42);}requestAnimationFrame(drawDual);}
+function lab(id,t,quiet){const e=$('#'+id);e.textContent=t;e.closest('.labr').classList.add('on');if(!quiet&&!RM)e.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'});}
+const MUTE='<span class="pii">muted</span> ';
+const CALLS=[
+ {id:'7F3A',s:[{w:'c',at:500,dur:1800,h:'My order still hasn’t come!',fx:q=>{lab('lInt','Where is my order?',q);lab('lEmo','Angry',q);}},{w:'a',at:2600,dur:1700,h:'Sorry! What’s your number?'},
+  {w:'c',at:4600,dur:1900,h:MUTE+'The birthday is tomorrow!',fx:q=>lab('lEmo','Worried',q)},{w:'a',at:6900,dur:2000,h:'Cancel it, or fast delivery?',fx:q=>lab('lDec','Cancel or fast delivery?',q)},
+  {w:'c',at:9200,dur:1800,h:'Fast delivery, please. Thanks!',fx:q=>{lab('lDec','Fast delivery, for the birthday',q);lab('lEmo','Relieved',q);lab('lOut','Solved',q);}}]},
+ {id:'2C91',s:[{w:'c',at:500,dur:1800,h:'My card got blocked at the pump!',fx:q=>{lab('lInt','Card blocked',q);lab('lEmo','Stressed',q);}},{w:'a',at:2600,dur:1700,h:'Sorry! Your registered number?'},
+  {w:'c',at:4600,dur:1900,h:MUTE+'I’m driving out of town tonight.',fx:q=>lab('lEmo','Anxious',q)},{w:'a',at:6900,dur:2000,h:'Unblock it now, or a new card?',fx:q=>lab('lDec','Unblock or new card?',q)},
+  {w:'c',at:9200,dur:1800,h:'Unblock it now. I need it tonight.',fx:q=>{lab('lDec','Unblock now, for the trip',q);lab('lEmo','Calm',q);lab('lOut','Solved',q);}}]},
+ {id:'9B4E',s:[{w:'c',at:500,dur:1800,h:'My data runs out by the 20th!',fx:q=>{lab('lInt','Data runs out',q);lab('lEmo','Annoyed',q);}},{w:'a',at:2600,dur:1700,h:'Sorry! Which number is it?'},
+  {w:'c',at:4600,dur:1900,h:MUTE+'I work from home now.',fx:q=>lab('lEmo','Frustrated',q)},{w:'a',at:6900,dur:2000,h:'A bigger plan, or a top-up?',fx:q=>lab('lDec','Bigger plan or top-up?',q)},
+  {w:'c',at:9200,dur:1800,h:'Bigger plan. Top-ups cost more.',fx:q=>{lab('lDec','Bigger plan, top-ups cost more',q);lab('lEmo','Satisfied',q);lab('lOut','Upgraded',q);}}]}];
+function later(f,ms){dT.push(setTimeout(f,ms));}
+function addLine(l,quiet){const d=document.createElement('div');d.className='tline '+l.w;if(quiet)d.style.animation='none';d.innerHTML='<small>'+(l.w==='a'?'Agent':'Customer')+'</small>'+l.h;tx.appendChild(d);while(tx.children.length>3)tx.removeChild(tx.firstChild);}
+function resetDemo(){dT.forEach(clearTimeout);dT=[];clearInterval(tick);spk=null;tx.innerHTML='';['lInt','lEmo','lDec','lOut'].forEach(id=>$('#'+id).textContent='–');$$('#labels .labr').forEach(l=>l.classList.remove('on'));
+  ['ivr','receipt','shred'].forEach(id=>$('#'+id).classList.remove('on'));$('#labels').classList.remove('dim');const lt=$('#liveTag');lt.classList.remove('ended');lt.querySelector('em').textContent='Live';$('#callTime').textContent='00:00';}
+function endCall(){clearInterval(tick);spk=null;const lt=$('#liveTag');lt.classList.add('ended');lt.querySelector('em').textContent='Call ended';}
+function askIvr(){$('#labels').classList.add('dim');$('#ivr').classList.add('on');}
+function runDemo(){resetDemo();demoOn=true;if(!dRun){dRun=true;drawDual();}sec=0;$('#rcId').textContent=CALLS[callI].id;tick=setInterval(()=>{sec++;$('#callTime').textContent='00:'+String(sec).padStart(2,'0');},1000);
+  CALLS[callI].s.forEach(l=>{later(()=>{spk=l.w;addLine(l);if(l.fx)l.fx();},l.at);later(()=>{if(spk===l.w)spk=null;},l.at+l.dur);});
+  later(endCall,11300);later(askIvr,12000);}
+function finishDemo(){dT.forEach(clearTimeout);dT=[];const C=CALLS[callI].s;tx.innerHTML='';C.slice(-3).forEach(l=>addLine(l,true));C.forEach(l=>{if(l.fx)l.fx(true);});
+  $('#callTime').textContent='00:11';endCall();askIvr();if(!RM)$('#ivr').animate([{transform:'scale(.94)',opacity:0},{transform:'none',opacity:1}],{duration:520,easing:EASE});}
+function demoAnswer(k){if(!$('#ivr').classList.contains('on'))return;$('#ivr').classList.remove('on');
+  if(k==='1'){let t;try{t=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});}catch(e){t='just now';}$('#rcTime').textContent=t;$('#receipt').classList.add('on');}else $('#shred').classList.add('on');}
+function demoNext(){if(!demoOn){runDemo();return true;}if($('#receipt').classList.contains('on')||$('#shred').classList.contains('on'))return false;
+  if($('#ivr').classList.contains('on')){demoAnswer('1');return true;}finishDemo();return true;}
+$$('#ivr button').forEach(b=>b.addEventListener('click',()=>demoAnswer(b.dataset.k)));
+$('#replay').addEventListener('click',runDemo);
+mkTg('call',v=>{callI=+v;runDemo();});
+hooks.demo={enter(){if(!demoOn)runDemo();},leave(){resetDemo();dRun=false;demoOn=false;}};
+
+/* ================= canvas: the map stays, the panel shows the block in focus ================= */
+const BK=$$('#bmc .bk').sort((a,b)=>a.dataset.o-b.dataset.o);
+function bkShow(i,quiet){const b=BK[i];BK.forEach(x=>x.classList.toggle('fo',x===b));$('#bmpN').textContent=(i+1)+' of '+BK.length;
+  const T=$('#bmpT'),L=$('#bmpL');T.textContent=b.firstChild.textContent.trim();L.innerHTML=b.dataset.i.split('|').map(x=>'<li>'+x+'</li>').join('');money(L);
+  if(!quiet&&!RM){T.animate([{clipPath:'inset(100% 0 -12% 0)',transform:'translateY(30px)'},{clipPath:'inset(-12% 0 -12% 0)',transform:'none'}],{duration:700,easing:EASE});
+    $$('li',L).forEach((li,j)=>li.animate([{opacity:0,transform:'translateX(-24px)'},{opacity:1,transform:'none'}],{duration:560,delay:120+j*90,easing:EASE,fill:'backwards'}));}}
+BK.forEach((b,i)=>b.addEventListener('click',()=>{const s=slides[cur];if(s.dataset.id==='canvas'){s._bt=i;updPg(s);}bkShow(i);}));
+beats('canvas',0,9,(i,q)=>bkShow(i,q));bkShow(0,true);
+
+/* ================= depth on the poster slides ================= */
+const PX={x:0,y:0,tx:0,ty:0,act:0};
+stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();PX.tx=(e.clientX-r.left)/r.width-.5;PX.ty=(e.clientY-r.top)/r.height-.5;PX.act=1;});
+stage.addEventListener('pointerleave',()=>{PX.tx=0;PX.ty=0;PX.act=0;});
+if(!RM)(function loop(){PX.x+=(PX.tx-PX.x)*.07;PX.y+=(PX.ty-PX.y)*.07;const s=slides[cur];
+  if(s&&s.classList.contains('ko')){const w=$('.kw',s),b=$('.badge',s);if(w)w.style.translate=(-PX.x*18).toFixed(2)+'px '+(-PX.y*10).toFixed(2)+'px';if(b)b.style.translate=(PX.x*28).toFixed(2)+'px '+(PX.y*20).toFixed(2)+'px';
+    $$('.kc',s).forEach(k=>k.style.translate=(PX.x*7).toFixed(2)+'px '+(PX.y*5).toFixed(2)+'px');
+    const wv=$('.wv',s);if(wv&&wv._bars&&s.classList.contains('kdone')){const px=(PX.tx+.5)*1280-40;wv._bars.forEach(o=>{const t=1+(PX.act?.38*Math.exp(-Math.pow((o.x-px)/70,2)):0);o.cur+=(t-o.cur)*.12;if(Math.abs(t-o.cur)>.001||o.cur!==1){const h=o.h0*o.cur;o.r.setAttribute('height',h.toFixed(1));o.r.setAttribute('y',(o.cy-h/2).toFixed(1));}});}}
+  requestAnimationFrame(loop);})();
+
+/* start */
+syncCur();fitAll();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitAll);
+const si=idx(location.hash.slice(1));go(si>=0?si:0);
+</script>
+</body>
+</html>
