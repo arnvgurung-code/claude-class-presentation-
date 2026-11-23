@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>chapter two — elves' (knit)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#111;min-height:100%}
+body{display:grid;place-items:center;font-family:"Montserrat",sans-serif}
+.poster{position:relative;width:1080px;height:var(--h);overflow:hidden;background:#13284d}
+canvas{position:absolute;inset:0;display:block}
+/* the sewn-on woven label */
+.label{position:absolute;color:#2a292d;padding:26px 34px 24px;transform:rotate(-2.2deg);
+  background:#f3ede0;
+  box-shadow:0 10px 18px rgba(0,0,0,.42),0 2px 3px rgba(0,0,0,.3)}
+.label::before{content:"";position:absolute;inset:10px;border:2.5px dashed #ec7a3f;border-radius:2px;pointer-events:none}
+.label .wm{font-weight:800;font-size:38px;letter-spacing:.16em;text-transform:uppercase;line-height:1}
+.label .ed{font-weight:700;font-size:32px;margin-top:10px;letter-spacing:-.01em}
+.label .row{display:flex;justify-content:space-between;gap:24px;margin-top:16px;padding-top:14px;border-top:2px solid rgba(42,41,45,.2)}
+.label .row div{font-weight:700;font-size:26px;line-height:1.25}
+.label .row b{display:block;font-weight:800;font-size:29px;color:#c9531f}
+.label .row .dt{font-weight:800;font-size:54px;letter-spacing:-.03em;color:#2a292d;line-height:1;text-align:right}
+</style>
+</head>
+<body>
+<div class="poster" id="P"><canvas id="knit"></canvas><div class="label" id="lab"></div></div>
+<script>
+const STORY=new URLSearchParams(location.search).get('f')==='story';
+const W=1080,H=STORY?1920:1350,COLS=72,SW=W/COLS,ROWS=STORY?116:82,SH=H/ROWS;
+document.getElementById('P').style.setProperty('--h',H+'px');
+let seed=1225;const rnd=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};
+
+/* yarn */
+const Y={B:'#2159b6',C:'#f1e8d6',O:'#ec7a3f',S:'#ee8b6f',K:'#2a292d',R:'#1b4a99'};
+
+/* pixel font: 8 rows (0-1 ascender, 2-6 x-height, 7 descender) */
+const F={a:['.....','.....','.###.','....#','.####','#...#','.####','.....'],b:['#....','#....','####.','#...#','#...#','#...#','####.','.....'],
+c:['....','....','.###','#...','#...','#...','.###','....'],d:['....#','....#','.####','#...#','#...#','#...#','.####','.....'],
+e:['.....','.....','.###.','#...#','#####','#....','.###.','.....'],h:['#....','#....','####.','#...#','#...#','#...#','#...#','.....'],
+i:['#','.','#','#','#','#','#','.'],l:['#.','#.','#.','#.','#.','#.','.#','..'],o:['.....','.....','.###.','#...#','#...#','#...#','.###.','.....'],
+p:['.....','.....','####.','#...#','#...#','####.','#....','#....'],r:['....','....','#.##','##..','#...','#...','#...','....'],
+s:['....','....','.###','#...','.##.','...#','###.','....'],t:['.#.','.#.','###','.#.','.#.','.#.','..#','...'],
+v:['.....','.....','#...#','#...#','#...#','.#.#.','..#..','.....'],w:['.....','.....','#...#','#...#','#.#.#','#.#.#','.#.#.','.....'],
+y:['.....','.....','#...#','#...#','#...#','.####','....#','.###.'],"'":['#','#','.','.','.','.','.','.'],' ':['..','..','..','..','..','..','..','..'],
+O:['.###.','#...#','#...#','#...#','#...#','#...#','.###.','.....'],U:['#...#','#...#','#...#','#...#','#...#','#...#','.###.','.....'],T:['#####','..#..','..#..','..#..','..#..','..#..','..#..','.....']};
+const textW=(s,k=1)=>[...s].reduce((a,ch)=>a+F[ch][0].length*k,0)+(s.length-1)*k;
+
+/* chart: one yarn key per stitch */
+const G=Array.from({length:ROWS},()=>Array(COLS).fill('B'));
+const put=(r,c,k)=>{if(r>=0&&r<ROWS&&c>=0&&c<COLS)G[r][c]=k;};
+function text(s,r,k,col,{rows=[0,8],c0=null}={}){let c=c0==null?Math.round((COLS-textW(s,k))/2):c0;
+  for(const ch of s){const g=F[ch];for(let y=rows[0];y<rows[1];y++)for(let x=0;x<g[0].length;x++)if(g[y][x]==='#')for(let a=0;a<k;a++)for(let b=0;b<k;b++)put(r+(y-rows[0])*k+a,c+x*k+b,col);c+=(g[0].length+1)*k;}}
+const STAR=['...#...','.#.#.#.','..###..','#######','..###..','.#.#.#.','...#...'];
+const HAT=['........PP','......HHPP','.....HHH..','....HHHH..','...HHHHH..','..HHHHHH..','.HHHHHHHH.','FFFFFFFFFF','FFFFFFFFFF'];
+function motif(m,r,c,map){m.forEach((row,y)=>[...row].forEach((ch,x)=>{if(map[ch])put(r+y,c+x,map[ch]);}));}
+function band(r,n,bg,fg,every=2,off=0){for(let y=0;y<n;y++)for(let x=0;x<COLS;x++)put(r+y,x,((x+y+off)%every===0)?fg:bg);}
+function zig(r,bg,fg){for(let y=0;y<4;y++)for(let x=0;x<COLS;x++){const p=x%8,h=p<4?p:7-p;put(r+y,x,y>=3-h?fg:bg);}}
+function stars(r,col){for(let i=0;i<9;i++)motif(STAR,r,i*8+1-1+((i%2)?0:0),{'#':col});}
+function hats(r){for(let i=0;i<6;i++)motif(HAT,r,i*12+1,{H:'S',P:'C',F:'C'});}
+function rib(r){for(let y=r;y<ROWS;y++)for(let x=0;x<COLS;x++)put(y,x,x%2?'R':'B');}
+
+/* compose the jumper front */
+let r=0;
+band(r,2,'K','C');r+=2;zig(r,'K','B');r+=4;
+stars(r+1,'O');r+=9;
+band(r,2,'K','C',2,1);r+=STORY?6:2;
+text('chapter two',r,1,'C');r+=STORY?12:9;
+text("elves'",r,2,'C',{rows:[0,7]});r+=STORY?19:16;
+hats(r);r+=STORY?13:10;
+if(STORY){text('early bird',r,1,'O');r+=10;text('OUT',r,1,'O',{rows:[0,7]});motif(STAR,r,14,{'#':'C'});motif(STAR,r,51,{'#':'C'});r+=11;}
+else{const w=textW('early bird')+4+textW('OUT'),c0=Math.round((COLS-w)/2);text('early bird',r,1,'O',{c0});text('OUT',r,1,'C',{c0:c0+textW('early bird')+4});r+=10;}
+const labelRow=r;
+if(STORY){zig(r+14,'K','B');band(r+18,2,'K','C');stars(r+21,'O');}
+rib(ROWS-(STORY?8:6));
+
+/* knit renderer: two shaded legs per stitch, gaps, fuzz */
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),sh=(c,f)=>`rgb(${c.map(v=>Math.max(0,Math.min(255,Math.round(f>0?v+(255-v)*f:v*(1+f))))).join(',')})`;
+function knit(){const cv=document.getElementById('knit');cv.width=W;cv.height=H;const g=cv.getContext('2d');
+  g.fillStyle='#0f1f3d';g.fillRect(0,0,W,H);
+  for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){const base=hex(Y[G[y][x]]),j=(rnd()-.5)*.08,cx=(x+.5)*SW+(rnd()-.5)*.8,cy=(y+.5)*SH+(rnd()-.5)*.6;
+    g.fillStyle=sh(base,-.62);g.fillRect(x*SW,y*SH,SW,SH);
+    for(const s of [-1,1]){const lx=cx+s*SW*.235,ly=cy-SH*.02;
+      g.save();g.translate(lx,ly);g.rotate(s*.46);
+      const gr=g.createRadialGradient(-s*SW*.06,-SH*.18,SW*.04,0,0,SH*.66);
+      gr.addColorStop(0,sh(base,.24+j));gr.addColorStop(.55,sh(base,j));gr.addColorStop(1,sh(base,-.42+j));
+      g.fillStyle=gr;g.beginPath();g.ellipse(0,0,SW*.29,SH*.64,0,0,7);g.fill();
+      g.strokeStyle=sh(base,-.5);g.lineWidth=.8;g.stroke();
+      g.strokeStyle=sh(base,.35);g.globalAlpha=.35;g.lineWidth=.9;g.beginPath();g.moveTo(-SW*.05,-SH*.4);g.lineTo(SW*.02,SH*.25);g.stroke();g.globalAlpha=1;
+      g.restore();}}
+  g.lineCap='round';
+  for(let i=0;i<(STORY?16000:11000);i++){const x=rnd()*W,y=rnd()*H,a=rnd()*6.28,l=2+rnd()*5;g.strokeStyle=`rgba(255,250,240,${.05+rnd()*.09})`;g.lineWidth=.6;
+    g.beginPath();g.moveTo(x,y);g.quadraticCurveTo(x+Math.cos(a)*l*.6+1,y+Math.sin(a)*l*.6,x+Math.cos(a)*l,y+Math.sin(a)*l);g.stroke();}
+  const v=g.createRadialGradient(W/2,H*.45,H*.25,W/2,H*.5,H*.85);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(4,10,28,.38)');g.fillStyle=v;g.fillRect(0,0,W,H);}
+
+function label(){const L=document.getElementById('lab'),top=labelRow*SH+(STORY?10:-6),w=STORY?900:880;
+  L.style.left=((W-w)/2)+'px';L.style.top=top+'px';L.style.width=w+'px';
+  L.innerHTML=`<div class="wm">The Weekend Project</div><div class="ed">chapter two — elves’</div>
+    <div class="row"><div><b>early bird tickets out</b>limited spots<br>venue &amp; time to be announced</div><div class="dt">12.<br>2026</div></div>`;}
+
+(document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{knit();label();document.body.dataset.ready=1;});
+</script>
+</body>
+</html>
