@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400..900&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#B8B5AE;--ink:#0D0D0C;--red:#C40202;
-  --i70:rgba(13,13,12,.68);--i45:rgba(13,13,12,.45);--i25:rgba(13,13,12,.22);--i12:rgba(13,13,12,.12);--i06:rgba(13,13,12,.07);
+  --i70:rgba(13,13,12,.68);--i55:rgba(13,13,12,.56);--i45:rgba(13,13,12,.45);--i25:rgba(13,13,12,.22);--i12:rgba(13,13,12,.12);--i06:rgba(13,13,12,.07);
   --fd:"Anton",Impact,"Arial Narrow",sans-serif;
   --ft:"Roboto Condensed","Roboto","Arial Narrow",sans-serif;
   --ease:cubic-bezier(.16,1,.3,1)}
@@ -19,30 +19,33 @@ html,body{height:100%;overflow:hidden;background:#0D0D0C;font-family:var(--ft);f
 button,input{font:inherit;color:inherit}button{cursor:pointer;background:none;border:0}
 svg{display:block;overflow:visible}svg text{font-family:var(--ft);font-stretch:75%;fill:var(--ink);font-weight:600}
 :focus-visible{outline:3px solid var(--red);outline-offset:4px}
+::selection{background:var(--red);color:var(--bg)}
 #stage{position:absolute;left:50%;top:calc(50% - var(--nav,22px));width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--s,1));overflow:hidden;background:var(--bg)}
 body.fs #stage{--nav:0px}
 .slide{position:absolute;inset:0;background:var(--bg);overflow:hidden;visibility:hidden}
 .slide.active,.slide.leaving{visibility:visible}.slide.active{z-index:2}.slide.leaving{z-index:1;pointer-events:none}
 .slide aside.notes{display:none}
-.pgno{position:absolute;right:72px;bottom:26px;font-size:18px;font-weight:700;color:var(--i45);font-variant-numeric:tabular-nums;letter-spacing:.06em}
-.pgno i{font-style:normal;color:var(--red);letter-spacing:4px;margin-right:12px}
+.pgno{position:absolute;right:72px;bottom:26px;display:flex;align-items:center;font-size:18px;font-weight:700;color:var(--i70);font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.pgno i{display:inline-flex;gap:7px;margin-right:16px}
+.pgno i u{display:block;width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--i55);transition:background .3s,box-shadow .3s}
+.pgno i u.on{background:var(--red);box-shadow:none}
 .ko .pgno{display:none}
 
 /* top bar: logo + sections; the red pill marks where we are */
 #top{position:absolute;left:0;right:0;top:0;height:78px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:0 72px;pointer-events:none}
 #top .logo{font-family:var(--fd);font-size:34px;line-height:.9;letter-spacing:.01em;text-transform:uppercase}
 #top .logo small{display:block;font-family:var(--ft);font-size:10.5px;font-weight:800;letter-spacing:.46em;margin-top:5px}
-#secs{position:relative;display:flex;gap:2px;pointer-events:auto}
+#secs{position:relative;display:flex;gap:2px;pointer-events:auto;margin-left:auto}
 #secs button{position:relative;z-index:1;font-size:17px;font-weight:700;padding:7px 14px;border-radius:999px;transition:color .4s}
 #secs button.cur{color:var(--bg)}
 #secs .pill{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;background:var(--red);opacity:0;transition:left .6s var(--ease),width .6s var(--ease),opacity .4s}
 
 /* type */
-.eb{font-family:var(--ft);font-size:24px;font-weight:800;color:var(--red);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;line-height:1.1}
-.h2{position:absolute;left:72px;right:72px;top:96px;font-family:var(--fd);font-weight:400;font-size:80px;line-height:.92;text-transform:uppercase;letter-spacing:.004em;
+.eb{font-family:var(--ft);font-size:24px;font-weight:700;color:var(--i70);letter-spacing:.005em;line-height:1.1}
+.h2{position:absolute;left:72px;right:72px;top:88px;display:flex;flex-direction:column-reverse;font-family:var(--fd);font-weight:400;font-size:80px;line-height:.92;text-transform:uppercase;letter-spacing:.004em;
   clip-path:inset(100% -4% -12% -4%);transform:translateY(34px);transition:clip-path .9s var(--ease) .05s,transform .9s var(--ease) .05s}
 .on .h2{clip-path:inset(-12% -4% -12% -4%);transform:none}
-.h2 .eb{display:block;margin-bottom:8px}
+.h2 .eb{display:block;margin-top:10px;font-family:var(--ft);text-transform:none}
 .h2 .ht{display:block;white-space:nowrap}
 .bd{position:absolute;left:72px;right:72px;top:250px;bottom:70px}
 .bd.hi{top:204px}
@@ -71,14 +74,14 @@ body.fs #stage{--nav:0px}
 .on .kw i{transform:none}
 .kc{position:absolute;top:var(--ct,478px);font-size:38px;font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:.004em;z-index:3;opacity:0;transform:translateY(20px);transition:opacity .6s ease .75s,transform .9s var(--ease) .75s}
 .kc{max-width:520px}.kc.l{left:72px}.kc.r{left:var(--crx,640px);max-width:calc(1000px - var(--crx,640px))}
-.kc small{display:block;font-size:24px;font-weight:700;color:var(--i70);letter-spacing:.02em;margin-top:8px;text-transform:none}
+.kc small{display:block;font-size:24px;font-weight:700;color:var(--i70);letter-spacing:.01em;line-height:1.18;margin-top:10px;text-transform:none}
 .on .kc{opacity:1;transform:none}
-.badge{position:absolute;right:66px;top:var(--bt,438px);width:196px;height:196px;border-radius:50%;background:var(--red);color:var(--bg);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--fd);font-size:44px;line-height:.94;text-transform:uppercase;z-index:4;
-  transform:rotate(-34deg) scale(0);transition:transform .9s cubic-bezier(.34,1.56,.64,1) 1.05s}
+.badge{position:absolute;right:72px;top:var(--bt,438px);width:var(--bs,196px);height:var(--bs,196px);border-radius:50%;background:var(--red);color:var(--bg);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--fd);font-size:calc(var(--bs,196px)*.224);line-height:.94;text-transform:uppercase;z-index:4;
+  opacity:0;transform:rotate(-28deg) scale(.55);transition:transform 1.1s var(--ease) 1.05s,opacity .35s ease 1.05s}
 .badge>span{display:block}
-.on .badge{transform:rotate(-10deg) scale(1)}
-.badge.sm{font-size:40px}
-.strap{position:absolute;left:0;right:0;bottom:0;height:48px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;letter-spacing:.44em;text-transform:uppercase;white-space:nowrap;z-index:5;padding-left:.44em}
+.on .badge{transform:rotate(-10deg) scale(1);opacity:1}
+.badge.sm{font-size:calc(var(--bs,196px)*.204)}
+.strap{position:absolute;left:0;right:0;bottom:0;height:48px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;letter-spacing:.34em;text-transform:uppercase;white-space:nowrap;z-index:5;padding:0 72px 0 calc(72px + .34em);overflow:hidden}
 .wv{position:absolute;left:40px;top:0;width:1200px;height:720px;z-index:1;pointer-events:none}
 .wv rect{fill:var(--red);transform-box:fill-box;transform-origin:center;transform:scaleY(0);transition:transform 1.1s var(--ease);transition-delay:calc(var(--j,0)*9ms + 250ms)}
 .on .wv rect{transform:none}
@@ -135,11 +138,11 @@ body:not(.idle) #hud{opacity:1}
 #laser{position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:rgba(230,20,20,.95);box-shadow:0 0 0 5px rgba(230,20,20,.3),0 0 20px 8px rgba(230,20,20,.45);pointer-events:none;z-index:95;display:none}
 body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 #menu{position:fixed;inset:0;z-index:80;background:#B8B5AE;color:var(--ink);display:none;overflow:auto;padding:44px 60px}
-#menu.on{display:block}
+#menu.on{display:block}#menu{scrollbar-color:var(--i45) transparent}
 #menu h2{font-family:var(--fd);font-weight:400;font-size:52px;text-transform:uppercase;margin-bottom:22px}
 #menu .mcols{columns:4;column-gap:40px}
 #menu .mch{break-inside:avoid;margin-bottom:22px}
-#menu .mch h4{font-size:16px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+#menu .mch h3{font-size:16px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
 #menu .mch button{display:block;text-align:left;font-size:19px;font-weight:600;line-height:1.3;padding:3px 0;width:100%;color:var(--i70)}
 #menu .mch button span{display:inline-block;width:30px;opacity:.6}
 #menu .mch button.cur,#menu .mch button:hover{color:var(--ink)}
@@ -147,10 +150,13 @@ body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 #menu .keys{margin-top:20px;font-size:15px;color:var(--i70)}
 #menu kbd{font-family:inherit;border:1px solid var(--i45);border-radius:4px;padding:0 6px;margin:0 3px}
 #notes{position:fixed;left:50%;transform:translateX(-50%);bottom:52px;width:min(900px,92vw);z-index:70;background:#0D0D0C;color:#B8B5AE;border-radius:12px;padding:14px 20px;font-size:20px;line-height:1.4;display:none;border:1px solid rgba(184,181,174,.25)}
-#notes.on{display:block}#notes .nt{display:flex;justify-content:space-between;font-size:14px;color:rgba(184,181,174,.6);margin-bottom:6px}
+#notes.on{display:block}#notes .nt{display:flex;justify-content:space-between;font-size:14px;color:rgba(184,181,174,.82);margin-bottom:6px}
 
 /* ---------- per-slide ---------- */
-.c3{display:grid;grid-template-columns:repeat(3,1fr);gap:56px;text-align:left;width:100%;margin-top:10px}
+.c3{display:grid;grid-template-columns:repeat(3,1fr);gap:56px;text-align:left;width:100%;margin-top:22px}
+.c3>div{border-top:3px solid var(--ink);padding-top:18px}
+.c3 .off{border-top-color:var(--i25)}.c3 .off b{color:var(--i55)}
+.c3 .red{border-top-color:var(--red)}
 .c3 b{display:block;font-family:var(--fd);font-weight:400;font-size:76px;line-height:.95;text-transform:uppercase}
 .c3 span{display:block;font-size:34px;font-weight:600;color:var(--i70);margin-top:14px;line-height:1.18}
 .c3 .red b{color:var(--red)}
@@ -162,6 +168,7 @@ body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 .steps .num{font-family:var(--fd);font-size:130px;line-height:.9;color:var(--red)}
 .steps b{display:block;font-family:var(--fd);font-weight:400;font-size:52px;line-height:1;text-transform:uppercase;margin-top:14px}
 .steps span{display:block;font-size:31px;font-weight:600;color:var(--i70);line-height:1.18;margin-top:10px}
+.steps.s3>div{border-top:3px solid var(--ink);padding-top:6px}.steps.s3 .num{font-size:190px;line-height:.86}.steps.s3 b{font-size:60px}.steps.s3 span{font-size:34px}
 .cmp{width:100%;border-collapse:collapse}
 .cmp th{font-size:22px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--i70);padding:16px 8px;text-align:center;line-height:1.1;vertical-align:bottom}
 .cmp th:first-child{text-align:left;padding-left:0}
@@ -172,7 +179,7 @@ body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 .ok,.no,.part{display:inline-block;width:40px;height:40px;border-radius:50%;position:relative;vertical-align:middle;transform:scale(1.2)}
 .ok{background:var(--ink)}.ok::after{content:"";position:absolute;left:12px;top:7px;width:10px;height:19px;border-right:5px solid var(--bg);border-bottom:5px solid var(--bg);transform:rotate(45deg)}
 .us .ok{background:var(--red)}
-.no{border:3px solid var(--i45)}.no::before,.no::after{content:"";position:absolute;left:16px;top:6px;width:3px;height:22px;background:var(--i45);transform:rotate(45deg)}.no::after{transform:rotate(-45deg)}
+.no{border:3px solid var(--i55)}.no::before,.no::after{content:"";position:absolute;left:16px;top:6px;width:3px;height:22px;background:var(--i55);transform:rotate(45deg)}.no::after{transform:rotate(-45deg)}
 .part{border:3px solid var(--ink);background:linear-gradient(90deg,var(--ink) 50%,transparent 50%)}
 .tl3{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;position:relative;margin-top:30px}
 .tl3::before{content:"";position:absolute;left:30px;right:30px;top:28px;height:5px;background:var(--ink)}
@@ -185,7 +192,7 @@ body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 .dec{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:24px;margin-top:34px;width:100%}
 .dec>div{text-align:left}.dec small{display:block;font-size:24px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70)}
 .dec b{display:block;font-family:var(--fd);font-weight:400;font-size:52px;line-height:1;text-transform:uppercase;margin-top:8px}
-.dec .arr{font-family:var(--fd);font-size:56px;color:var(--i45)}
+.dec .arr{font-family:var(--fd);font-size:56px;color:var(--i55)}
 .dec .choice b{color:var(--red)}
 .msz{display:grid;grid-template-columns:470px 1fr;gap:60px;align-items:center}
 .msz .it{padding:12px 0;border-top:2px solid var(--i25)}
@@ -252,7 +259,7 @@ body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 .sld label b{float:right;font-family:var(--fd);font-weight:400;font-size:38px;color:var(--ink);letter-spacing:0;margin-top:-10px}
 /* equation */
 .eq{display:flex;align-items:baseline;justify-content:center;gap:26px;font-family:var(--fd);font-size:120px;line-height:1;font-variant-numeric:tabular-nums}
-.eq em{font-style:normal;color:var(--i45)}
+.eq em{font-style:normal;color:var(--i55)}
 /* kpi */
 .kg{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 36px}
 .kg>div{border-top:3px solid var(--ink);padding-top:12px}
@@ -269,7 +276,7 @@ body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 .fr .fb{height:44px;background:var(--ink);display:flex;align-items:center;justify-content:flex-end;padding-right:12px;color:var(--bg);font-family:var(--fd);font-size:30px;width:0;transition:width 1s var(--ease)}
 .fr:last-child .fb{background:var(--red)}
 .fr .fl{font-size:32px;font-weight:700}
-.fr .fl em{font-style:normal;font-weight:600;color:var(--i45);margin-left:10px}
+.fr .fl em{font-style:normal;font-weight:600;color:var(--i70);margin-left:10px}
 .clr{display:grid;grid-template-columns:260px 160px 1fr;align-items:center;gap:24px;padding:8px 0;line-height:1.1;border-top:2px solid var(--i25)}
 .clr span{font-size:32px;font-weight:700;color:var(--i70)}
 .clr b{font-family:var(--fd);font-weight:400;font-size:50px;line-height:1;text-align:right;white-space:nowrap}
@@ -280,7 +287,7 @@ body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 .rk span{font-size:34px;font-weight:700;color:var(--i70)}
 .pv4{display:grid;grid-template-columns:1fr 1fr;gap:40px 60px}
 .pv4>div{border-top:3px solid var(--ink);padding-top:12px}
-.pv4 small{display:block;font-size:22px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.pv4 small{display:block;font-size:22px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--i70)}
 .pv4 b{display:block;font-family:var(--fd);font-weight:400;font-size:54px;line-height:1;text-transform:uppercase;margin-top:6px}
 .pv4 span{display:block;font-size:30px;font-weight:600;color:var(--i70);margin-top:8px}
 .ba td,.ba th{transition:color .5s,opacity .5s}
@@ -297,7 +304,7 @@ body.laser #laser{display:block}body.laser,body.laser *{cursor:none!important}
 
 /* ---------- added: currency switch, year 1, motion ---------- */
 x-m{display:inline-block}
-#curT{pointer-events:auto;display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:var(--i12);margin:0 auto 0 34px}
+#curT{pointer-events:auto;display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:var(--i12);margin:0 0 0 22px}
 #curT button{font-size:16px;font-weight:800;min-width:40px;padding:5px 12px;border-radius:999px;color:var(--i70);transition:background .3s,color .3s}
 #curT button.on{background:var(--ink);color:var(--bg)}
 .y1w{display:grid;grid-template-columns:740px 1fr;gap:44px}
@@ -329,14 +336,14 @@ x-m{display:inline-block}
 svg{-webkit-user-select:none;user-select:none}
 
 /* ---------- v12: presenter steps, chart switches, spotlight ---------- */
-.tgbar{position:absolute;right:72px;top:89px;height:40px;z-index:6;pointer-events:none;opacity:0;transition:opacity .6s ease .45s}
+.tgbar{position:absolute;right:72px;top:162px;height:36px;z-index:6;pointer-events:none;opacity:0;transition:opacity .6s ease .45s}
 .on .tgbar{opacity:1}
 .tgg{position:absolute;right:0;top:0;display:flex;align-items:center;gap:12px;white-space:nowrap;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .5s var(--ease),visibility 0s .3s}
 .tgg.cur{opacity:1;visibility:inherit;transform:none;pointer-events:auto;transition:opacity .45s .2s,transform .8s var(--ease) .2s,visibility 0s}
 .tgg kbd,.ikbd{font-family:var(--ft);font-size:14px;font-weight:800;color:var(--i70);border:1.5px solid var(--i45);border-radius:5px;padding:1px 7px;transition:opacity .4s}
 body.idle .tgg kbd,body.idle .ikbd{opacity:0}
 .tg.seg{padding:4px;gap:3px;position:relative}
-.tg.seg button{position:relative;z-index:1;font-size:18px;padding:5px 15px;letter-spacing:.05em;transition:color .35s}
+.tg.seg button{position:relative;z-index:1;font-size:16px;padding:4px 14px;letter-spacing:.05em;transition:color .35s}
 .tg.seg button.on{background:none;color:var(--bg)}
 .tg.seg .knob{position:absolute;z-index:0;top:4px;bottom:4px;left:4px;width:0;border-radius:999px;background:var(--ink);transition:left .5s var(--ease),width .5s var(--ease)}
 .pgno .bts{display:inline-flex;gap:5px;margin-right:14px;vertical-align:3px}
@@ -353,7 +360,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 
 /* buyers */
 .deals{display:grid;grid-template-columns:repeat(3,1fr);gap:0 44px}
-.dcol h4{font-size:21px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:10px;line-height:1.1}
+.dcol h3{font-size:21px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70);margin-bottom:10px;line-height:1.1}
 .dl{border-top:3px solid var(--ink);padding:12px 0 16px;overflow:hidden}
 .dl b{display:block;font-family:var(--fd);font-weight:400;font-size:54px;line-height:1.02;white-space:nowrap;text-transform:uppercase}
 .dl em{display:block;font-style:normal;font-family:var(--fd);font-size:32px;line-height:1.05;text-transform:uppercase;margin-top:4px;color:var(--red)}
@@ -373,8 +380,6 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 .bmc .bk.fo{background:var(--ink);color:var(--bg)}
 .bmc .bk.fo small{color:rgba(184,181,174,.78)}
 .bmc .bk.vp.fo{background:var(--red);box-shadow:0 0 0 4px var(--ink)}
-.bmc .bk::after{content:"";position:absolute;left:0;bottom:0;height:5px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
-.bmc .bk.fo::after{transform:scaleX(1)}.bmc .bk.vp.fo::after{background:var(--ink)}
 .bmp{border-top:3px solid var(--red);padding-top:12px;position:relative}
 .bmp small{display:block;font-size:20px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--i70)}
 .bmp h3{font-family:var(--fd);font-weight:400;font-size:54px;line-height:1;text-transform:uppercase;color:var(--red);margin:8px 0 16px}
@@ -396,15 +401,10 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 .acc .vd{font-family:var(--fd);font-size:40px;line-height:1;text-align:right;white-space:nowrap;text-transform:uppercase}
 .acc .ar.short .vd{color:var(--red)}
 
-/* section wipe and the ticker strap */
+/* section wipe */
 #wipe{position:absolute;inset:0;z-index:40;background:var(--red);display:flex;align-items:center;justify-content:center;pointer-events:none;visibility:hidden;overflow:hidden}
 #wipe b{font-family:var(--fd);font-weight:400;font-size:220px;line-height:.9;text-transform:uppercase;color:var(--bg);white-space:nowrap}
-.strap.tk{justify-content:flex-start;padding-left:0;overflow:hidden}
-.strap .trk{display:flex;flex:none;white-space:nowrap;will-change:transform}
-.strap .trk span{padding-right:.44em}
-.on .strap .trk{animation:tick var(--td,80s) linear infinite}
-@keyframes tick{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.on .strap .trk{animation:none}.tgg,.tg.seg .knob{transition:none}}
+@media (prefers-reduced-motion:reduce){.tgg,.tg.seg .knob{transition:none}}
 </style>
 </head>
 <body>
@@ -467,7 +467,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <section class="slide" data-id="demo" data-title="Live demo" data-sec="Solution">
   <h2 class="h2"><span class="eb">Live demo</span><span class="ht">One call, start to finish</span></h2>
   <div class="tgbar"><div class="tgg"><kbd>T</kbd><div class="tg seg" data-tg="call" role="group" aria-label="Which call"><button data-v="0" class="on">Late order</button><button data-v="1">Blocked card</button><button data-v="2">Data plan</button></div></div></div>
-  <div class="bd" style="top:214px;bottom:56px"><div class="dmo">
+  <div class="bd" style="top:226px;bottom:56px"><div class="dmo">
     <div>
       <div class="dbar"><span class="live" id="liveTag"><i></i><em style="font-style:normal">Live</em></span><span id="callTime" class="n">00:00</span></div>
       <canvas id="dual" width="600" height="96"></canvas>
@@ -490,7 +490,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <!-- 6 TODAY + COMPETITION -->
 <section class="slide" data-id="compete" data-title="Today and competition" data-sec="Competition">
   <h2 class="h2"><span class="eb">How it’s solved today</span><span class="ht">Every fix misses something</span></h2>
-  <div class="bd hi" style="top:214px"><div class="pages">
+  <div class="bd hi" style="top:228px"><div class="pages">
     <div class="page" data-eb="How it’s solved today" data-t="Every fix misses something"><div class="rows">
       <div><div><b>Data vendors</b><small>e.g. Shaip, Appen</small></div><span>Many “call-centre” sets are simulated</span></div>
       <div><div><b>Crowd apps</b><small>e.g. Karya</small></div><span>People read sentences aloud</span></div>
@@ -522,7 +522,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <section class="slide" data-id="growth" data-title="Demand growth" data-sec="Market">
   <h2 class="h2"><span class="eb">Market demand</span><span class="ht">6X more demand by 2031</span></h2>
   <div class="tgbar"><div class="tgg"><kbd>T</kbd><div class="tg seg" data-tg="gr" role="group" aria-label="Show hours or value"><button data-v="h" class="on">Hours</button><button data-v="v">Value</button></div></div></div>
-  <div class="bd hi" style="top:226px"><svg id="grChart" data-cur width="1088" height="420" viewBox="0 0 1088 420" role="img" aria-label="Indian call data bought each year, 2026 to 2031"></svg></div>
+  <div class="bd hi" style="top:236px"><svg id="grChart" data-cur width="1088" height="420" viewBox="0 0 1088 420" role="img" aria-label="Indian call data bought each year, 2026 to 2031"></svg></div>
   <aside class="notes">Hours of real Indian call data that AI companies buy each year: 3 lakh in 2026, growing 45% a year to 19.2 lakh in 2031. Red is our share, written under each year. Clicks: 2027, then 2031, then the same chart in money.</aside>
 </section>
 
@@ -530,7 +530,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <section class="slide" data-id="size" data-title="Market size" data-sec="Market">
   <h2 class="h2"><span class="eb">Market size, 2031</span><span class="ht">A ₹538 crore market</span></h2>
   <div class="tgbar"><div class="tgg"><kbd>T</kbd><div class="tg seg" data-tg="sz" role="group" aria-label="Which year"><button data-v="2027">2027</button><button data-v="2031" class="on">2031</button></div></div></div>
-  <div class="bd hi" style="top:214px"><div class="msz">
+  <div class="bd hi" style="top:228px"><div class="msz">
     <svg id="szC" width="470" height="440" viewBox="0 0 470 440" aria-hidden="true"></svg>
     <div id="szI">
       <div class="it bld" style="--k:1"><span>Total market</span><b id="szT">₹538 crore</b></div>
@@ -543,26 +543,26 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <!-- 10 BUYERS -->
 <section class="slide" data-id="buyers" data-title="Who buys this data" data-sec="Market">
   <h2 class="h2"><span class="eb">Who has paid</span><span class="ht">They already pay for real conversations</span></h2>
-  <div class="bd hi" style="top:224px"><div class="pages">
+  <div class="bd hi" style="top:232px"><div class="pages">
     <div class="page" data-eb="Who has paid" data-t="They already pay for real conversations"><div class="deals">
-      <div class="dcol"><h4>Big tech</h4>
+      <div class="dcol"><h3>Big tech</h3>
         <div class="dl"><b>₹94 crore</b><em>Google</em><span>Spirit Airlines’ business and customer-service data, at auction, 2026</span></div>
         <div class="dl"><b>1.5 lakh hours</b><em>Google</em><span>Project Vaani’s target, funded by Google, across all 773 districts</span></div></div>
-      <div class="dcol"><h4>Data buyers</h4>
+      <div class="dcol"><h3>Data buyers</h3>
         <div class="dl"><b>₹9,400 crore</b><em>micro1</em><span>To license company records over 12 months, from Oct 2026</span></div>
         <div class="dl"><b>₹2.35 crore</b><em>Mercor</em><span>Its top listed price for one call centre’s records</span></div></div>
-      <div class="dcol"><h4>Paid to speakers</h4>
+      <div class="dcol"><h3>Paid to speakers</h3>
         <div class="dl"><b>₹28 a minute</b><em>Neon</em><span>Paid to people for their phone calls, then sold to AI firms</span></div>
         <div class="dl"><b>₹1,600 an hour</b><em>Babel Audio</em><span>Paid to people who record conversations for AI labs</span></div></div>
     </div></div>
     <div class="page" data-eb="Who will buy from us" data-t="Six kinds of buyer"><div class="deals">
-      <div class="dcol"><h4>Building in India</h4>
+      <div class="dcol"><h3>Building in India</h3>
         <div class="dl g"><b>Indian voice AI</b><em>Sarvam AI, Bolna, Ringg</em><span>Sarvam raised ₹3,250 crore in 2026</span></div>
         <div class="dl g"><b>Call-centre AI</b><em>Gnani.ai, Uniphore</em><span>Gnani trains on 14 million hours of phone audio</span></div></div>
-      <div class="dcol"><h4>Worldwide</h4>
+      <div class="dcol"><h3>Worldwide</h3>
         <div class="dl g"><b>Global AI labs</b><em>Google, Microsoft, Meta</em><span>Five big-tech firms paid 80% of Appen’s revenue</span></div>
         <div class="dl g"><b>Data companies</b><em>micro1, Mercor, Appen</em><span>Mercor’s sales run at ₹18,800 crore a year</span></div></div>
-      <div class="dcol"><h4>Big users</h4>
+      <div class="dcol"><h3>Big users</h3>
         <div class="dl g"><b>Banks and insurers</b><em>In-house AI teams</em><span>Voice AI serves 4.5 crore policyholders of one insurer</span></div>
         <div class="dl g"><b>Government, research</b><em>Bhashini, IISc, IIT Madras</em><span>Bhashini helped fund 7,348 hours of Indian speech</span></div></div>
     </div></div>
@@ -603,7 +603,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <!-- 12 CANVAS -->
 <section class="slide" data-id="canvas" data-title="Business model canvas" data-sec="Model">
   <h2 class="h2"><span class="eb">Business model canvas</span><span class="ht">Ten blocks, one business</span></h2>
-  <div class="bd" style="top:208px;bottom:58px"><div class="bmw">
+  <div class="bd" style="top:226px;bottom:54px"><div class="bmw">
     <div class="bmc" id="bmc">
       <button class="bk" style="grid-area:kp" data-o="8" data-i="Call centres that serve their own customers|Cloud-telephony firms|Labellers in smaller cities|Lawyers and security auditors">Key partners<small>Call centres</small></button>
       <button class="bk" style="grid-area:ka" data-o="7" data-i="Equip and support centres|Ask for consent after each call|Mute, label and check|License, and delete on request">Key activities<small>Equip, ask, label</small></button>
@@ -628,8 +628,8 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
   <div class="bd"><div class="pages">
     <div class="page" data-eb="Investment needed" data-t="₹1.41 crore runs year one"><svg id="cashChart" data-cur width="1088" height="320" viewBox="0 0 1088 330" role="img" aria-label="Cash in the bank, or profit, each month, 2027 to 2029"></svg><p class="t32 dim" style="margin-top:8px">After year one, sales pay for everything. Cash never drops below ₹20 lakh.</p></div>
     <div class="page" data-eb="Funding" data-t="Three ways to raise it. We pick one"><div class="c3">
-      <div><b style="color:var(--i45)">Savings</b><span>Full control, far too small</span></div>
-      <div><b style="color:var(--i45)">Bank loan</b><span>Needs collateral and revenue</span></div>
+      <div class="off"><b>Savings</b><span>Full control, far too small</span></div>
+      <div class="off"><b>Bank loan</b><span>Needs collateral and revenue</span></div>
       <div class="red"><b>Accelerator</b><span>Money and mentors before revenue</span></div></div></div>
     <div class="page" data-eb="Funding" data-t="Four of five accelerators can fund it"><div class="acc" id="acc"></div></div>
   </div></div>
@@ -701,7 +701,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <section class="slide" data-id="year1" data-title="Year 1 financials" data-sec="Financials">
   <h2 class="h2"><span class="eb">Year 1, 2027, month by month</span><span class="ht">Losses shrink to ₹1.2 lakh by December</span></h2>
   <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="y1" role="group" aria-label="Sales and costs, or cash"><button data-v="b" class="on">Sales and costs</button><button data-v="c">Cash</button></div></div></div>
-  <div class="bd hi" style="top:214px"><div class="pages">
+  <div class="bd hi" style="top:228px"><div class="pages">
     <div class="page" data-eb="Year 1, 2027, month by month" data-t="Losses shrink to ₹1.2 lakh by December"><div class="y1w">
       <div><svg id="y1Chart" data-cur width="740" height="330" viewBox="0 0 760 340" role="img" aria-label="Monthly sales and costs in 2027"></svg>
         <div class="ctl y1c"><button class="btn" id="y1Play">Play</button><label style="flex:1">Month <b id="y1M">Dec 2027</b><input type="range" id="y1S" min="1" max="12" step="1" value="12" aria-label="Month of 2027"></label></div></div>
@@ -721,7 +721,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
   <h2 class="h2"><span class="eb">Five-year plan</span><span class="ht">₹30 crore revenue by 2031</span></h2>
   <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="pjv" role="group" aria-label="Table or chart"><button data-v="t" class="on">Table</button><button data-v="g">Chart</button></div><div class="tg seg" data-tg="pjk" role="group" aria-label="Demand"><button data-v="0.7">Demand −30%</button><button data-v="1" class="on">Plan</button><button data-v="1.3">+30%</button></div></div>
     <div class="tgg" data-pg="2"><kbd>T</kbd><div class="tg seg" data-tg="pb" role="group" aria-label="Total or each year"><button data-v="c" class="on">Total so far</button><button data-v="y">Each year</button></div></div></div>
-  <div class="bd hi" style="top:214px"><div class="pages">
+  <div class="bd hi" style="top:228px"><div class="pages">
     <div class="page" data-eb="Five-year plan" data-t="₹30 crore revenue by 2031">
       <div id="pjOut"></div><p class="t28 dim" id="pjNote" style="margin-top:12px"></p></div>
     <div class="page" data-eb="Returns" data-t="2031 profit alone is 5.1× the investment"><div class="kg k2" id="roiK" style="margin-top:20px"></div></div>
@@ -736,7 +736,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
   <h2 class="h2"><span class="eb">Team</span><span class="ht">4 people to start, 30 by 2031</span></h2>
   <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="team" role="group" aria-label="Which year"><button data-v="y1" class="on">Year one</button><button data-v="2031">2031</button></div></div>
     <div class="tgg" data-pg="2"><kbd>T</kbd><div class="tg seg" data-tg="mk" role="group" aria-label="Which year"><button data-v="y1">Year one</button><button data-v="2030" class="on">2030</button></div></div></div>
-  <div class="bd hi" style="top:220px"><div class="pages">
+  <div class="bd hi" style="top:232px"><div class="pages">
     <div class="page" data-eb="Team" data-t="4 people to start, 30 by 2031"><div id="teamB" style="display:none;--lw:520px;--vw:110px;margin-top:6px"></div><table class="tb" id="teamT" style="font-size:32px">
       <tr><th>Role</th><th class="r"><span class="cx" data-usd="$ a month">₹ a month</span></th></tr>
       <tr><td>Founders, CEO and CTO: no salary in year one</td><td class="r">0</td></tr><tr><td>Machine-learning engineer</td><td class="r"><span class="mny" data-v="150000" data-s="n">1,50,000</span></td></tr>
@@ -760,7 +760,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <section class="slide" data-id="customers" data-title="Customers" data-sec="Operations">
   <h2 class="h2"><span class="eb">Customers</span><span class="ht">375 companies are buying</span></h2>
   <div class="tgbar"><div class="tgg" data-pg="0"><kbd>T</kbd><div class="tg seg" data-tg="by" role="group" aria-label="Companies or sales"><button data-v="n" class="on">Companies</button><button data-v="s">Our sales, 2030</button></div></div></div>
-  <div class="bd hi" style="top:226px"><div class="pages">
+  <div class="bd hi" style="top:236px"><div class="pages">
     <div class="page" data-eb="Customers" data-t="375 companies are buying"><div id="byBars" style="--lw:520px;--vw:170px;margin-top:10px"></div></div>
     <div class="page" data-eb="Sales funnel, first year" data-t="375 companies. 3 loyal buyers"><div id="fun"></div></div>
     <div class="page" data-eb="Customer value" data-t="A repeat buyer is worth ₹51 lakh"><div style="display:grid;grid-template-columns:660px 1fr;gap:50px">
@@ -777,7 +777,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <!-- 20 RISKS -->
 <section class="slide" data-id="risks" data-title="Risks and plan B" data-sec="Risks">
   <h2 class="h2"><span class="eb">Risks</span><span class="ht">Profit a month in 2030, five ways</span></h2>
-  <div class="bd hi" style="top:226px"><div class="pages">
+  <div class="bd hi" style="top:236px"><div class="pages">
     <div class="page" data-eb="Risks" data-t="Profit a month in 2030, five ways"><table class="tb" id="scT"><tr><th>Scenario</th><th class="r">Hours</th><th class="r">Price</th><th class="r"><span class="cx" data-usd="$ thousand">₹ lakh</span></th><th style="width:330px"></th></tr></table></div>
     <div class="page" data-eb="Risks" data-t="Four risks, four answers"><div class="rk">
       <div><b>Too few buyers</b><span>Pre-sold orders and subscriptions</span></div>
@@ -801,7 +801,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
   <div class="bd"><div class="pages">
     <div class="page" data-eb="The ask" data-t="₹1.41 crore, then sales pay"><div class="kg k2"><div><b>₹1.41 Cr</b><span>one accelerator cheque, January 2027, for year one</span></div><div><b>Feb 2028</b><span>profit every month from here</span></div></div>
       <p class="t36 dim" style="margin-top:40px">No loan, no second round. Cash never drops below ₹20 lakh.</p></div>
-    <div class="page" data-eb="Next 90 days" data-t="What we prove first"><div class="steps" style="grid-template-columns:repeat(3,1fr);margin-top:10px">
+    <div class="page" data-eb="Next 90 days" data-t="What we prove first"><div class="steps s3" style="grid-template-columns:repeat(3,1fr);margin-top:10px">
       <div><div class="num">1</div><b>Legal opinion</b><span>On after-call consent</span></div>
       <div><div class="num">2</div><b>Pilot</b><span>2 centres, 100 agents</span></div>
       <div><div class="num">3</div><b>Proof</b><span>500 hours, 2 buyer letters</span></div></div></div>
@@ -822,7 +822,7 @@ table.spot>tbody,table.spot>thead{opacity:1!important}table.spot tr{transition:o
 <!-- SOURCES -->
 <section class="slide" data-id="sources" data-title="Sources" data-sec="Ask" data-nocur>
   <h2 class="h2"><span class="eb">Appendix</span><span class="ht">Sources: market and plan</span></h2>
-  <div class="bd" style="top:214px"><div class="pages">
+  <div class="bd" style="top:224px"><div class="pages">
     <div class="page" data-eb="Appendix" data-t="Sources: market and plan"><ul class="srcl">
       <li>Indian-language AI start-up funding, 2026 ($399 million ≈ ₹3,750 crore; Sarvam $346 million): Tracxn, via Business Standard, Oct 2026</li>
       <li>76% prefer a voice call with a business: Truecaller consumer report, 2026</li>
@@ -926,13 +926,13 @@ function splitKo(w){let j=0;const wrap=document.createElement('span');wrap.class
 $$('.kw').forEach(splitKo);
 function fitKo(s){const w=$('.kw',s);if(!w)return;const k=$('.kin',w);w.style.fontSize='100px';const fs=Math.min(+w.dataset.max||330,100*1200/k.offsetWidth);w.style.fontSize=fs+'px';
   const wh=w.offsetHeight,cb=[...$$('.kc',s)].reduce((m,c)=>Math.max(m,c.offsetHeight),0),total=wh+34+cb,kt=Math.max(90,78+(594-total)/2),ct=kt+wh+34;
-  s.style.setProperty('--kt',kt+'px');s.style.setProperty('--ct',ct+'px');s.style.setProperty('--bt',Math.min(ct-30,672-196-26)+'px');
+  s.style.setProperty('--kt',kt+'px');s.style.setProperty('--ct',ct+'px');
+  const wb=kt+wh+16,bs=Math.max(150,Math.min(196,672-14-wb)),bt=Math.max(wb,Math.min(ct-30,672-14-bs));s.style.setProperty('--bs',bs+'px');s.style.setProperty('--bt',bt+'px');
   const wv=$('.wv',s);if(wv)drawWave(wv,kt+wh*.5,wh);}
 function drawWave(svg,cy,wh){clear(svg);svg._bars=[];const n=74,gap=1200/n;for(let i=0;i<n;i++){const env=Math.pow(Math.sin(Math.PI*(i+.5)/n),.55),v=Math.abs(.62*Math.sin(i*.55+.4)+.38*Math.sin(i*.19+1.3)),h=Math.max(10,wh*1.2*env*(.22+.78*v));
   const r=S(svg,'rect',{x:i*gap+gap/2-3.5,y:cy-h/2,width:7,height:h,rx:3.5});r.style.setProperty('--j',Math.abs(i-n/2));svg._bars.push({r,h0:h,cy,x:i*gap+gap/2,cur:1});}}
-/* the black strap on poster slides runs like a ticker */
-$$('.strap').forEach(st=>{const t=st.textContent.trim();st.classList.add('tk');st.setAttribute('aria-label',t);st.innerHTML='<div class="trk" aria-hidden="true">'+Array(4).fill('<span>'+t+' ·</span>').join('')+'</div>';});
-function tkDur(){$$('.strap .trk').forEach(k=>{const w=k.scrollWidth/2;if(w)k.style.setProperty('--td',(w/34).toFixed(1)+'s');});}
+/* the black strap on poster slides: one still line, set to fit */
+function tkDur(){$$('.strap').forEach(st=>shrink(st,12));}
 const fitAll=()=>{fitAllH();$$('.slide.ko').forEach(fitKo);fitDl();fitBk();tkDur();$$('.tg.seg').forEach(knob);knob($('#curT'));};
 
 /* ================= motion: numbers count up, items arrive one after another ================= */
@@ -945,7 +945,7 @@ function countUp(el,delay){if(RM)return;const tg=el.querySelector('.mny')||el,tx
   (function f(t){if(tg._cuK!==me)return;if(tg.textContent!==last){tg._cuT=null;return;}if(tok!==cuTok){if(!tg.classList.contains('mny'))tg.textContent=txt;tg._cuT=null;return;}
     const k=Math.min(1,Math.max(0,(t-t0)/950));last=k>=1?txt:fmt(num*eo(k));tg.textContent=last;if(k<1)requestAnimationFrame(f);else tg._cuT=null;})(performance.now());}
 function countAll(root,base,skipPages){$$(CU_SEL,root).forEach((e,i)=>{if(skipPages&&e.closest('.page'))return;if(e.closest('[style*="display:none"]'))return;countUp(e,base+i*80);});}
-const IT_SEL='.steps>div,.c3>div,.kg>div,.chain4>div,.tiers>div,.rows>div,.rk>div,.pv4>div,.tl3>div,.dec>*,.hb,.fr,.clr,.tb tr,.cmp tr,.sld,.ctl,.y1r>div,.page>p,.rd,.dcol h4,.dl,.acc .ar';
+const IT_SEL='.steps>div,.c3>div,.kg>div,.chain4>div,.tiers>div,.rows>div,.rk>div,.pv4>div,.tl3>div,.dec>*,.hb,.fr,.clr,.tb tr,.cmp tr,.sld,.ctl,.y1r>div,.page>p,.rd,.dcol h3,.dl,.acc .ar';
 function revealPage(p,base){if(!p)return;base=base||0;
   if(!RM){$$(IT_SEL,p).forEach((e,i)=>e.animate([{opacity:0,transform:'translateY(22px)'},{opacity:1,transform:'none'}],{duration:720,delay:base+90+Math.min(i,14)*65,easing:EASE,fill:'backwards'}));special(p,base);}
   countAll(p,base+160,false);}
@@ -976,7 +976,7 @@ const BEATS={};let STEPS=true;try{if(localStorage.getItem('placetSteps')==='off'
 function beats(id,pg,n,set){BEATS[id+':'+pg]={n,set};}
 const bkey=s=>s.dataset.id+':'+(s._pg||0);
 function beatN(s){const b=BEATS[bkey(s)];return b&&STEPS?b.n:0;}
-function updPg(s){const d=$('.pgno',s);if(!d)return;const p=pages(s),n=s._pg||0;$('i',d).textContent=p.length>1?p.map((x,i)=>i===n?'●':'○').join(''):'';
+function updPg(s){const d=$('.pgno',s);if(!d)return;const p=pages(s),n=s._pg||0;$('i',d).innerHTML=p.length>1?p.map((x,i)=>'<u'+(i===n?' class="on"':'')+'></u>').join(''):'';
   const N=beatN(s),k=s._bt||0;$('.bts',d).innerHTML=N?Array.from({length:N},(_,i)=>'<b'+(i<k?' class="on"':'')+'></b>').join(''):'';}
 function setBeat(s,i){const b=BEATS[bkey(s)];s._bt=i;if(b)b.set(i,false);updPg(s);}
 function resetBeat(s){s._bt=0;const b=BEATS[bkey(s)];if(b)b.set(0,true);updPg(s);}
@@ -1038,7 +1038,7 @@ function skipPrev(){if(wiping){wiping.finish();return;}const s=slides[cur],p=pag
 /* top bar: logo, the ₹/$ switch, and the red pill that shows the section we are in */
 const SECS=['Problem','Solution','Competition','Market','Model','Financials','Operations','Risks','Ask'];
 const topBar=document.createElement('div');topBar.id='top';
-topBar.innerHTML='<div class="logo">Placet<small>Consented call data</small></div><div id="curT" role="group" aria-label="Currency"><button data-c="inr" aria-label="Show rupees">₹</button><button data-c="usd" aria-label="Show dollars">$</button></div><nav id="secs" aria-label="Sections"><span class="pill"></span></nav>';stage.appendChild(topBar);
+topBar.innerHTML='<div class="logo">Placet<small>Consented call data</small></div><nav id="secs" aria-label="Sections"><span class="pill"></span></nav><div id="curT" role="group" aria-label="Currency"><button data-c="inr" aria-label="Show rupees">₹</button><button data-c="usd" aria-label="Show dollars">$</button></div>';stage.appendChild(topBar);
 $$('#curT button').forEach(b=>b.addEventListener('click',()=>setCur(b.dataset.c)));
 const secs=$('#secs',topBar),pill=$('.pill',secs);
 SECS.forEach(sec=>{const b=document.createElement('button');b.textContent=sec;b.dataset.sec=sec;b.addEventListener('click',()=>{const i=slides.findIndex(s=>s.dataset.sec===sec);if(i>=0)go(i);});secs.appendChild(b);});
@@ -1052,7 +1052,7 @@ slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('
   b.addEventListener('mouseleave',()=>tip.style.opacity=0);wave.appendChild(b);});
 function updWave(){$$('button',wave).forEach((b,i)=>{b.classList.toggle('cur',i===cur);b.classList.toggle('past',i<cur);});}
 const mcols=$('#mcols'),groups={};
-slides.forEach((s,i)=>{const g=s.dataset.sec;if(!groups[g]){const d=document.createElement('div');d.className='mch';d.innerHTML='<h4>'+g+'</h4>';mcols.appendChild(d);groups[g]=d;}
+slides.forEach((s,i)=>{const g=s.dataset.sec;if(!groups[g]){const d=document.createElement('div');d.className='mch';d.innerHTML='<h3>'+g+'</h3>';mcols.appendChild(d);groups[g]=d;}
   const b=document.createElement('button');b.innerHTML='<span>'+(i+1)+'</span>'+s.dataset.title;b.addEventListener('click',()=>{toggleMenu(false);go(i);});groups[g].appendChild(b);});
 function toggleMenu(on){const m=$('#menu');on=on==null?!m.classList.contains('on'):on;m.classList.toggle('on',on);$$('button',mcols).forEach((b,i)=>b.classList.toggle('cur',i===cur));}
 function updNotes(){const s=slides[cur];$('#nTitle').textContent=(cur+1)+' / '+slides.length+'  '+s.dataset.title;const a=$('.notes',s);$('#nBody').textContent=a?a.textContent:'';}
@@ -1199,10 +1199,10 @@ hooks.growth={enter(){grNow=grTarget(grV);anim(k=>drawGrowth(grNow,k),1400);}};C
 let szY=2031,szR=null,szHi=-1;
 function szData(y){const tot=mkt(y)*PRICE;return{tot,sam:tot*.6,ours:SOLD[y]*PRICE,sh:SHARE[y]};}
 const SZK=210/Math.sqrt(szData(2031).tot),szRad=y=>{const d=szData(y);return[d.tot,d.sam,d.ours].map(v=>Math.sqrt(v)*SZK);};
-function drawSize(rad,k){const svg=$('#szC');clear(svg);k=k==null?1:k;const b=430,fills=['rgba(13,13,12,.12)','rgba(13,13,12,.24)',RED],op=i=>szHi<0||szHi===i?1:.25;
-  rad.forEach((r,i)=>{const kk=Math.min(1,Math.max(0,k*1.6-i*.3));S(svg,'circle',{cx:235,cy:b-r*kk,r:Math.max(0,r*kk),fill:fills[i],opacity:op(i)});});
+function drawSize(rad,k){const svg=$('#szC');clear(svg);k=k==null?1:k;const b=430,fills=['rgba(13,13,12,.05)','rgba(13,13,12,.13)',RED],op=i=>szHi<0||szHi===i?1:.25;
+  rad.forEach((r,i)=>{const kk=Math.min(1,Math.max(0,k*1.6-i*.3));S(svg,'circle',{cx:235,cy:b-r*kk,r:Math.max(0,r*kk-(i<2?1.5:0)),fill:fills[i],stroke:i<2?ASH:'none','stroke-width':3,opacity:op(i)});});
   if(k<.98)return;const[r0,r1,r2]=rad,lab=(t,y,o,st)=>S(svg,'text',{x:235,y,'text-anchor':'middle',opacity:o,style:'font-size:28px;'+(st||'font-weight:600')},t);
-  lab('All',b-2*r0+42,op(0));if(r1>110)lab('Real, consented',b-2*r1+46,op(1));
+  lab('Total',b-2*r0+42,op(0));if(r1>110)lab('Real, consented',b-2*r1+64,op(1));
   if(r2>34)lab('Us',b-r2+10,op(2),'font-weight:700;fill:'+BG);
   else{S(svg,'line',{x1:235+r2*.7,y1:b-r2*1.7,x2:316,y2:b-r2-62,stroke:RED,'stroke-width':3,opacity:op(2)});S(svg,'text',{x:322,y:b-r2-62,style:'font-size:28px;font-weight:800;fill:'+RED,opacity:op(2)},'Us');}}
 function szItems(y,an){const d=szData(y),c=v=>'₹'+Math.round(v/1e7)+' crore';
