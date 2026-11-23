@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>chapter two — elves'</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,800;1,700;1,800&display=block" rel="stylesheet">
+<style>
+:root{
+  --ground:#bdbcba; --ink:#2a292d; --paper:#f5f2ec; --salmon:#ee8b6f; --orange:#ec7a3f; --blue:#1f62c4;
+  --panel:rgba(214,213,211,.78); --wm:#fbfaf7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#111;min-height:100%}
+body{display:grid;place-items:center;font-family:"Montserrat",sans-serif}
+.poster{position:relative;width:1080px;height:var(--h);overflow:hidden;background:var(--ground);color:var(--ink)}
+.poster canvas,.poster svg{position:absolute;display:block}
+.layer{position:absolute;inset:0}
+.t{position:absolute;line-height:.86;letter-spacing:-.02em}
+/* arch lockup */
+.arch{left:0;top:0;width:1080px;height:760px;overflow:visible}
+.arch text{font-family:"Montserrat";font-weight:800;letter-spacing:-.035em}
+/* staggered reserve line */
+.rys b{position:absolute;font-weight:800;font-size:40px;letter-spacing:-.01em;color:var(--ink)}
+/* panel copy */
+.panel{position:absolute;background:var(--panel)}
+.eb1{font-weight:800;font-size:58px}
+.eb2{font-weight:800;font-size:58px}
+.eb3{font-weight:800;font-style:italic;font-size:58px;color:var(--blue)}
+.date{font-weight:800;color:var(--salmon);letter-spacing:-.04em}
+.tba{font-weight:700;color:var(--paper)}
+.tba small{display:block;font-weight:700;font-size:.42em;color:var(--ink);letter-spacing:0;margin-top:.5em}
+.by{font-weight:800;font-size:44px;color:var(--ink)}
+.wm{font-weight:800;color:var(--wm);text-transform:uppercase;letter-spacing:-.045em;line-height:.8}
+.ls text{font-family:"Montserrat";font-weight:800;font-size:27px;letter-spacing:.01em;fill:var(--ink)}
+</style>
+</head>
+<body>
+<div class="poster" id="P">
+  <canvas id="ground"></canvas>
+  <canvas id="art"></canvas>
+  <div id="copy" class="layer"></div>
+</div>
+<script>
+/* ---------- format ---------- */
+const STORY=new URLSearchParams(location.search).get('f')==='story';
+const W=1080,H=STORY?1920:1350;
+const P=document.getElementById('P');P.style.setProperty('--h',H+'px');
+
+/* ---------- seeded random, so every render is the same poster ---------- */
+let seed=20261225;const rnd=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};
+function noise2(w,h,cell){const gw=Math.ceil(w/cell)+2,gh=Math.ceil(h/cell)+2,g=new Float32Array(gw*gh).map(()=>rnd());
+  const sm=t=>t*t*(3-2*t);return(x,y)=>{const fx=x/cell,fy=y/cell,ix=fx|0,iy=fy|0,tx=sm(fx-ix),ty=sm(fy-iy),a=g[iy*gw+ix],b=g[iy*gw+ix+1],c=g[(iy+1)*gw+ix],d=g[(iy+1)*gw+ix+1];return a+(b-a)*tx+(c-a)*ty+(a-b-c+d)*tx*ty;};}
+const mk=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c;};
+
+/* ---------- the grey halftone ground (the series' leopard texture) ---------- */
+function drawGround(){const c=document.getElementById('ground');c.width=W;c.height=H;const g=c.getContext('2d');
+  g.fillStyle='#c4c3c1';g.fillRect(0,0,W,H);
+  const n1=noise2(W,H,90),n2=noise2(W,H,26),n3=noise2(W,H,7);
+  const step=6.5;
+  for(let y=0;y<H;y+=step)for(let x=0;x<W;x+=step){
+    const jx=x+(rnd()-.5)*3,jy=y+(rnd()-.5)*3;
+    const v=.55*n1(jx,jy)+.3*n2(jx,jy)+.15*n3(jx,jy);           // 0..1 blotches
+    const ring=1-Math.min(1,Math.abs(v-.5)*7);                    // rosette edges
+    const r=1.1+2.3*Math.max(ring,v>.62?.8:0)*(.6+.4*rnd());
+    g.fillStyle=v>.62?'rgba(92,92,94,.9)':ring>.2?'rgba(110,110,112,.82)':'rgba(150,150,150,.55)';
+    if(r>1.3){g.beginPath();g.arc(jx,jy,r,0,7);g.fill();}
+    if(v<.36&&rnd()<.5){g.fillStyle='rgba(245,244,240,.85)';g.beginPath();g.arc(jx+2,jy+2,1.2+rnd()*1.4,0,7);g.fill();}
+  }
+  // a soft darker cloud behind the hero, like the shadow blotch behind the bottle
+  const sh=g.createRadialGradient(W*.78,H*.56,10,W*.78,H*.56,W*.55);sh.addColorStop(0,'rgba(70,70,72,.28)');sh.addColorStop(1,'rgba(70,70,72,0)');
+  g.fillStyle=sh;g.fillRect(0,0,W,H);
+}
+
+/* ---------- halftone: any source (drawn or an AI cut-out) to black ink on white paper ---------- */
+function halftone(src,{cell=9,angle=45,ink='#151517',paper='#fbfaf6',margin=12,gamma=1.15,maxR=.74}={}){
+  const w=src.width,h=src.height,out=mk(w+margin*4,h+margin*4),o=out.getContext('2d'),ox=margin*2,oy=margin*2;
+  const sd=src.getContext('2d').getImageData(0,0,w,h).data;
+  // paper: the silhouette grown by the margin
+  const sil=mk(w,h),s=sil.getContext('2d');s.drawImage(src,0,0);s.globalCompositeOperation='source-in';s.fillStyle=paper;s.fillRect(0,0,w,h);
+  for(let a=0;a<24;a++){const t=a/24*Math.PI*2;o.drawImage(sil,ox+Math.cos(t)*margin,oy+Math.sin(t)*margin);}o.drawImage(sil,ox,oy);
+  // dots on a rotated screen
+  const A=angle*Math.PI/180,ca=Math.cos(A),sa=Math.sin(A),R=Math.hypot(w,h);o.fillStyle=ink;
+  for(let v=-R;v<R;v+=cell)for(let u=-R;u<R;u+=cell){
+    const x=w/2+u*ca-v*sa,y=h/2+u*sa+v*ca;if(x<0||y<0||x>=w||y>=h)continue;
+    const i=((y|0)*w+(x|0))*4,al=sd[i+3]/255;if(al<.5)continue;
+    const lum=(.3*sd[i]+.59*sd[i+1]+.11*sd[i+2])/255,d=Math.pow(1-lum,1/gamma),r=cell*maxR*Math.sqrt(d);
+    if(r>.45){o.beginPath();o.arc(ox+x,oy+y,r,0,7);o.fill();}
+  }
+  return out;
+}
+
+let HAT_TIP=[0,0];
+/* ---------- the elf hat, drawn as a shaded tube along a curling spine ---------- */
+function catmull(pts,steps){const out=[];for(let i=0;i<pts.length-1;i++){const p0=pts[Math.max(0,i-1)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(pts.length-1,i+2)];
+  for(let s=0;s<steps;s++){const t=s/steps,t2=t*t,t3=t2*t;out.push([.5*((2*p1[0])+(-p0[0]+p2[0])*t+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t3),
+    .5*((2*p1[1])+(-p0[1]+p2[1])*t+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3)]);}}out.push(pts[pts.length-1]);return out;}
+function drawHat(){const c=mk(1000,1500),g=c.getContext('2d');
+  const spine=catmull([[820,1330],[720,1100],[600,880],[480,690],[390,540],[350,420],[380,320],[460,270],[540,300],[560,380],[520,440],[465,445]],22);HAT_TIP=spine[spine.length-1];
+  const N=spine.length,L=[0];for(let i=1;i<N;i++)L.push(L[i-1]+Math.hypot(spine[i][0]-spine[i-1][0],spine[i][1]-spine[i-1][1]));const LT=L[N-1];
+  // felt tube, tip first so the body overlaps it
+  for(let i=N-1;i>=0;i--){const t=L[i]/LT,[x,y]=spine[i];
+    const wr=1+.07*Math.sin(t*46)*(1-t)+.05*Math.sin(t*17+1);       // felt folds
+    const r=(225*Math.pow(1-t,1.1)+8)*wr;
+    const gr=g.createRadialGradient(x-r*.45,y-r*.5,r*.08,x,y,r*1.02);
+    const stripe=Math.floor(t*14)%2;                                // knitted stripes: two tones
+    gr.addColorStop(0,stripe?'#ffffff':'#d2d2d2');gr.addColorStop(.6,stripe?'#c4c4c4':'#808080');gr.addColorStop(1,stripe?'#6a6a6a':'#363636');
+    g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();}
+  // fur cuff across the brim
+  const [cx,cy]=spine[0],[nx,ny]=spine[6],ang=Math.atan2(ny-cy,nx-cx)+Math.PI/2;
+  for(let k=0;k<1100;k++){const u=(rnd()-.5)*2,v=(rnd()-.5)*2;if(u*u+v*v>1)continue;
+    const px=cx+Math.cos(ang)*u*265+Math.cos(ang-Math.PI/2)*v*80,py=cy+Math.sin(ang)*u*265+Math.sin(ang-Math.PI/2)*v*80,rr=16+rnd()*18;
+    const fg=g.createRadialGradient(px-rr*.4,py-rr*.4,1,px,py,rr);fg.addColorStop(0,'#ffffff');fg.addColorStop(.7,'#d4d4d4');fg.addColorStop(1,'#7a7a7a');
+    g.fillStyle=fg;g.beginPath();g.arc(px,py,rr,0,7);g.fill();}
+  return c;}
+
+/* ---------- a disco-ball bauble ---------- */
+function drawBauble(){const S=620,c=mk(S,S+120),g=c.getContext('2d'),cx=S/2,cy=S/2+110,R=270;
+  // cap and loop
+  g.strokeStyle='#202020';g.lineWidth=7;g.beginPath();g.ellipse(cx,cy-R-62,26,30,0,0,7);g.stroke();
+  const cg=g.createLinearGradient(cx-48,0,cx+48,0);cg.addColorStop(0,'#2a2a2a');cg.addColorStop(.35,'#eeeeee');cg.addColorStop(1,'#1a1a1a');
+  g.fillStyle=cg;g.fillRect(cx-48,cy-R-42,96,56);
+  // mirror tiles: latitude/longitude grid on the visible hemisphere
+  for(let la=-80;la<80;la+=9)for(let lo=-90;lo<90;lo+=9){
+    const q=[[la,lo],[la+9,lo],[la+9,lo+9],[la,lo+9]].map(([a,b])=>{const A=a*Math.PI/180,B=b*Math.PI/180;return[cx+R*Math.cos(A)*Math.sin(B),cy-R*Math.sin(A)];});
+    const A=(la+4.5)*Math.PI/180,B=(lo+4.5)*Math.PI/180,nx=Math.cos(A)*Math.sin(B),ny=Math.sin(A),nz=Math.cos(A)*Math.cos(B);
+    const lit=Math.max(0,-.55*nx+.6*ny+.58*nz),spec=Math.pow(lit,14),v=Math.min(1,.2+.75*lit*rnd()+1.3*spec+(rnd()<.08?.7:0));
+    const k=Math.round(v*255);g.fillStyle=`rgb(${k},${k},${k})`;g.beginPath();q.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.fill();
+    g.strokeStyle='rgba(0,0,0,.55)';g.lineWidth=1.6;g.stroke();}
+  return c;}
+
+/* ---------- stippled stars ---------- */
+function stipStar(g,cx,cy,R,{points=8,inner=.32,color='#ec7a3f',n=5200,dot=[1.4,2.6],spill=.22,rot=0}={}){g.fillStyle=color;
+  for(let i=0;i<n;i++){const th=rnd()*Math.PI*2,f=Math.pow(Math.abs(Math.cos(points*(th-rot)/2)),3.2),rs=R*(inner+(1-inner)*f);
+    let rho=rs*Math.pow(rnd(),.62);if(rnd()<spill)rho=rs*(1+Math.pow(rnd(),2)*.55);
+    if(rho>rs&&rnd()<.55)continue;const d=dot[0]+rnd()*(dot[1]-dot[0]);g.beginPath();g.arc(cx+Math.cos(th)*rho,cy+Math.sin(th)*rho,d/2,0,7);g.fill();}}
+
+/* ---------- layout per format ---------- */
+const L=STORY?{
+  arch:{cx:540,cy:640,r:450,fs:130,start:198},
+  hat:{x:350,y:620,w:860},bauble:{w:300,drop:90},
+  rys:[[64,1060,'spot'],[176,1000,'your'],[288,940,'reserve']],stars:[],
+  ls:[110,1130],date:[420,1298,76],
+  panel:[0,1270,600,260],eb:[64,1298],tba:[64,1474],
+  by:[64,1560],wm:[64,1606,76]
+}:{
+  arch:{cx:540,cy:560,r:440,fs:124,start:196},
+  hat:{x:418,y:330,w:700},bauble:{w:250,drop:70},
+  rys:[[70,700,'spot'],[176,646,'your'],[282,592,'reserve']],stars:[[170,682,22],[284,628,19],[476,574,17]],
+  ls:[300,720],date:[436,872,72],
+  panel:[0,846,620,230],eb:[64,872],tba:[64,1034],
+  by:[64,1120],wm:[64,1166,64]
+};
+
+function build(){
+  drawGround();
+  const art=document.getElementById('art');art.width=W;art.height=H;const g=art.getContext('2d');
+  const hatSrc=drawHat(),hat=halftone(hatSrc,{cell:10,angle:45,margin:14}),k=L.hat.w/hat.width,hh=hat.height*k;
+  const tx=L.hat.x+(HAT_TIP[0]+28)*k,ty=L.hat.y+(HAT_TIP[1]+28)*k;
+  const b=halftone(drawBauble(),{cell:7,angle:30,margin:10}),bw=L.bauble.w,bh=bw*b.height/b.width,by=ty+L.bauble.drop;
+  g.drawImage(hat,L.hat.x,L.hat.y,L.hat.w,hh);
+  stipStar(g,tx,by+bh*.58,bw*1.05,{n:9500,rot:.2});
+  g.strokeStyle='#1d1c20';g.lineWidth=3;g.beginPath();g.moveTo(tx,ty);g.lineTo(tx,by+bh*.12);g.stroke();
+  g.drawImage(b,tx-bw/2,by,bw,bh);
+  drawCopy();
+  // blue asterisks sit just past each word, measured, never on the letters; one inside the badge
+  const blue={color:'#1f62c4',n:900,dot:[1.2,2.2],inner:.18,spill:.15};
+  document.querySelectorAll('.rys b').forEach((w,i)=>stipStar(g,w.offsetLeft+w.offsetWidth+24,w.offsetTop+w.offsetHeight*.95,[17,20,23][i],blue));
+  stipStar(g,L.ls[0]+75,L.ls[1]+84,22,blue);
+}
+
+function drawCopy(){const C=document.getElementById('copy'),a=L.arch,NS='http://www.w3.org/2000/svg';
+  // arched lockup: "chapter two" climbs the left side, "elves'" runs down the right
+  const toXY=deg=>{const t=deg*Math.PI/180;return[a.cx+a.r*Math.cos(t),a.cy+a.r*Math.sin(t)];};
+  const [x0,y0]=toXY(a.start),[x1,y1]=toXY(a.start+150);
+  let h=`<svg class="arch" viewBox="0 0 1080 ${H}" style="height:${H}px" aria-hidden="true"><defs><path id="arc" d="M${x0},${y0} A${a.r},${a.r} 0 0 1 ${x1},${y1}"/></defs>
+    <text font-size="${a.fs}"><textPath href="#arc" startOffset="0%"><tspan fill="#2a292d">chapter two</tspan><tspan fill="#fbfaf7" dx="26">elves’</tspan></textPath></text></svg>`;
+  // reserve / your / spot, stepping up toward the hat
+  h+='<div class="rys">'+L.rys.map(r=>`<b style="left:${r[0]}px;top:${r[1]-46}px">${r[2].toUpperCase()}</b>`).join('')+'</div>';
+  // the panel: early bird tickets OUT, then venue & time
+  const p=L.panel;h+=`<div class="panel" style="left:${p[0]}px;top:${p[1]}px;width:${p[2]}px;height:${p[3]}px"></div>`;
+  h+=`<div class="t" style="left:${L.eb[0]}px;top:${L.eb[1]}px"><div class="eb1">early bird</div><div class="eb2" style="margin-left:120px">tickets</div><div class="eb3" style="margin-left:30px">OUT</div></div>`;
+  h+=`<div class="t tba" style="left:${L.tba[0]}px;top:${L.tba[1]}px;font-size:24px;color:#2a292d;letter-spacing:-.01em">venue &amp; time to be announced</div>`;
+  h+=`<div class="t date" style="left:${L.date[0]}px;top:${L.date[1]}px;font-size:${L.date[2]}px">12.<br>2026</div>`;
+  h+=`<svg class="ls" style="left:${L.ls[0]}px;top:${L.ls[1]}px;width:150px;height:150px" viewBox="0 0 150 150" aria-hidden="true"><defs><path id="lsc" d="M20,92 A56,56 0 1 1 130,92"/></defs><text><textPath href="#lsc" startOffset="50%" text-anchor="middle">limited spots</textPath></text></svg>`;
+  // signature
+  h+=`<div class="t by" style="left:${L.by[0]}px;top:${L.by[1]}px">by</div><div class="t wm" style="left:${L.wm[0]}px;top:${L.wm[1]}px;font-size:${L.wm[2]}px">The<br>Weekend<br>Project</div>`;
+  C.innerHTML=h;}
+
+(document.fonts?document.fonts.ready:Promise.resolve()).then(build);
+</script>
+</body>
+</html>
