@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T00:00:00Z",
+  "title": "Design System: Placet",
+  "extensions": {
+    "colorMeta": {
+      "night": { "role": "neutral", "displayName": "Night", "tonalRamp": ["#0d060b", "#1b0e17", "#470c35"] },
+      "paper": { "role": "neutral", "displayName": "Paper" },
+      "ink": { "role": "neutral", "displayName": "Ink", "tonalRamp": ["rgba(16,20,33,.04)", "rgba(16,20,33,.14)", "rgba(16,20,33,.25)", "rgba(16,20,33,.55)", "rgba(16,20,33,.68)", "#101421"] },
+      "record-pink": { "role": "primary", "displayName": "Record pink", "tonalRamp": ["rgba(255,72,139,.1)", "#ff488b", "#d81b67"] },
+      "loss-plum": { "role": "status", "displayName": "Loss plum" }
+    },
+    "typographyMeta": {
+      "poster": { "displayName": "Poster word", "purpose": "The one word on an opening, problem, solution, demand or closing slide." },
+      "headline": { "displayName": "Headline", "purpose": "One line per data slide, shrunk to fit." },
+      "figure": { "displayName": "Figure", "purpose": "Key numbers; counts up when the page opens." },
+      "technical": { "displayName": "Technical", "purpose": "Timecodes, call IDs, track names, units, arrow labels, slide numbers." }
+    },
+    "shadows": [
+      { "name": "key", "value": "0 10px 30px -12px rgba(255,72,139,.55)", "purpose": "Under the pink yes key on posters." },
+      { "name": "dialog", "value": "0 24px 48px -24px rgba(13,6,11,.6)", "purpose": "Under the console's press-1 dialog." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(.16,1,.3,1)", "purpose": "Figures, page titles, chart draws." },
+      { "name": "playhead", "value": "620ms cubic-bezier(.65,.05,.25,1); 900ms with the section flag", "purpose": "Slide-to-slide scrub." }
+    ],
+    "breakpoints": [
+      { "name": "stage", "value": "1280x720, scaled to fit" },
+      { "name": "touch", "value": "900px: presenter buttons hide, the tape centres" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Segment switch",
+      "kind": "custom",
+      "refersTo": "segment-switch",
+      "description": "Chart switch; the selected option is an ink knob.",
+      "html": "<div class=\"ds-seg\"><button class=\"on\">Hours</button><button>Value</button></div>",
+      "css": ".ds-seg{display:inline-flex;gap:2px;padding:3px;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(16,20,33,.22);font:500 15px 'Host Grotesk',sans-serif}.ds-seg button{border:0;background:none;padding:4px 12px;border-radius:4px;color:rgba(16,20,33,.68);cursor:pointer}.ds-seg button.on{background:#101421;color:#fff}"
+    },
+    {
+      "name": "Yes key",
+      "kind": "custom",
+      "refersTo": "yes-key",
+      "description": "The pink key that marks the caller's yes on posters.",
+      "html": "<div class=\"ds-key\"><small>Press</small><b>1</b></div>",
+      "css": ".ds-key{width:150px;height:150px;border-radius:18px;background:#ff488b;color:#0d060b;display:flex;flex-direction:column;justify-content:space-between;padding:16px 18px 14px;font-family:'Host Grotesk',sans-serif;box-shadow:0 10px 30px -12px rgba(255,72,139,.55)}.ds-key small{font-size:18px;font-weight:500}.ds-key b{font-size:56px;font-weight:500;letter-spacing:-.04em;line-height:.95}"
+    },
+    {
+      "name": "Section cues",
+      "kind": "nav",
+      "description": "Top-rail sections; the current one carries a 3px pink cue.",
+      "html": "<nav class=\"ds-cues\"><button>Market</button><button class=\"cur\">Model</button><button>Financials</button></nav>",
+      "css": ".ds-cues{display:flex;gap:2px;font:500 15px 'Host Grotesk',sans-serif}.ds-cues button{border:0;background:none;padding:6px 10px;opacity:.62;position:relative;cursor:pointer}.ds-cues button.cur{opacity:1}.ds-cues button.cur::after{content:'';position:absolute;left:10px;right:10px;bottom:-6px;height:3px;background:#ff488b}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A call recording you can play",
+    "overview": "Every slide sits on Placet's own two-track format: agent above a centre line, customer below, pink for the yes. Posters are the call on plum-black; data slides are the archive on white.",
+    "keyCharacteristics": ["Two-track waveform posters", "Pink playhead transition with a section flag", "Rounded bar marks shared by speech and charts", "One family, Host Grotesk 500; Geist Mono only for technical text"],
+    "rules": [
+      { "name": "The record light rule", "body": "Pink appears once per view, on the thing the presenter is pointing at.", "section": "colors" },
+      { "name": "Losses are plum", "body": "Negative values use loss plum below the centre line.", "section": "colors" },
+      { "name": "No eyebrows", "body": "Page labels live in the running foot, never above a heading.", "section": "typography" }
+    ],
+    "dos": ["Keep a legend for two-series charts", "Keep every figure in the ₹/$ switch", "Let one moment move per slide"],
+    "donts": ["No kickers or section numbers above headings", "No mono for prose", "No fade-in on every item", "No violet, gradients or glowing text"]
+  }
+}
