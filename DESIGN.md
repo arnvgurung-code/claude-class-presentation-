@@ -131,6 +131,8 @@ technical text only (timecodes, call IDs, track names, units, arrow labels, slid
 A 1280 by 720 stage scaled to the window, 72px gutters. The top rail (64px) holds the wordmark,
 section cues with a sky underline, and the ₹/$ switch; a 2px sky progress line runs along
 the stage top. Headlines start at 92px, bodies at 196 to 226px, the running foot 28px from the bottom.
+The stage is fixed to the window, so phones never pan sideways. On touch screens only, a bottom bar
+holds the slide count and the ₹/$ switch, with no previous/next arrows; people swipe to move.
 
 ## Elevation & Depth
 

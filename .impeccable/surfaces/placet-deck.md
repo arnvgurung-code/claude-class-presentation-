@@ -38,9 +38,7 @@ in while the old one sinks back, with a section flag on section changes), the sc
 playhead, rolling digit counters, and the demo's typed transcript, decoding labels and consent
 burst.
 
-TOUCH ADAPTATION (for the user to confirm): on a touch screen only (pointer:coarse), the
-keyboard-and-waveform navigation is replaced by a bottom bar with previous/next keys, the slide
-count and the ₹/$ switch, because a phone has no arrow keys. Mouse and keyboard screens, however
-narrow, keep the round-1 answer: no visible previous/next arrows.
-
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+TOUCH ADAPTATION (confirmed by the user, round 4: "Remove the arrows"): on a touch screen only
+(pointer:coarse), the waveform strip is replaced by a bottom bar holding the slide count and the
+₹/$ switch, with no previous/next arrows; people move by swiping anywhere except the draggable
+break-even chart. Mouse and keyboard screens, however narrow, keep the waveform nav.

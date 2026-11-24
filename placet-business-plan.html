@@ -24,7 +24,7 @@ button,input{font:inherit;color:inherit}button{cursor:pointer;background:none;bo
 svg{display:block;overflow:visible}svg text{font-family:var(--ft);fill:var(--fg);font-weight:500}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
 ::selection{background:var(--accent);color:var(--bg)}
-#stage{position:absolute;left:50%;top:calc(50% - var(--nav,22px));width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--s,1));overflow:hidden;background:var(--bg);box-shadow:0 40px 120px -40px rgba(0,0,0,.8)}
+#stage{position:fixed;left:50%;top:calc(50% - var(--nav,22px));width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--s,1));overflow:hidden;background:var(--bg);box-shadow:0 40px 120px -40px rgba(0,0,0,.8)}
 body.fs #stage{--nav:0px}
 .slide{position:absolute;inset:0;background:var(--bg);overflow:hidden;visibility:hidden}
 .slide::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
@@ -170,7 +170,7 @@ x-st{display:block}x-d{display:block;height:1.04em}
 #wave{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:0;height:44px;display:flex;align-items:center;gap:2px;z-index:20;transition:opacity .5s}
 #wave::before{content:"";position:absolute;left:0;right:0;top:22px;height:1px;background:rgba(255,255,255,.1)}
 #touch{display:none}
-@media (pointer:coarse){#wave{display:none}#touch{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;gap:12px;padding:0 max(16px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(16px,env(safe-area-inset-left,0px));z-index:20}
+@media (pointer:coarse){#wave{display:none}#touch{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;gap:12px;padding:0 max(16px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:20}
 #touch button{min-width:44px;min-height:44px;padding:0 14px;border-radius:10px;background:rgba(233,237,243,.08);color:var(--fg);font-size:16px;font-weight:500}
 #touch span{font-family:var(--fm);font-size:14px;color:var(--muted);min-width:64px;text-align:center}}
 body.fs #wave{opacity:0}body.fs #wave:hover{opacity:1}
@@ -920,7 +920,7 @@ x-m{display:inline-block}
 
 </div><!-- /stage -->
 <nav id="wave" aria-label="Slides"></nav>
-<nav id="touch" aria-label="Slide controls"><button id="tPrev" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span id="tNum">1 / 25</span><button id="tCur" aria-label="Switch rupees and dollars">₹ / $</button><button id="tNext" aria-label="Next"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></nav>
+<nav id="touch" aria-label="Slide controls"><span id="tNum">1 / 25</span><button id="tCur" aria-label="Switch rupees and dollars">₹ / $</button></nav>
 <div id="hud"><button id="hMenu">Slides (M)</button><button id="hNotes">Notes (N)</button><button id="hLaser">Laser (L)</button><button id="hFull">Full screen (F)</button><button id="hCur">₹ / $ (D)</button><button id="hSteps">Steps on (S)</button></div>
 <div id="menu" role="dialog" aria-label="All slides"><h2>All slides</h2><div class="mcols" id="mcols"></div>
   <div class="keys"><kbd>→</kbd><kbd>Space</kbd> next step <kbd>←</kbd> back <kbd>↓</kbd> skip the steps <kbd>T</kbd> switch the chart <kbd>S</kbd> steps on or off <kbd>D</kbd> ₹ or $ <kbd>1</kbd><kbd>2</kbd> answer in the demo <kbd>M</kbd> this list <kbd>N</kbd> notes <kbd>L</kbd> laser <kbd>B</kbd> black screen <kbd>F</kbd> full screen <kbd>Esc</kbd> close</div></div>
@@ -1161,7 +1161,7 @@ slides.forEach((s,i)=>{const b=document.createElement('button'),ko=s.classList.c
   b.style.setProperty('--h',(ko?13:6+((i*7)%5))+'px');b.style.setProperty('--h2',(ko?11:4+((i*5)%4))+'px');b.addEventListener('click',()=>go(i));
   b.addEventListener('mouseenter',()=>{const r=b.getBoundingClientRect();tip.textContent=(i+1)+'. '+s.dataset.title;tip.style.left=(r.left+r.width/2)+'px';tip.style.opacity=1;});
   b.addEventListener('mouseleave',()=>tip.style.opacity=0);wave.appendChild(b);});
-$('#tPrev').onclick=()=>prev();$('#tNext').onclick=()=>next();$('#tCur').onclick=()=>flipCur();
+$('#tCur').onclick=()=>flipCur();
 function updWave(){$('#tNum').textContent=(cur+1)+' / '+slides.length;$$('button',wave).forEach((b,i)=>{b.classList.toggle('cur',i===cur);b.classList.toggle('past',i<cur);if(i===cur)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});}
 const mcols=$('#mcols'),groups={};
 slides.forEach((s,i)=>{const g=s.dataset.sec;if(!groups[g]){const d=document.createElement('div');d.className='mch';d.innerHTML='<h3>'+g+'</h3>';mcols.appendChild(d);groups[g]=d;}
@@ -1192,7 +1192,7 @@ addEventListener('keydown',e=>{const inR=e.target&&e.target.tagName==='INPUT';if
   else if('rR'.includes(e.key)&&slides[cur].dataset.id==='demo')runDemo();
   else if('bB.'.includes(e.key))toggleBlack();else if('fF'.includes(e.key))toggleFull();});
 let idleT;addEventListener('mousemove',e=>{document.body.classList.remove('idle');clearTimeout(idleT);idleT=setTimeout(()=>document.body.classList.add('idle'),2500);const L=$('#laser');L.style.left=e.clientX+'px';L.style.top=e.clientY+'px';});
-let tsx=null,tsy=0;addEventListener('touchstart',e=>{if(e.target.closest('input,button,svg'))return;tsx=e.touches[0].clientX;tsy=e.touches[0].clientY;},{passive:true});
+let tsx=null,tsy=0;addEventListener('touchstart',e=>{if(e.target.closest('input,button,a,#beChart'))return;tsx=e.touches[0].clientX;tsy=e.touches[0].clientY;},{passive:true});
 addEventListener('touchend',e=>{if(tsx==null)return;const dx=e.changedTouches[0].clientX-tsx,dy=e.changedTouches[0].clientY-tsy;tsx=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
 addEventListener('pointerup',()=>{const a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='BUTTON')&&!a.closest('#menu'))a.blur();});
 addEventListener('hashchange',()=>{const i=idx(location.hash.slice(1));if(i>=0)go(i);});
