@@ -1,1 +1,7 @@
 .impeccable/review/
+# Playwright CLI output (may contain credentials)
+.playwright-cli/
+.taste-skill/
+# installed by scripts/install-skills.sh
+.claude/vendor/
+.claude/skills/archify

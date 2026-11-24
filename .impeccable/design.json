@@ -5,7 +5,7 @@
   "extensions": {
     "colorMeta": {
       "night": { "role": "neutral", "displayName": "Night", "tonalRamp": ["#0a0d14", "#131824", "#1a2131"] },
-      "silver": { "role": "neutral", "displayName": "Silver", "tonalRamp": ["rgba(233,237,243,.1)", "rgba(233,237,243,.22)", "#8891a1", "#c3cad6", "#e9edf3"] },
+      "silver": { "role": "neutral", "displayName": "Silver", "tonalRamp": ["rgba(233,237,243,.1)", "rgba(233,237,243,.22)", "#9ca5b4", "#c3cad6", "#e9edf3"] },
       "sky": { "role": "primary", "displayName": "Sky", "tonalRamp": ["rgba(90,185,252,.12)", "#2f7fc4", "#5ab9fc", "#9ad3ff"] },
       "context-slate": { "role": "neutral", "displayName": "Context slate" },
       "loss-red": { "role": "status", "displayName": "Loss red" }

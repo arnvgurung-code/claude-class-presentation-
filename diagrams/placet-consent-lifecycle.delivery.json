@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "da541700-8f2e-4c3d-93bc-17f6ae54b4e1",
+  "status": "current",
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "/home/user/claude-class-presentation-/.archify/lifecycle-consent-20261124/candidate.json",
+  "output": "/home/user/claude-class-presentation-/diagrams/placet-consent-lifecycle.html",
+  "specification": {
+    "sha256": "2674e79de3f5e930bef2dc4bf03166233b2d7cca7b1acf1c2ca66bd8ceb856ed",
+    "bytes": 3678
+  },
+  "artifact": {
+    "sha256": "f98bd73d7bc312da29cd7163a01b6ebb01c540881dea0e108e459f5731c3f957",
+    "bytes": 932744
+  }
+}

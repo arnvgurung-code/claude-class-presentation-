@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "lifecycle",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/user/claude-class-presentation-/.archify/lifecycle-consent-20261124/candidate.json",
+    "sha256": "2674e79de3f5e930bef2dc4bf03166233b2d7cca7b1acf1c2ca66bd8ceb856ed",
+    "bytes": 3678
+  },
+  "artifact": {
+    "path": "/home/user/claude-class-presentation-/diagrams/placet-consent-lifecycle.html",
+    "sha256": "f98bd73d7bc312da29cd7163a01b6ebb01c540881dea0e108e459f5731c3f957",
+    "bytes": 932744
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/user/claude-class-presentation-/diagrams/placet-consent-lifecycle.finalize.json",
+    "summaryReceipt": "/home/user/claude-class-presentation-/diagrams/placet-consent-lifecycle.finalize-summary.json",
+    "browserCheckReceipt": "/home/user/claude-class-presentation-/diagrams/placet-consent-lifecycle.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 3093,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

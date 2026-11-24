@@ -1,0 +1,167 @@
+{
+  "schema_version": 3,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Placet: the life of one consented call",
+    "locale": "en",
+    "output": "diagrams/placet-consent-lifecycle.html",
+    "quality_profile": "showcase"
+  },
+  "mainPath": [
+    "recorded",
+    "asked",
+    "consented",
+    "labelled",
+    "licensed"
+  ],
+  "states": [
+    {
+      "id": "recorded",
+      "type": "start",
+      "label": "Recorded",
+      "sublabel": "two separate tracks",
+      "tag": "call",
+      "step": "01"
+    },
+    {
+      "id": "asked",
+      "type": "decision",
+      "label": "Asked",
+      "sublabel": "after the call",
+      "tag": "press 1?",
+      "step": "02"
+    },
+    {
+      "id": "consented",
+      "type": "active",
+      "label": "Consent logged",
+      "sublabel": "call ID + SMS receipt",
+      "tag": "yes",
+      "step": "03"
+    },
+    {
+      "id": "labelled",
+      "type": "active",
+      "label": "Muted, labelled, checked",
+      "sublabel": "70% pass the checks",
+      "tag": "label",
+      "step": "04"
+    },
+    {
+      "id": "licensed",
+      "type": "success",
+      "label": "Licensed",
+      "sublabel": "sold to many buyers",
+      "tag": "revenue",
+      "step": "05"
+    },
+    {
+      "id": "deleted24",
+      "type": "failure",
+      "label": "Deleted in 24 hours",
+      "sublabel": "audio never leaves the centre",
+      "tag": "terminal"
+    },
+    {
+      "id": "notlicensed",
+      "type": "neutral",
+      "label": "Not licensed",
+      "sublabel": "fails the checks",
+      "tag": "terminal"
+    },
+    {
+      "id": "withdrawn",
+      "type": "waiting",
+      "label": "Withdrawal",
+      "sublabel": "acted on within 24 hours",
+      "tag": "any time"
+    },
+    {
+      "id": "erased",
+      "type": "failure",
+      "label": "Deleted everywhere",
+      "sublabel": "within 30 days",
+      "tag": "terminal"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "recorded-asked",
+      "from": "recorded",
+      "to": "asked"
+    },
+    {
+      "id": "asked-consented",
+      "from": "asked",
+      "to": "consented",
+      "label": "presses 1",
+      "variant": "emphasis"
+    },
+    {
+      "id": "consented-labelled",
+      "from": "consented",
+      "to": "labelled"
+    },
+    {
+      "id": "labelled-licensed",
+      "from": "labelled",
+      "to": "licensed",
+      "label": "passes"
+    },
+    {
+      "id": "asked-deleted24",
+      "from": "asked",
+      "to": "deleted24",
+      "label": "2 or no answer",
+      "variant": "security"
+    },
+    {
+      "id": "labelled-notlicensed",
+      "from": "labelled",
+      "to": "notlicensed",
+      "label": "fails"
+    },
+    {
+      "id": "consented-withdrawn",
+      "from": "consented",
+      "to": "withdrawn",
+      "label": "caller withdraws",
+      "variant": "dashed"
+    },
+    {
+      "id": "withdrawn-erased",
+      "from": "withdrawn",
+      "to": "erased",
+      "label": "erase",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "The yes",
+      "items": [
+        "Asked only after the call, so the service call is never disturbed",
+        "Pressing 1 is logged with the call ID",
+        "An SMS receipt confirms it and says how to withdraw"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "No yes",
+      "items": [
+        "Pressing 2, or no answer, deletes the call within 24 hours",
+        "The audio never leaves the call centre"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "After the yes",
+      "items": [
+        "A caller can withdraw at any time",
+        "Placet acts on a withdrawal within 24 hours",
+        "The call is deleted everywhere within 30 days"
+      ]
+    }
+  ]
+}

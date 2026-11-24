@@ -7,7 +7,7 @@ colors:
   slate-raised: "#1a2131"
   silver: "#e9edf3"
   silver-2: "#c3cad6"
-  stone: "#8891a1"
+  stone: "#9ca5b4"
   sky: "#5ab9fc"
   sky-light: "#9ad3ff"
   context-slate: "#5c667a"
@@ -89,7 +89,9 @@ The deck is a call recording you can play, presented like a keynote at night. Pl
 voices on separate tracks, asks for a yes after the call, labels it and licenses it, so every slide
 borrows that format: silver agent track above a centre line, sky-blue customer track below, and a
 lit playhead. Every slide is dark. Posters (opening, problem, solution, demand, close) add a slow
-aurora and a live waveform the pointer can scrub; data slides keep the same marks for their charts.
+aurora and a live waveform the pointer can scrub. Charts keep the two tracks: the market stands above
+the line and Placet's share hangs below it on its own labelled scale; money in stands above the zero
+line and costs hang below it.
 
 ## Colors
 
@@ -100,12 +102,14 @@ aurora and a live waveform the pointer can scrub; data slides keep the same mark
 ### Neutral
 - **Night** `#0a0d14`, **slate panel** `#131824`, **slate raised** `#1a2131`: grounds and panels.
 - **Silver** `#e9edf3` for type (16.5:1), **silver 2** `#c3cad6` for strong secondary, **stone**
-  `#8891a1` for secondary text (6.1:1). Rules are silver at 10% to 18%.
+  `#9ca5b4` for secondary text (7.8:1). Rules are silver at 10% to 18%.
 
 ### Named Rules
 - **The record light rule.** Sky appears on the one thing the presenter is pointing at.
-- **Context is slate, losses are red.** Chart context uses `#5c667a`; negative values use `#f07a7a`
-  and sit below the zero line. No gold, no violet.
+- **Context is slate, losses are red.** Chart context uses `#5c667a`; costs and negative values use
+  `#f07a7a` (7.2:1), as a fill that strengthens from 30% at the zero line to 72% at the value end
+  inside a 1px outline, and always sit below it. The
+  record dot, live dot and laser are the same red. No gold, no violet.
 
 ## Typography
 
@@ -119,18 +123,20 @@ technical text only (timecodes, call IDs, track names, units, arrow labels, slid
 
 ### Named Rules
 - **No eyebrows.** The page label lives in the running foot at the bottom left.
+- **Links are prose.** A link is set in Funnel Sans at label size, sentence case, with a drawn
+  arrow; never in mono.
 
 ## Layout
 
 A 1280 by 720 stage scaled to the window, 72px gutters. The top rail (64px) holds the wordmark,
-section cues with a glowing sky underline, and the ₹/$ switch; a 2px sky progress line runs along
+section cues with a sky underline, and the ₹/$ switch; a 2px sky progress line runs along
 the stage top. Headlines start at 92px, bodies at 196 to 226px, the running foot 28px from the bottom.
 
 ## Elevation & Depth
 
-Depth comes from light, not boxes: a faint sky radial in the top right of every slide, the poster
-aurora, and soft glows on the few lit things (playhead, key, Placet's chart mark). Panels are slate
-with a 1px silver rule; the console and dialogs add a long soft shadow.
+Depth comes from light, not boxes: a faint sky radial in the top right of every slide and the poster
+aurora. Lit things are lit by colour alone, never by a glow on a dark ground. Panels are slate with a
+1px silver rule; the console and dialogs add a long soft shadow.
 
 ## Shapes
 
@@ -147,10 +153,10 @@ Sky gradient square with an inner highlight, two pulse rings, and a magnetic lea
 Hairline group with a silver knob that springs between options; T flips the switch on screen.
 
 ### Slider
-A 3px track filled in sky up to a silver thumb with a sky halo.
+A 3px track filled in sky up to a silver thumb with a soft drop shadow.
 
 ### Console
-The live demo: title bar marked "sample call", canvas tracks with a glowing customer track, a typed
+The live demo: a title bar marked "Illustrative sample calls" (no window dots), canvas tracks, a typed
 transcript, labels that decode into place, and a dialog that asks the press-1 question; a yes draws
 a check and scatters light, a no wipes the transcript.
 
@@ -160,12 +166,18 @@ focal node, no glow, dashed paths that march.
 
 ## Motion
 
-- **Playhead transition**: 780ms (1050ms with the section flag), cubic-bezier(.83,0,.17,1); the next
-  slide unblurs and settles from 104% while the old one sinks to 95% and dims.
-- **Letters**: headlines rise letter by letter out of an 8 to 10px blur, 20ms apart, expo out.
+- **Curves**: one ease-out, cubic-bezier(0.23,1,0.32,1), for anything entering or responding; one
+  in-out, cubic-bezier(0.77,0,0.175,1), for things moving across the stage. Nothing appears from
+  scale(0): pops start at 0.9 with opacity 0.
+- **Playhead transition**: 780ms (1050ms with the section flag) on the in-out curve; the next slide
+  unblurs and settles from 104% while the old one sinks to 95% and dims.
+- **Letters**: posters rise letter by letter out of an 8 to 10px blur; data headlines are quicker,
+  14ms apart from a 6px blur over 560ms, so the figure is readable while the presenter talks.
 - **Counters**: figures roll digit columns into place, 1.3s, left to right.
-- **Charts**: bars grow with a slight overshoot, lines draw with a light at their head.
-- Everything rests and nothing hides under reduced motion.
+- **Charts**: bars reveal with a clip-path on the ease-out curve (no width animation, no overshoot);
+  lines draw with a light at their head. Sliders redraw live without restarting any keyframes.
+- **Feedback**: every button presses to 97% in 160ms. Hover lifts happen only on a fine pointer.
+- **Reduced motion**: slides crossfade in 200ms, bars and figures appear at rest; nothing hides.
 
 ## Do's and Don'ts
 

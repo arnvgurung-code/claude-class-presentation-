@@ -1,10 +1,16 @@
 {
   "extraKnownMarketplaces": {
-    "impeccable": {
-      "source": { "source": "github", "repo": "pbakaus/impeccable" }
-    }
+    "impeccable": { "source": { "source": "github", "repo": "pbakaus/impeccable" } },
+    "taste-skill": { "source": { "source": "github", "repo": "Leonxlnx/taste-skill" } },
+    "superdesign": { "source": { "source": "github", "repo": "superdesigndev/superdesign-skill" } },
+    "ui-ux-pro-max-skill": { "source": { "source": "github", "repo": "nextlevelbuilder/ui-ux-pro-max-skill" } },
+    "diagram-design": { "source": { "source": "github", "repo": "cathrynlavery/diagram-design" } }
   },
   "enabledPlugins": {
-    "impeccable@impeccable": true
+    "impeccable@impeccable": true,
+    "taste-skill@taste-skill": true,
+    "superdesign@superdesign": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "diagram-design@diagram-design": true
   }
 }
